@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Records</title>
+    <style>
+        .big {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h3>DOKUMENTY Z BAZY</h3>
+    <br>
+    <%dataList.forEach((job_offer, index)=>{ %>
+        <span class="big">ID:</span>
+        <span><%=job_offer._id %></span>
+        <br>
+        <span class="big">Company Name:</span>
+        <span><%=job_offer.company_name %></span>
+        <br>
+        <span class="big">days_ago:</span>
+        <span><%=job_offer.days_ago %></span>
+        <br>
+        <span class="big">contract_types:</span>
+        <span><%=job_offer.contract_types %></span>
+        <br>
+        <span class="big">country:</span>
+        <span><%=job_offer.country %></span>
+        <br>
+        <span class="big">ad_content:</span>
+        <span><%=job_offer.ad_content %></span>
+        <br>
+        <span class="big">ad_tag1:</span>
+        <span><%=job_offer.ad_tag1 %></span>
+        <br>
+        <span class="big">ad_tag2:</span>
+        <span><%=job_offer.ad_tag2 %></span>
+        <br>
+        <span class="big">ad_tag3:</span>
+        <span><%=job_offer.ad_tag3 %></span>
+        <br>
+        <span class="big">ad_tag4:</span>
+        <span><%=job_offer.ad_tag4 %></span>
+        <br>
+        <span class="big">Salary:</span>
+        <span><%=job_offer.salary %></span>
+        <br>
+        <br>
+    <%})%>
+</body>
+</html>
