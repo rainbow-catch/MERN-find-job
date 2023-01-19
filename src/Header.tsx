@@ -18,7 +18,7 @@ function Header(props:any) {
     <div id="upperNavbar">
       <img
         className="jobSearchLogo"
-        src="https://gitlab.com/krvkson/job_search/-/raw/main/src/img/job-search-low-resolution-logo-color-on-transparent-background.png"
+        src="https://raw.githubusercontent.com/ajgoras/job-search-mern/main/csv/images/job-search-low-resolution-logo-color-on-transparent-background.png"
         alt="logo"
       ></img>
       {props.loggedUser.email === "" ? (
