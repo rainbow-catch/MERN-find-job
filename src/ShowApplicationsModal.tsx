@@ -1,25 +1,14 @@
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "./style.css";
+import { Application } from "./types/Application";
 
-const ShowApplicationsModal = (props:any) => {
-  const [applications, setApplications] = useState([
-    {
-      firstName: "",
-      lastName: "",
-      email: "",
-      cv: "",
-      company_name: "",
-      ad_content: "",
-      logo: "",
-      seniority: "",
-      technologies: "",
-    },
-  ]);
+const ShowApplicationsModal = (props: any) => {
+  const [applications, setApplications] = useState<Application[]>([]);
   const loggedCompany = props.loggedCompany;
   const loggedAsAdmin = props.loggedAsAdmin;
 
-  //getting data from node.js server
+  //getting data from db
   useEffect(() => {
     fetch("http://localhost:8888/getApplications")
       .then((res) => res.json())
@@ -29,9 +18,12 @@ const ShowApplicationsModal = (props:any) => {
   }, []);
 
   const filterApplications = () => {
-    const newArr:any[] = [];
+    const newArr: Application[] = [];
     applications.forEach((application) => {
-      if (application.company_name === loggedCompany || loggedAsAdmin===true) {
+      if (
+        application.company_name === loggedCompany ||
+        loggedAsAdmin === true
+      ) {
         newArr.push(application);
       }
     });
@@ -54,7 +46,7 @@ const ShowApplicationsModal = (props:any) => {
         <div id="applicationsOutputDiv">
           {filterApplications().map((application) => {
             return (
-              <div>
+              <div key={application._id}>
                 <p>
                   Application for company:{" "}
                   <span style={{ fontWeight: "bold" }}>
