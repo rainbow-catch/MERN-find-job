@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "./style.css";
@@ -8,13 +9,11 @@ const ShowApplicationsModal = (props: any) => {
   const loggedCompany = props.loggedCompany;
   const loggedAsAdmin = props.loggedAsAdmin;
 
-  //getting data from db
+  //getting applications from db
   useEffect(() => {
-    fetch("http://localhost:8888/getApplications")
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        setApplications(jsonRes);
-      });
+    axios.get("http://localhost:8888/getApplications").then((res) => {
+      setApplications(res.data);
+    });
   }, []);
 
   const filterApplications = () => {
