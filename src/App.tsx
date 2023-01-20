@@ -3,9 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import Header from "./Header";
 import SearchBarWithJobBar from "./SearchBarWithJobBar";
+import { LoggedUser } from "./types/LoggedUser";
 
 function App() {
-  const [loggedUser, setLoggedUser] = useState({
+  const [loggedUser, setLoggedUser] = useState<LoggedUser>({
     email: "",
     password: "",
     company_name: "",
