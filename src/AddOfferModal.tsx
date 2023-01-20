@@ -1,31 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
+import { FormEvent , useState } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "./style.css";
-function AddOfferModal(props:any) {
+import { Offer } from "./types/Offer";
+function AddOfferModal(props: any) {
   const loggedAsAdmin = props.loggedAsAdmin;
-  const [offer, setOffer] = useState({
-    company_name: "",
-    days_ago: "",
-    contract_types: "",
-    country: "",
-    ad_content: "",
-    job_type: "",
-    seniority: "",
-    technology_1: "",
-    technology_2: "",
-    technology_3: "",
-    salary: "",
-    description: "",
-    about_us: "",
-    logo: "",
-  });
+  const [offer, setOffer] = useState<Offer>();
 
   setTimeout(() => {
-    setOffer((prev) => {
+    setOffer((prev: any) => {
       return {
         ...prev,
         company_name: props.loggedCompany,
@@ -38,33 +24,37 @@ function AddOfferModal(props:any) {
   const [headerMessage] = useState("Successfully added job offer!");
   const [alertModalShow, setAlertModalShow] = useState(false);
 
-  const createOffer = (e:any) => {
+  const createOffer = (e:FormEvent) => {
     e.preventDefault();
     axios
       .post("http://localhost:8888/create", offer)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    setMessage(`Successfully added ${offer.ad_content} offer!`);
-    setAlertModalShow(true);
-    setOffer({company_name: "",
-    days_ago: "",
-    contract_types: "",
-    country: "",
-    ad_content: "",
-    job_type: "",
-    seniority: "",
-    technology_1: "",
-    technology_2: "",
-    technology_3: "",
-    salary: "",
-    description: "",
-    about_us: "",
-    logo: "",});
+    if (offer) {
+      setMessage(`Successfully added ${offer.ad_content} offer!`);
+      setAlertModalShow(true);
+      setOffer({
+        company_name: "",
+        days_ago: "",
+        contract_types: "",
+        country: "",
+        ad_content: "",
+        job_type: "",
+        seniority: "",
+        technology_1: "",
+        technology_2: "",
+        technology_3: "",
+        salary: "",
+        description: "",
+        about_us: "",
+        logo: "",
+      });
+    }
   };
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setOffer((prev) => {
+    setOffer((prev:any) => {
       return {
         ...prev,
         [name]: value,
@@ -94,7 +84,7 @@ function AddOfferModal(props:any) {
                 className="inputWidth"
                 type="text"
                 placeholder="Enter company name"
-                value={offer.company_name}
+                value={offer? offer.company_name:""}
                 onChange={handleChange}
               />
             ) : (
@@ -104,7 +94,7 @@ function AddOfferModal(props:any) {
                 className="inputWidth"
                 type="text"
                 placeholder="Enter company name"
-                value={offer.company_name}
+                value={offer? offer.company_name:""}
                 onChange={handleChange}
               />
             )}
@@ -116,7 +106,7 @@ function AddOfferModal(props:any) {
               className="inputWidth"
               type="text"
               placeholder="e.g. Junior Frontend Developer"
-              value={offer.ad_content}
+              value={offer? offer.ad_content:""}
               onChange={handleChange}
             />
           </Form.Group>
@@ -126,7 +116,7 @@ function AddOfferModal(props:any) {
               className="inputWidth"
               name="seniority"
               onChange={handleChange}
-              value={offer.seniority}
+              value={offer? offer.seniority:""}
             >
               <option>Junior</option>
               <option>Mid</option>
@@ -137,7 +127,7 @@ function AddOfferModal(props:any) {
             <Form.Label>Technologies</Form.Label>
             <Form.Control
               name="technology_1"
-              value={offer.technology_1}
+              value={offer? offer.technology_1:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -146,7 +136,7 @@ function AddOfferModal(props:any) {
             <br></br>
             <Form.Control
               name="technology_2"
-              value={offer.technology_2}
+              value={offer? offer.technology_2:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -155,7 +145,7 @@ function AddOfferModal(props:any) {
             <br></br>
             <Form.Control
               name="technology_3"
-              value={offer.technology_3}
+              value={offer? offer.technology_3:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -166,7 +156,7 @@ function AddOfferModal(props:any) {
             <Form.Label>Salary</Form.Label>
             <Form.Control
               name="salary"
-              value={offer.salary}
+              value={offer? offer.salary:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -177,7 +167,7 @@ function AddOfferModal(props:any) {
             <Form.Label>Contract type</Form.Label>
             <Form.Control
               name="contract_types"
-              value={offer.contract_types}
+              value={offer? offer.contract_types:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -190,7 +180,7 @@ function AddOfferModal(props:any) {
             </Form.Label>
             <Form.Control
               name="job_type"
-              value={offer.job_type}
+              value={offer? offer.job_type:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -201,7 +191,7 @@ function AddOfferModal(props:any) {
             <Form.Label>Localization</Form.Label>
             <Form.Control
               name="country"
-              value={offer.country}
+              value={offer? offer.country:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
@@ -213,7 +203,7 @@ function AddOfferModal(props:any) {
             {loggedAsAdmin ? (
               <Form.Control
                 name="logo"
-                value={offer.logo}
+                value={offer? offer.logo:""}
                 onChange={handleChange}
                 className="inputWidth"
                 type="text"
@@ -223,7 +213,7 @@ function AddOfferModal(props:any) {
               <Form.Control
                 disabled
                 name="logo"
-                value={offer.logo}
+                value={offer? offer.logo:""}
                 onChange={handleChange}
                 className="inputWidth"
                 type="text"
@@ -235,7 +225,7 @@ function AddOfferModal(props:any) {
             <Form.Label>Description</Form.Label>
             <Form.Control
               name="description"
-              value={offer.description}
+              value={offer? offer.description:""}
               onChange={handleChange}
               className="inputWidth"
               type="text"
