@@ -94,15 +94,15 @@ function Header(props:any) {
         setLoggedAsAdmin={props.setLoggedAsAdmin}
       ></RegisterModal>
       <AddOfferModal
-        loggedCompany={loggedCompany}
-        loggedCompanyLogo={loggedCompanyLogo}
+        loggedcompany={loggedCompany}
+        loggedcompanylogo={loggedCompanyLogo}
         loggedAsAdmin={props.loggedAsAdmin}
         show={showAddOfferModal}
         onHide={() => setShowAddOfferModal(false)}
       ></AddOfferModal>
       <ShowApplicationsModal
         loggedCompany={loggedCompany}
-        loggedAsAdmin={props.loggedAsAdmin}
+        loggedasadmin={props.loggedAsAdmin}
         show={showShowApplicationsModal}
         onHide={() => setShowShowApplicationsModal(false)}
       ></ShowApplicationsModal>
