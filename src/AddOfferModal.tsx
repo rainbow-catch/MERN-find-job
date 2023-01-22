@@ -28,6 +28,7 @@ function AddOfferModal(props: any) {
   });
   const [validated, setValidated] = useState(true);
   const [shake, setShake] = useState(false);
+  const [hideModalBody, setHideModalBody] = useState(false);
   const startShake = () => {
     setShake(true);
     setTimeout(() => setShake(false), 650);
@@ -62,6 +63,7 @@ function AddOfferModal(props: any) {
         .catch((err) => console.log(err));
       if (offer) {
         setMessage(`Successfully added ${offer.ad_content} offer!`);
+        setHideModalBody(true);
         setAlertModalShow(true);
         setOffer({
           company_name: "",
@@ -105,7 +107,7 @@ function AddOfferModal(props: any) {
           <p>Add new job offer</p>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={hideModalBody ? "displayNone" : ""}>
         <Form noValidate validated={validated} onSubmit={createOffer}>
           {loggedAsAdmin ? (
             <Form.Group controlId="text">
@@ -346,6 +348,9 @@ function AddOfferModal(props: any) {
         onHide={() => {
           setAlertModalShow(false);
           props.onHide();
+          setTimeout(() => {
+            setHideModalBody(false);
+          }, 400);
         }}
         message={message}
         headerMessage={headerMessage}
