@@ -2,18 +2,23 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import AddOfferModal from "./AddOfferModal";
 import LoginModal from "./LoginModal";
-import RegisterModal from "./RegisterModal"
+import RegisterModal from "./RegisterModal";
 import "./style.css";
 import ShowApplicationsModal from "./ShowApplicationsModal";
 
-function Header(props:any) {
+function Header({
+  setLoggedUser,
+  loggedUser,
+  loggedAsAdmin,
+  setLoggedAsAdmin,
+}: any) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showAddOfferModal, setShowAddOfferModal] = useState(false);
   const [showShowApplicationsModal, setShowShowApplicationsModal] =
     useState(false);
-  const loggedCompany = props.loggedUser.company_name;
-  const loggedCompanyLogo = props.loggedUser.logo;
+  const loggedCompany = loggedUser.company_name;
+  const loggedCompanyLogo = loggedUser.logo;
   return (
     <div id="upperNavbar">
       <img
@@ -21,17 +26,17 @@ function Header(props:any) {
         src="https://raw.githubusercontent.com/ajgoras/job-search-mern/main/csv/images/job-search-low-resolution-logo-color-on-transparent-background.png"
         alt="logo"
       ></img>
-      {props.loggedUser.email === "" ? (
+      {loggedUser.email === "" ? (
         <span></span>
       ) : (
         <div id="loggedUserInfo">
-          <p className="purpleColor">Logged as {props.loggedUser.email}</p>
+          <p className="purpleColor">Logged as {loggedUser.email}</p>
         </div>
       )}
 
       <div></div>
       <div className="headerButtonsDiv">
-        {props.loggedUser.email === "" ? (
+        {loggedUser.email === "" ? (
           <span></span>
         ) : (
           <div className="headerButtonsAfterLoginDiv">
@@ -49,7 +54,7 @@ function Header(props:any) {
             </Button>
           </div>
         )}
-        {props.loggedUser.email === "" ? (
+        {loggedUser.email === "" ? (
           <Button
             className="headerButton"
             id="loginButton"
@@ -68,41 +73,41 @@ function Header(props:any) {
             Logout
           </Button>
         )}
-        {props.loggedUser.email === "" ? (
-     <Button
-     className="headerButton"
-     id="registerButton"
-     onClick={() => setShowRegisterModal(true)}
-   >
-     Register
-   </Button>
+        {loggedUser.email === "" ? (
+          <Button
+            className="headerButton"
+            id="registerButton"
+            onClick={() => setShowRegisterModal(true)}
+          >
+            Register
+          </Button>
         ) : (
           <span></span>
         )}
       </div>
-      
+
       <LoginModal
         show={showLoginModal}
         onHide={() => setShowLoginModal(false)}
-        setLoggedUser={props.setLoggedUser}
-        setLoggedAsAdmin={props.setLoggedAsAdmin}
+        setloggeduser={setLoggedUser}
+        setloggedasadmin={setLoggedAsAdmin}
       ></LoginModal>
       <RegisterModal
         show={showRegisterModal}
         onHide={() => setShowRegisterModal(false)}
-        setLoggedUser={props.setLoggedUser}
-        setLoggedAsAdmin={props.setLoggedAsAdmin}
+        setloggeduser={setLoggedUser}
+        setloggedasadmin={setLoggedAsAdmin}
       ></RegisterModal>
       <AddOfferModal
         loggedcompany={loggedCompany}
         loggedcompanylogo={loggedCompanyLogo}
-        loggedAsAdmin={props.loggedAsAdmin}
+        loggedasadmin={loggedAsAdmin}
         show={showAddOfferModal}
         onHide={() => setShowAddOfferModal(false)}
       ></AddOfferModal>
       <ShowApplicationsModal
-        loggedCompany={loggedCompany}
-        loggedasadmin={props.loggedAsAdmin}
+        loggedcompany={loggedCompany}
+        loggedasadmin={loggedAsAdmin}
         show={showShowApplicationsModal}
         onHide={() => setShowShowApplicationsModal(false)}
       ></ShowApplicationsModal>

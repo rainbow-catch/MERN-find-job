@@ -6,8 +6,8 @@ import { Application } from "./types/Application";
 
 const ShowApplicationsModal = (props: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
-  const loggedCompany = props.loggedCompany;
-  const loggedAsAdmin = props.loggedAsAdmin;
+  const loggedCompany = props.loggedcompany;
+  const loggedAsAdmin:boolean = props.loggedasadmin;
 
   //getting applications from db
   useEffect(() => {

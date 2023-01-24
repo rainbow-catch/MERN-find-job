@@ -34,7 +34,7 @@ function LoginModal(props:any) {
         if (data.status === "ok") {
           setHeaderMessage("Logged in!");
           setMessage(`Successfully logged as ${email}`);
-          props.setLoggedUser((prev:any) => {
+          props.setloggeduser((prev:any) => {
             return {
               ...prev,
               email: email,
@@ -43,7 +43,7 @@ function LoginModal(props:any) {
             };
           });
           if (email === "admin@admin.com") {
-            props.setLoggedAsAdmin(true);
+            props.setloggedasadmin(true);
           }
           setEmail("");
           setPassword("");
