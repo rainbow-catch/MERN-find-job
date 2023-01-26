@@ -6,6 +6,7 @@ import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import AlertModal from "./AlertModal";
 import { DisplayOffer } from "./types/DisplayOffer";
+import { renderSeniority } from "./functions/renderSeniority";
 
 function ApplyModal(props: any) {
   const [message] = useState("Successfully applied new job offer!");
@@ -51,7 +52,6 @@ function ApplyModal(props: any) {
   }, [props]);
 
   const sendApplication = (e: HTMLFormElement | FormEvent) => {
-    console.log(e);
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       startShake();
@@ -80,7 +80,6 @@ function ApplyModal(props: any) {
             seniority: props.jobofferforapply.seniority,
             technologies: `${props.jobofferforapply.technology_1}\n ${props.jobofferforapply.technology_2}\n ${props.jobofferforapply.technology_3}`,
           };
-          console.log(applicationToSend);
           axios
             .post("http://localhost:8888/sendApplication", applicationToSend)
             .then((res) => console.log(res))
@@ -94,7 +93,6 @@ function ApplyModal(props: any) {
   };
 
   const handleChange = (e: any) => {
-    console.log(e);
     const { name, value } = e.target;
     setApplication((prev) => {
       return {
@@ -113,7 +111,7 @@ function ApplyModal(props: any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-        Apply for {jobOfferForApply.ad_content}
+          Apply for {jobOfferForApply.ad_content}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -133,6 +131,11 @@ function ApplyModal(props: any) {
               <p>You are going to apply for a job offer: </p>
               <p>{jobOfferForApply.ad_content}</p>
             </h5>
+            <div className="apply-header-side-description">
+              <p>{renderSeniority(jobOfferForApply.seniority)}</p>
+              <p>💰 {jobOfferForApply.salary}</p>
+              <p>{jobOfferForApply.country}</p>
+            </div>
           </div>
         </section>
         <Form noValidate validated={validated} onSubmit={sendApplication}>

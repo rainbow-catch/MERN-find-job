@@ -1,3 +1,6 @@
+#contained-modal-title-vcenter{
+  font-size: 20px;
+}
 
 .apply-header{
   display: flex;
@@ -12,7 +15,7 @@
 }
 
 .apply-header-company-name{
-  font-size: larger;
+  font-size: 18px;
   margin-bottom: 5px !important;
 }
 
@@ -20,3 +23,7 @@
   font-size: 1rem;
 }
 
+.apply-header-side-description{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
