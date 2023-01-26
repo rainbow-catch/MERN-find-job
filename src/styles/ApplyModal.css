@@ -1,0 +1,22 @@
+
+.apply-header{
+  display: flex;
+  gap: 30px;
+}
+.apply-header-logo{
+  border: 1px solid black;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  height: 100px;
+  width: auto;
+}
+
+.apply-header-company-name{
+  font-size: larger;
+  margin-bottom: 5px !important;
+}
+
+.apply-header-description{
+  font-size: 1rem;
+}
+

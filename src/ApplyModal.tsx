@@ -1,14 +1,35 @@
+import "./styles/ApplyModal.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import AlertModal from "./AlertModal";
+import { DisplayOffer } from "./types/DisplayOffer";
 
 function ApplyModal(props: any) {
   const [message] = useState("Successfully applied new job offer!");
   const [headerMessage] = useState("Successfully applied to offer!");
   const [alertModalShow, setAlertModalShow] = useState(false);
+  const [jobOfferForApply, setJobOfferForApply] = useState<DisplayOffer>({
+    id_: "string",
+    company_name: "string",
+    days_ago: "string",
+    contract_types: "string",
+    country: "string",
+    ad_content: "string",
+    job_type: "string",
+    seniority: "string",
+    technology_1: "string",
+    technology_2: "string",
+    technology_3: "string",
+    salary: "string",
+    description: "string",
+    about_us: "string",
+    logo: "",
+    isDescriptionVisible: false,
+    frontendId: 0,
+  });
 
   const [application, setApplication] = useState({
     firstName: "",
@@ -24,8 +45,11 @@ function ApplyModal(props: any) {
     setShake(true);
     setTimeout(() => setShake(false), 650);
   };
-  //TODO: implement necessity fields in applyForm
 
+  useEffect(() => {
+    setJobOfferForApply(props.jobofferforapply);
+  }, [props]);
+  
   const sendApplication = (e: HTMLFormElement | FormEvent) => {
     console.log(e);
     const form = e.currentTarget;
@@ -50,11 +74,11 @@ function ApplyModal(props: any) {
             lastName: application.lastName,
             email: application.email,
             cv: data.url,
-            company_name: props.applyingJobOffer.company_name,
-            ad_content: props.applyingJobOffer.ad_content,
-            logo: props.applyingJobOffer.logo,
-            seniority: props.applyingJobOffer.seniority,
-            technologies: `${props.applyingJobOffer.technology_1}\n ${props.applyingJobOffer.technology_2}\n ${props.applyingJobOffer.technology_3}`,
+            company_name: props.jobofferforapply.company_name,
+            ad_content: props.jobofferforapply.ad_content,
+            logo: props.jobofferforapply.logo,
+            seniority: props.jobofferforapply.seniority,
+            technologies: `${props.jobofferforapply.technology_1}\n ${props.jobofferforapply.technology_2}\n ${props.jobofferforapply.technology_3}`,
           };
           console.log(applicationToSend);
           axios
@@ -89,10 +113,28 @@ function ApplyModal(props: any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Apply TODO: What offer etc
+        Apply for {jobOfferForApply.ad_content}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <section className="apply-header">
+          <div>
+            <img
+              className="apply-header-logo"
+              src={jobOfferForApply.logo}
+              alt="companyImage"
+            ></img>
+          </div>
+          <div>
+            <h4 className="apply-header-company-name">
+              {jobOfferForApply.company_name}
+            </h4>
+            <h5 className="apply-header-description">
+              <p>You are applying for an offer: </p>{" "}
+              <p>{jobOfferForApply.ad_content}</p>
+            </h5>
+          </div>
+        </section>
         <Form noValidate validated={validated} onSubmit={sendApplication}>
           <Form.Group controlId="text">
             <Form.Label>Firstname</Form.Label>

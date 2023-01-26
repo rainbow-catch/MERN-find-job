@@ -36,8 +36,8 @@ export default function JobBar(props: any) {
   //removeOfferModalState
   const [removeOfferModalShow, setRemoveOfferModalShow] = useState(false);
 
-  //job offer for which we are applying
-  const [applyingJobOffer, setApplyingJobOffer] = useState("");
+  //job offer applied for
+  const [jobOfferForApply, setJobOfferForApply] = useState("");
 
   //dynamic job searching
   //filtering by search text function
@@ -522,7 +522,7 @@ export default function JobBar(props: any) {
                                   <button
                                     onClick={() => {
                                       setApplyModalShow(true);
-                                      setApplyingJobOffer(job);
+                                      setJobOfferForApply(job);
                                     }}
                                     className="applyButton"
                                   >
@@ -535,7 +535,7 @@ export default function JobBar(props: any) {
                                     className="applyButton"
                                     onClick={() => {
                                       setRemoveOfferModalShow(true);
-                                      setApplyingJobOffer(job);
+                                      setJobOfferForApply(job);
                                     }}
                                   >
                                     Remove Offer
@@ -543,7 +543,7 @@ export default function JobBar(props: any) {
                                   <button
                                     onClick={() => {
                                       setApplyModalShow(true);
-                                      setApplyingJobOffer(job);
+                                      setJobOfferForApply(job);
                                     }}
                                     className="applyButton"
                                   >
@@ -566,7 +566,7 @@ export default function JobBar(props: any) {
         )}
       </div>
       <ApplyModal
-        applyingJobOffer={applyingJobOffer}
+        jobofferforapply={jobOfferForApply}
         show={applyModalShow}
         onHide={() => setApplyModalShow(false)}
       ></ApplyModal>
@@ -575,7 +575,7 @@ export default function JobBar(props: any) {
         loggedUser={props.loggedUser}
         show={removeOfferModalShow}
         onHide={() => setRemoveOfferModalShow(false)}
-        removingJobOffer={applyingJobOffer}
+        removingJobOffer={jobOfferForApply}
       ></RemoveOfferModal>
     </div>
   );
