@@ -7,6 +7,8 @@ import axios from "axios";
 import AlertModal from "./AlertModal";
 import { DisplayOffer } from "./types/DisplayOffer";
 import { renderSeniority } from "./functions/renderSeniority";
+import { Application } from "./types/Application";
+import { ApplyForm } from "./types/ApplyForm";
 
 function ApplyModal(props: any) {
   const [message] = useState("Successfully applied new job offer!");
@@ -32,7 +34,7 @@ function ApplyModal(props: any) {
     frontendId: 0,
   });
 
-  const [application, setApplication] = useState({
+  const [application, setApplication] = useState<ApplyForm>({
     firstName: "",
     lastName: "",
     email: "",
@@ -69,7 +71,8 @@ function ApplyModal(props: any) {
       })
         .then((res) => res.json())
         .then((data) => {
-          const applicationToSend = {
+          const applicationToSend: Application = {
+            _id: "",
             firstName: application.firstName,
             lastName: application.lastName,
             email: application.email,
