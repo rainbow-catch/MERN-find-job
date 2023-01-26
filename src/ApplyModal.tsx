@@ -11,8 +11,8 @@ import { Application } from "./types/Application";
 import { ApplyForm } from "./types/ApplyForm";
 
 function ApplyModal(props: any) {
-  const [message] = useState("Successfully applied new job offer!");
-  const [headerMessage] = useState("Successfully applied to offer!");
+  const [message, setMessage] = useState("Successfully applied new job offer!");
+  const [headerMessage] = useState("You've applied for a job offer!");
   const [alertModalShow, setAlertModalShow] = useState(false);
   const [jobOfferForApply, setJobOfferForApply] = useState<DisplayOffer>({
     id_: "string",
@@ -87,6 +87,9 @@ function ApplyModal(props: any) {
             .post("http://localhost:8888/sendApplication", applicationToSend)
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
+          setMessage(
+            `Successfully applied to ${jobOfferForApply.company_name} as ${jobOfferForApply.ad_content}`
+          );
           setAlertModalShow(true);
         })
         .catch((err) => {
