@@ -354,7 +354,7 @@ function AddOfferModal(props: any) {
           setHideModalBody(false);
         }}
         message={message}
-        headerMessage={headerMessage}
+        headermessage={headerMessage}
       ></AlertModal>
     </>
   );

@@ -74,11 +74,11 @@ function ApplyModal(props: any) {
             lastName: application.lastName,
             email: application.email,
             cv: data.url,
-            company_name: props.jobofferforapply.company_name,
-            ad_content: props.jobofferforapply.ad_content,
-            logo: props.jobofferforapply.logo,
-            seniority: props.jobofferforapply.seniority,
-            technologies: `${props.jobofferforapply.technology_1}\n ${props.jobofferforapply.technology_2}\n ${props.jobofferforapply.technology_3}`,
+            company_name: jobOfferForApply.company_name,
+            ad_content: jobOfferForApply.ad_content,
+            logo: jobOfferForApply.logo,
+            seniority: jobOfferForApply.seniority,
+            technologies: `${jobOfferForApply.technology_1}\n ${jobOfferForApply.technology_2}\n ${jobOfferForApply.technology_3}`,
           };
           axios
             .post("http://localhost:8888/sendApplication", applicationToSend)
@@ -212,7 +212,7 @@ function ApplyModal(props: any) {
             props.onHide();
           }}
           message={message}
-          headerMessage={headerMessage}
+          headermessage={headerMessage}
         ></AlertModal>
       </Modal.Body>
       <Modal.Footer></Modal.Footer>

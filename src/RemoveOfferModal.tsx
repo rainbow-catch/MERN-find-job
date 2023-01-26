@@ -75,7 +75,7 @@ const RemoveOfferModal = (props:any) => {
             props.onHide();
           }}
           message={message}
-          headerMessage={headerMessage}
+          headermessage={headerMessage}
         ></AlertModal>
       </Modal.Body>
     </Modal>

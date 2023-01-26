@@ -11,7 +11,7 @@ function AlertModal(props:any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          <p>{props.headerMessage}</p>
+          <p>{props.headermessage}</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
