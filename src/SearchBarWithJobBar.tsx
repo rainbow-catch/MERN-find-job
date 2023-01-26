@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./style.css";
+import "./styles/style.css";
 import JobBar from "./jobBar";
 import { Fade } from "react-reveal";
 import TagsModal from "./TagsModal";

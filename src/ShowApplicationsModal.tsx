@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import "./style.css";
+import "./styles/style.css";
 import { Application } from "./types/Application";
 
 const ShowApplicationsModal = (props: any) => {

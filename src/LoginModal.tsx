@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
-import "./style.css";
+import "./styles/style.css";
 
 function LoginModal(props:any) {
   const [password, setPassword] = useState("");

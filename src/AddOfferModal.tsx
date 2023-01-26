@@ -4,7 +4,7 @@ import { Form, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
-import "./style.css";
+import "./styles/style.css";
 import { Offer } from "./types/Offer";
 function AddOfferModal(props: any) {
   const loggedAsAdmin = props.loggedasadmin;

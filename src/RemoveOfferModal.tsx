@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
-import "./style.css";
+import "./styles/style.css";
 
 const RemoveOfferModal = (props:any) => {
   const [message, setMessage] = useState(

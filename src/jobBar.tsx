@@ -1,4 +1,4 @@
-import "./style.css";
+import "./styles/style.css";
 import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { Fade } from "react-reveal";

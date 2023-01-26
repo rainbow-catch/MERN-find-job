@@ -1,8 +1,7 @@
-import { Col, FormGroup, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
 import AlertModal from "./AlertModal";
 
@@ -89,7 +88,9 @@ function ApplyModal(props: any) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Apply TODO: What offer etc</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Apply TODO: What offer etc
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form noValidate validated={validated} onSubmit={sendApplication}>
