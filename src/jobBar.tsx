@@ -5,6 +5,7 @@ import { Fade } from "react-reveal";
 import ApplyModal from "./ApplyModal";
 import Papa from "papaparse";
 import RemoveOfferModal from "./RemoveOfferModal";
+import { renderSeniority } from "./functions/renderSeniority";
 
 export default function JobBar(props: any) {
   //dbSchema
@@ -388,34 +389,6 @@ export default function JobBar(props: any) {
     });
     setJobs(newJobs);
   }, [jobs]);
-
-  //matching stars to seniority
-  const renderSeniority = (seniority: any) => {
-    if (
-      seniority === "junior" ||
-      seniority === "Junior" ||
-      seniority === "beginner" ||
-      seniority === "Beginner"
-    ) {
-      return "★☆☆";
-    } else if (
-      seniority === "mid" ||
-      seniority === "midweight" ||
-      seniority === "Mid" ||
-      seniority === "Midweight"
-    ) {
-      return "★★☆";
-    } else if (
-      seniority === "senior" ||
-      seniority === "Senior" ||
-      seniority === "Advanced" ||
-      seniority === "advanced"
-    ) {
-      return "★★★";
-    } else {
-      return "";
-    }
-  };
 
   //database output to frontend
   return (

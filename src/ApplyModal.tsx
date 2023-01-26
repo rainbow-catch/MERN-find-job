@@ -49,7 +49,7 @@ function ApplyModal(props: any) {
   useEffect(() => {
     setJobOfferForApply(props.jobofferforapply);
   }, [props]);
-  
+
   const sendApplication = (e: HTMLFormElement | FormEvent) => {
     console.log(e);
     const form = e.currentTarget;
@@ -130,7 +130,7 @@ function ApplyModal(props: any) {
               {jobOfferForApply.company_name}
             </h4>
             <h5 className="apply-header-description">
-              <p>You are applying for an offer: </p>{" "}
+              <p>You are going to apply for a job offer: </p>
               <p>{jobOfferForApply.ad_content}</p>
             </h5>
           </div>
