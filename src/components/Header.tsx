@@ -1,9 +1,10 @@
+import "../styles/style.css";
+import "../styles/Header.css"
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import AddOfferModal from "./AddOfferModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-import "../styles/style.css";
 import ShowApplicationsModal from "./ShowApplicationsModal";
 
 function Header({
