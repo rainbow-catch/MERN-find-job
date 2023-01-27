@@ -17,8 +17,8 @@ function Header({
   const [showAddOfferModal, setShowAddOfferModal] = useState(false);
   const [showShowApplicationsModal, setShowShowApplicationsModal] =
     useState(false);
-  const loggedCompany = loggedUser.company_name;
-  const loggedCompanyLogo = loggedUser.logo;
+  const loggedCompany: string = loggedUser.company_name;
+  const loggedCompanyLogo: string = loggedUser.logo;
   return (
     <div id="upperNavbar">
       <img
