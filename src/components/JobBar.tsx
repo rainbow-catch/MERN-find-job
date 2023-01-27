@@ -42,7 +42,7 @@ export default function JobBar(props: any) {
 
   //dynamic job searching
   //filtering by search text function
-  const filterJobs = (searchValue: any, searchTags: any) => {
+  const filterJobs = (searchValue: string, searchTags: string) => {
     const filteredByInput = jobs.filter(
       (job) =>
         job.ad_content.toLowerCase().match(searchValue.toLowerCase()) ||
