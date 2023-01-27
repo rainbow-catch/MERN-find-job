@@ -1,8 +1,8 @@
+import '../styles/JobBarElement.css'
 import Papa from "papaparse";
 import { Fade } from "react-reveal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { renderTime } from "../functions/renderTime";
-
 export default function JobBarElement({
   job,
   jobs,
