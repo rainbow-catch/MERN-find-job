@@ -8,6 +8,7 @@ import RemoveOfferModal from "./RemoveOfferModal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { DisplayOffer } from "../types/DisplayOffer";
 import axios from "axios";
+import JobBarElement from "./JobBarElement";
 
 export default function JobBar(props: any) {
   //dbSchema
@@ -374,11 +375,10 @@ export default function JobBar(props: any) {
 
   //getting data from node.js server
   useEffect(() => {
-    axios.get("http://localhost:8888/sendToFront")
-      .then((res) => {
-        setJobs(res.data);
-        setLoading(false);
-      });
+    axios.get("http://localhost:8888/sendToFront").then((res) => {
+      setJobs(res.data);
+      setLoading(false);
+    });
     setLoading(true);
   }, []);
 
@@ -403,140 +403,17 @@ export default function JobBar(props: any) {
           </div>
         ) : (
           filteredJobs.map((job, index) => {
-            function timeSince(date: any) {
-              var seconds = Math.floor((Date.now() - date) / 1000);
-
-              var interval = seconds / 31536000;
-
-              if (interval > 1) {
-                return Math.floor(interval) + " years";
-              }
-              interval = seconds / 2592000;
-              if (interval > 1) {
-                return Math.floor(interval) + " months";
-              }
-              interval = seconds / 86400;
-              if (interval > 1) {
-                return Math.floor(interval) + " days";
-              }
-              interval = seconds / 3600;
-              if (interval > 1) {
-                return Math.floor(interval) + " hours";
-              }
-              interval = seconds / 60;
-              if (interval > 1) {
-                return Math.floor(interval) + " minutes";
-              }
-              return Math.floor(seconds) + " seconds";
-            }
             return (
-              <Fade duration={700}>
-                <div
-                  key={job.id_}
-                  className="jobBarElement"
-                  onClick={() => {
-                    const newJobs = jobs;
-                    const newJob = newJobs.find(
-                      (el) => el.frontendId === job.frontendId
-                    );
-                    if (newJob) {
-                      newJob.isDescriptionVisible = true;
-                      setJobs([...newJobs]);
-                    }
-                  }}
-                >
-                  <Fade duration={1200}>
-                    <div className="jobHeaderInfo">
-                      <div className="iconDiv">
-                        <img
-                          className="icon"
-                          src={job.logo}
-                          alt="companyImage"
-                        />
-                      </div>
-                      <div className="description">
-                        <h2 className="companyName">{job.company_name}</h2>
-                        <p className="jobTitle">{job.ad_content}</p>
-                      </div>
-                    </div>
-                    <Fade bottom distance={"20px"}>
-                      <div className="jobSideInfoContainer">
-                        <hr></hr>
-                        <p className="seniority">
-                          {job.seniority}
-                          <span> {renderSeniority(job.seniority)}</span>
-                        </p>
-                        <div className="techStackInfo">
-                          <h4>Tech Stack ➼</h4>
-                          <p className="jobSideInfo">
-                            {job.technology_1} • {job.technology_2} •{" "}
-                            {job.technology_3}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="salary">💰💰 {job.salary}</p>
-                        </div>
-                        <p className="jobSideInfo">
-                          {timeSince(job.days_ago)} ago - {job.contract_types} -{" "}
-                          {job.job_type}
-                        </p>
-                        <div className="jobCountry techStackInfo">
-                          <h4>Localization: </h4>
-                          <span className="jobSideInfo">{job.country}</span>
-                        </div>
-                        <div className="jobOfferDescription">
-                          {job.isDescriptionVisible ? (
-                            <Fade bottom distance={"20px"} duration={1000}>
-                              <hr></hr>
-                              <br></br>
-                              {Papa.parse(job.description).data.map(
-                                (line: any) => {
-                                  return <p>{line}</p>;
-                                }
-                              )}
-                              {props.loggedUser === "" ? (
-                                <div className="applyButtonDiv">
-                                  <button
-                                    onClick={() => {
-                                      setApplyModalShow(true);
-                                      setJobOfferForApply(job);
-                                    }}
-                                    className="applyButton"
-                                  >
-                                    Apply
-                                  </button>
-                                </div>
-                              ) : (
-                                <div className="applyButtonDiv">
-                                  <button
-                                    className="applyButton"
-                                    onClick={() => {
-                                      setRemoveOfferModalShow(true);
-                                      setJobOfferForApply(job);
-                                    }}
-                                  >
-                                    Remove Offer
-                                  </button>
-                                  <button
-                                    onClick={() => {
-                                      setApplyModalShow(true);
-                                      setJobOfferForApply(job);
-                                    }}
-                                    className="applyButton"
-                                  >
-                                    Apply
-                                  </button>
-                                </div>
-                              )}
-                            </Fade>
-                          ) : (
-                            <span></span>
-                          )}
-                        </div>
-                      </div>
-                    </Fade>
-                  </Fade>
-                </div>
+              <Fade key={index} duration={700}>
+                <JobBarElement
+                  job={job}
+                  jobs={jobs}
+                  setjobs={setJobs}
+                  setapplymodalshow={setApplyModalShow}
+                  setjobofferforapply={setJobOfferForApply}
+                  setremoveoffermodalshow={setRemoveOfferModalShow}
+                  loggeduser={props.loggedUser}
+                ></JobBarElement>
               </Fade>
             );
           })
