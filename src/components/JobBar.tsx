@@ -6,30 +6,11 @@ import ApplyModal from "./ApplyModal";
 import Papa from "papaparse";
 import RemoveOfferModal from "./RemoveOfferModal";
 import { renderSeniority } from "../functions/renderSeniority";
+import { DisplayOffer } from "../types/DisplayOffer";
 
 export default function JobBar(props: any) {
   //dbSchema
-  const [jobs, setJobs] = useState([
-    {
-      id_: "",
-      company_name: "",
-      days_ago: "",
-      contract_types: "",
-      country: "",
-      ad_content: "",
-      job_type: "",
-      seniority: "",
-      technology_1: "",
-      technology_2: "",
-      technology_3: "",
-      salary: "",
-      description: "",
-      about_us: "",
-      logo: "",
-      isDescriptionVisible: false,
-      frontendId: 0,
-    },
-  ]);
+  const [jobs, setJobs] = useState<DisplayOffer[]>([]);
 
   //applyModalState
   const [applyModalShow, setApplyModalShow] = useState(false);
@@ -38,7 +19,25 @@ export default function JobBar(props: any) {
   const [removeOfferModalShow, setRemoveOfferModalShow] = useState(false);
 
   //job offer applied for
-  const [jobOfferForApply, setJobOfferForApply] = useState("");
+  const [jobOfferForApply, setJobOfferForApply] = useState<DisplayOffer>({
+    id_: "string",
+    company_name: "string",
+    days_ago: "string",
+    contract_types: "string",
+    country: "string",
+    ad_content: "string",
+    job_type: "string",
+    seniority: "string",
+    technology_1: "string",
+    technology_2: "string",
+    technology_3: "string",
+    salary: "string",
+    description: "string",
+    about_us: "string",
+    logo: "",
+    isDescriptionVisible: false,
+    frontendId: 0,
+  });
 
   //dynamic job searching
   //filtering by search text function
@@ -352,7 +351,7 @@ export default function JobBar(props: any) {
         );
       }
     }
-    const result: any[] = [];
+    const result: DisplayOffer[] = [];
     filteredByInput.forEach(
       (val) => filteredByTags.includes(val) && result.push(val)
     );
@@ -364,7 +363,10 @@ export default function JobBar(props: any) {
     }
     return result;
   };
-  const filteredJobs = filterJobs(props.searchText, props.searchTags);
+  const filteredJobs: DisplayOffer[] = filterJobs(
+    props.searchText,
+    props.searchTags
+  );
 
   //loadingState for displaying loading gif
   const [loading, setLoading] = useState(false);
@@ -487,9 +489,11 @@ export default function JobBar(props: any) {
                             <Fade bottom distance={"20px"} duration={1000}>
                               <hr></hr>
                               <br></br>
-                              {Papa.parse(job.description).data.map((line:any) => {
-                                return <p>{line}</p>;
-                              })}
+                              {Papa.parse(job.description).data.map(
+                                (line: any) => {
+                                  return <p>{line}</p>;
+                                }
+                              )}
                               {props.loggedUser === "" ? (
                                 <div className="applyButtonDiv">
                                   <button
