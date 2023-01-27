@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { Fade } from "react-reveal";
 import ApplyModal from "./ApplyModal";
-import Papa from "papaparse";
 import RemoveOfferModal from "./RemoveOfferModal";
-import { renderSeniority } from "../functions/renderSeniority";
 import { DisplayOffer } from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
 
-export default function JobBar(props: any) {
+export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmin}: any) {
   //dbSchema
   const [jobs, setJobs] = useState<DisplayOffer[]>([]);
 
@@ -366,8 +364,8 @@ export default function JobBar(props: any) {
     return result;
   };
   const filteredJobs: DisplayOffer[] = filterJobs(
-    props.searchText,
-    props.searchTags
+    searchText,
+    searchTags
   );
 
   //loadingState for displaying loading gif
@@ -412,7 +410,7 @@ export default function JobBar(props: any) {
                   setapplymodalshow={setApplyModalShow}
                   setjobofferforapply={setJobOfferForApply}
                   setremoveoffermodalshow={setRemoveOfferModalShow}
-                  loggeduser={props.loggedUser}
+                  loggeduser={loggedUser}
                 ></JobBarElement>
               </Fade>
             );
@@ -425,8 +423,8 @@ export default function JobBar(props: any) {
         onHide={() => setApplyModalShow(false)}
       ></ApplyModal>
       <RemoveOfferModal
-        loggedAsAdmin={props.loggedAsAdmin}
-        loggedUser={props.loggedUser}
+        loggedAsAdmin={loggedAsAdmin}
+        loggedUser={loggedUser}
         show={removeOfferModalShow}
         onHide={() => setRemoveOfferModalShow(false)}
         removingJobOffer={jobOfferForApply}
