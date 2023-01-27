@@ -1,11 +1,11 @@
-import "./styles/style.css";
+import "../styles/style.css";
 import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { Fade } from "react-reveal";
 import ApplyModal from "./ApplyModal";
 import Papa from "papaparse";
 import RemoveOfferModal from "./RemoveOfferModal";
-import { renderSeniority } from "./functions/renderSeniority";
+import { renderSeniority } from "../functions/renderSeniority";
 
 export default function JobBar(props: any) {
   //dbSchema

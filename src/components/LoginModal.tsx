@@ -1,23 +1,21 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
-import "./styles/style.css";
+import "../styles/style.css";
 
-function RegisterModal(props:any) {
+function LoginModal(props:any) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [logo, setLogo] = useState("");
   const [passwordError] = useState("");
   const [emailError] = useState("");
   const [message, setMessage] = useState("");
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
 
-  const registerSubmit = (e:any) => {
+  const loginSubmit = (e:any) => {
     e.preventDefault();
-    console.log(email, password, companyName, logo);
-    fetch("http://localhost:8888/register", {
+    console.log(email, password);
+    fetch("http://localhost:8888/login", {
       method: "POST",
       // crossDomain: true,
       headers: {
@@ -28,28 +26,34 @@ function RegisterModal(props:any) {
       body: JSON.stringify({
         email,
         password,
-        companyName,
-        logo,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userRegister");
         if (data.status === "ok") {
-          setHeaderMessage("Registration request sent!");
-          setMessage(`Successfully sended registration request. \n Wait for reply`);
-          
+          setHeaderMessage("Logged in!");
+          setMessage(`Successfully logged as ${email}`);
+          props.setloggeduser((prev:any) => {
+            return {
+              ...prev,
+              email: email,
+              company_name: data.company_name,
+              logo: data.logo,
+            };
+          });
+          if (email === "admin@admin.com") {
+            props.setloggedasadmin(true);
+          }
           setEmail("");
           setPassword("");
-          setCompanyName("");
-          setLogo("");
           console.log(email);
           setAlertModalShow(true);
           window.localStorage.setItem("token", data.data);
           //window.location.href = "./userDetails";
         } else {
           setMessage("Bad login or password!");
-          setHeaderMessage("Can't Registered!");
+          setHeaderMessage("Can't Login!");
           setAlertModalShow(true);
         }
       });
@@ -63,10 +67,10 @@ function RegisterModal(props:any) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Register</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form id="registerform" onSubmit={registerSubmit}>
+        <form id="loginform" onSubmit={loginSubmit}>
           <div className="form-group">
             <label>Email address</label>
             <input
@@ -97,33 +101,9 @@ function RegisterModal(props:any) {
               {passwordError}
             </small>
           </div>
-          <div className="form-group">
-            <label>Full Company Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="CompanyNameInput"
-              name="CompanyNameInput"
-              placeholder="Enter your full company name"
-              onChange={(event) => setCompanyName(event.target.value)}
-              value={companyName}
-            />
-          </div>
-          <div className="form-group">
-            <label>Company Logo Link</label>
-            <input
-              type="text"
-              className="form-control"
-              id="LogoInput"
-              name="LogoInput"
-              placeholder="Enter your company logo link"
-              onChange={(event) => setLogo(event.target.value)}
-              value={logo}
-            />
-          </div>
           <div className="form-group form-check"></div>
           <button type="submit" className="btn btn-primary">
-            Send Registration Request
+            Login
           </button>
         </form>
         <AlertModal
@@ -139,4 +119,4 @@ function RegisterModal(props:any) {
     </Modal>
   );
 }
-export default RegisterModal;
+export default LoginModal;

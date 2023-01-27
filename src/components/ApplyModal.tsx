@@ -1,14 +1,14 @@
-import "./styles/ApplyModal.css";
+import "../styles/ApplyModal.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import AlertModal from "./AlertModal";
-import { DisplayOffer } from "./types/DisplayOffer";
-import { renderSeniority } from "./functions/renderSeniority";
-import { Application } from "./types/Application";
-import { ApplyForm } from "./types/ApplyForm";
+import { DisplayOffer } from "../types/DisplayOffer";
+import { renderSeniority } from "../functions/renderSeniority";
+import { Application } from "../types/Application";
+import { ApplyForm } from "../types/ApplyForm";
 
 function ApplyModal(props: any) {
   const [message, setMessage] = useState("Successfully applied new job offer!");

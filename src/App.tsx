@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/style.css"
-import Header from "./Header";
-import SearchBarWithJobBar from "./SearchBarWithJobBar";
+import Header from "./components/Header";
+import SearchBarWithJobBar from "./components/SearchBarWithJobBar";
 import { LoggedUser } from "./types/LoggedUser";
 
 function App() {

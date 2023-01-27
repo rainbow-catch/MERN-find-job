@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./styles/style.css";
-import JobBar from "./jobBar";
+import "../styles/style.css";
 import { Fade } from "react-reveal";
 import TagsModal from "./TagsModal";
+import JobBar from "./JobBar"
 
 export default function SearchBarWithJobBar(props:any) {
   const [searchText, setSearchText] = useState("");

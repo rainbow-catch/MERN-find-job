@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import "./styles/style.css";
-import { Application } from "./types/Application";
+import "../styles/style.css";
+import { Application } from "../types/Application";
 
 const ShowApplicationsModal = (props: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
