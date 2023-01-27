@@ -7,6 +7,7 @@ import Papa from "papaparse";
 import RemoveOfferModal from "./RemoveOfferModal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { DisplayOffer } from "../types/DisplayOffer";
+import axios from "axios";
 
 export default function JobBar(props: any) {
   //dbSchema
@@ -373,10 +374,9 @@ export default function JobBar(props: any) {
 
   //getting data from node.js server
   useEffect(() => {
-    fetch("http://localhost:8888/sendToFront")
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        setJobs(jsonRes);
+    axios.get("http://localhost:8888/sendToFront")
+      .then((res) => {
+        setJobs(res.data);
         setLoading(false);
       });
     setLoading(true);
