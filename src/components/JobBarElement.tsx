@@ -3,6 +3,7 @@ import Papa from "papaparse";
 import { Fade } from "react-reveal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { renderTime } from "../functions/renderTime";
+import { DisplayOffer } from '../types/DisplayOffer';
 export default function JobBarElement({
   job,
   jobs,
@@ -19,7 +20,7 @@ export default function JobBarElement({
       onClick={() => {
         const newJobs = jobs;
         const newJob = newJobs.find(
-          (el: any) => el.frontendId === job.frontendId
+          (el: DisplayOffer) => el.frontendId === job.frontendId
         );
         if (newJob) {
           newJob.isDescriptionVisible = true;
