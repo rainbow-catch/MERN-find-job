@@ -2,24 +2,25 @@ import { useState } from "react";
 import "../styles/style.css";
 import { Fade } from "react-reveal";
 import TagsModal from "./TagsModal";
-import JobBar from "./JobBar"
+import JobBar from "./JobBar";
+import { SearchTag } from "../types/SearchTag";
 
-export default function SearchBarWithJobBar(props:any) {
+export default function SearchBarWithJobBar(props: any) {
   const [searchText, setSearchText] = useState("");
-  const [searchTags, setSearchTags] = useState<any>(() => {
+  const [searchTags, setSearchTags] = useState<SearchTag[]>(() => {
     return [];
   });
   const [modalShow, setModalShow] = useState(false);
 
-  const handleChangeInput = (e:any) => setSearchText(e.target.value);
-  const handleSubmit = (e:any) => {
+  const handleChangeInput = (e: any) => setSearchText(e.target.value);
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (searchText) {
       if (searchTags.length > 4) {
         setModalShow(true);
       } else {
-        const obj = { string: searchText, hoverState: false };
-        setSearchTags((prevState:any) => [...prevState, obj]);
+        const obj: SearchTag = { string: searchText, hoverState: false };
+        setSearchTags((prevState: SearchTag[]) => [...prevState, obj]);
       }
     }
     setSearchText("");
@@ -39,16 +40,19 @@ export default function SearchBarWithJobBar(props:any) {
               <button id="searchButton">🔍</button>
               <div id="searchTagsDiv">
                 {searchTags.length !== 0 ? (
-                  searchTags.map((tag:any, index:any) => {
+                  searchTags.map((tag: any, index: any) => {
                     return !tag.hoverState ? (
                       <p
+                        key={index}
                         className="searchTagParagraph"
                         onMouseEnter={() => {
                           const newSearchTags = searchTags;
                           const newSearchTag = newSearchTags.find(
-                            (el:any) => el.string === tag.string
+                            (el: any) => el.string === tag.string
                           );
-                          newSearchTag.hoverState = true;
+                          if (newSearchTag) {
+                            newSearchTag.hoverState = true;
+                          }
                           setSearchTags([...newSearchTags]);
                         }}
                       >
@@ -60,9 +64,11 @@ export default function SearchBarWithJobBar(props:any) {
                         onMouseLeave={() => {
                           const newSearchTags = searchTags;
                           const newSearchTag = newSearchTags.find(
-                            (el:any) => el.string === tag.string
+                            (el: any) => el.string === tag.string
                           );
-                          newSearchTag.hoverState = false;
+                          if (newSearchTag) {
+                            newSearchTag.hoverState = false;
+                          }
                           setSearchTags([...newSearchTags]);
                         }}
                         onClick={() => {
@@ -91,7 +97,7 @@ export default function SearchBarWithJobBar(props:any) {
           loggedUser={props.loggedUser}
           loggedAsAdmin={props.loggedAsAdmin}
           searchText={searchText}
-          searchTags={searchTags.map((tag:any) => tag.string)}
+          searchTags={searchTags.map((tag: SearchTag) => tag.string)}
         ></JobBar>
       </Fade>
       <TagsModal
