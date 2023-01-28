@@ -3,21 +3,18 @@ import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
 
-function LoginModal(props:any) {
+function LoginModal(props: any) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [passwordError] = useState("");
-  const [emailError] = useState("");
   const [message, setMessage] = useState("");
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
 
-  const loginSubmit = (e:any) => {
+  const loginSubmit = (e: any) => {
     e.preventDefault();
     console.log(email, password);
     fetch("http://localhost:8888/login", {
       method: "POST",
-      // crossDomain: true,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -34,7 +31,7 @@ function LoginModal(props:any) {
         if (data.status === "ok") {
           setHeaderMessage("Logged in!");
           setMessage(`Successfully logged as ${email}`);
-          props.setloggeduser((prev:any) => {
+          props.setloggeduser((prev: any) => {
             return {
               ...prev,
               email: email,
@@ -50,7 +47,6 @@ function LoginModal(props:any) {
           console.log(email);
           setAlertModalShow(true);
           window.localStorage.setItem("token", data.data);
-          //window.location.href = "./userDetails";
         } else {
           setMessage("Bad login or password!");
           setHeaderMessage("Can't Login!");
@@ -83,9 +79,6 @@ function LoginModal(props:any) {
               onChange={(event) => setEmail(event.target.value)}
               value={email}
             />
-            <small id="emailHelp" className="text-danger form-text">
-              {emailError}
-            </small>
           </div>
           <div className="form-group">
             <label>Password</label>
@@ -97,9 +90,6 @@ function LoginModal(props:any) {
               onChange={(event) => setPassword(event.target.value)}
               value={password}
             />
-            <small id="passworderror" className="text-danger form-text">
-              {passwordError}
-            </small>
           </div>
           <div className="form-group form-check"></div>
           <button type="submit" className="btn btn-primary">
