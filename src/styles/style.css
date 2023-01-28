@@ -26,61 +26,6 @@
 }
 
 
-
-/* searchBar style */
-#searchBarContainer {
-  display: flex;
-  justify-content: center;
-  transform: translateY(-32.5px);
-}
-
-#searchBar {
-  height: 45px;
-  padding: 7px;
-  padding-left: 50px;
-  padding-right: 50px;
-  background-color: whitesmoke;
-  min-width: 450px;
-  border-radius: 10px;
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  margin-top: 0px;
-}
-
-#searchInput {
-  margin-left: 5px;
-  height: 24px;
-}
-
-#searchButton {
-  margin-left: -20px;
-}
-
-#searchTagsDiv {
-  display: flex;
-  gap: 10px;
-}
-
-.searchTagParagraph:hover {
-  cursor: pointer;
-}
-
-.searchTagWithDelete {
-  background-color: #1b1b1b28;
-  border-radius: 200px;
-  font-size: 1.1rem;
-  min-height: 20px;
-  min-width: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.searchTagWithDelete:hover {
-  cursor: pointer;
-}
-
 .opacity0 {
   opacity: 0;
 }
