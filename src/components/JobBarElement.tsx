@@ -1,9 +1,9 @@
-import '../styles/JobBarElement.css'
+import "../styles/JobBarElement.css";
 import Papa from "papaparse";
 import { Fade } from "react-reveal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { renderTime } from "../functions/renderTime";
-import { DisplayOffer } from '../types/DisplayOffer';
+import { DisplayOffer } from "../types/DisplayOffer";
 export default function JobBarElement({
   job,
   jobs,
@@ -67,9 +67,11 @@ export default function JobBarElement({
                 <Fade bottom distance={"20px"} duration={1000}>
                   <hr></hr>
                   <br></br>
-                  {Papa.parse(job.description).data.map((line: any) => {
-                    return <p>{line}</p>;
-                  })}
+                  {Papa.parse(job.description).data.map(
+                    (line: any, index: number) => {
+                      return <p key={index}>{line}</p>;
+                    }
+                  )}
                   {loggeduser === "" ? (
                     <div className="applyButtonDiv">
                       <button
