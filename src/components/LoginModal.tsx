@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -11,7 +11,7 @@ function LoginModal(props: any) {
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
 
-  const loginSubmit = (e: any) => {
+  const loginSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
     axios.post("http://localhost:8888/login",{email,password}).then((res) => {
       if (res.data.status === "ok") {

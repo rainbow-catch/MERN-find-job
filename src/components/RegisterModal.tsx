@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -15,7 +15,7 @@ function RegisterModal(props:any) {
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
 
-  const registerSubmit = (e:any) => {
+  const registerSubmit = (e:HTMLFormElement | FormEvent) => {
     e.preventDefault();
     axios.post("http://localhost:8888/register", {email,password,companyName,logo})
       .then((res) => {
