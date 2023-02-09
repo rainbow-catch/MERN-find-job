@@ -65,18 +65,15 @@ function ApplyModal(props: any) {
       data.append("file", cv);
       data.append("upload_preset", "job-search");
       data.append("cloud_name", "dyqgdjrr1");
-      fetch("https://api.cloudinary.com/v1_1/dyqgdjrr1/raw/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
+      axios
+        .post("https://api.cloudinary.com/v1_1/dyqgdjrr1/raw/upload", data)
+        .then((res) => {
           const applicationToSend: Application = {
             _id: "",
             firstName: application.firstName,
             lastName: application.lastName,
             email: application.email,
-            cv: data.url,
+            cv: res.data.url,
             company_name: jobOfferForApply.company_name,
             ad_content: jobOfferForApply.ad_content,
             logo: jobOfferForApply.logo,
