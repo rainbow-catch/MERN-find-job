@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
+import axios from "axios";
 
 function RegisterModal(props:any) {
   const [password, setPassword] = useState("");
@@ -16,36 +17,17 @@ function RegisterModal(props:any) {
 
   const registerSubmit = (e:any) => {
     e.preventDefault();
-    console.log(email, password, companyName, logo);
-    fetch("http://localhost:8888/register", {
-      method: "POST",
-      // crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        companyName,
-        logo,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status === "ok") {
+    axios.post("http://localhost:8888/register", {email,password,companyName,logo})
+      .then((res) => {
+        if (res.data.status === "ok") {
           setHeaderMessage("Registration request sent!");
           setMessage(`Successfully sended registration request. \n Wait for reply`);
-          
           setEmail("");
           setPassword("");
           setCompanyName("");
           setLogo("");
-          console.log(email);
           setAlertModalShow(true);
-          window.localStorage.setItem("token", data.data);
+          window.localStorage.setItem("token", res.data.data);
           //window.location.href = "./userDetails";
         } else {
           setMessage("Bad login or password!");
