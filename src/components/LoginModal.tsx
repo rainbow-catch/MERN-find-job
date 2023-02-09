@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
+import axios from "axios";
 
 function LoginModal(props: any) {
   const [password, setPassword] = useState("");
@@ -12,47 +13,31 @@ function LoginModal(props: any) {
 
   const loginSubmit = (e: any) => {
     e.preventDefault();
-    console.log(email, password);
-    fetch("http://localhost:8888/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status === "ok") {
-          setHeaderMessage("Logged in!");
-          setMessage(`Successfully logged as ${email}`);
-          props.setloggeduser((prev: any) => {
-            return {
-              ...prev,
-              email: email,
-              company_name: data.company_name,
-              logo: data.logo,
-            };
-          });
-          if (email === "admin@admin.com") {
-            props.setloggedasadmin(true);
-          }
-          setEmail("");
-          setPassword("");
-          console.log(email);
-          setAlertModalShow(true);
-          window.localStorage.setItem("token", data.data);
-        } else {
-          setMessage("Bad login or password!");
-          setHeaderMessage("Can't Login!");
-          setAlertModalShow(true);
+    axios.post("http://localhost:8888/login",{email,password}).then((res) => {
+      if (res.data.status === "ok") {
+        setHeaderMessage("Logged in!");
+        setMessage(`Successfully logged as ${email}`);
+        props.setloggeduser((prev: object) => {
+          return {
+            ...prev,
+            email: email,
+            company_name: res.data.company_name,
+            logo: res.data.logo,
+          };
+        });
+        if (email === "admin@admin.com") {
+          props.setloggedasadmin(true);
         }
-      });
+        setEmail("");
+        setPassword("");
+        setAlertModalShow(true);
+        window.localStorage.setItem("token", res.data.data);
+      } else {
+        setMessage("Bad login or password!");
+        setHeaderMessage("Can't Login!");
+        setAlertModalShow(true);
+      }
+    });
   };
 
   return (
