@@ -28,15 +28,6 @@ function Header({
           src="https://raw.githubusercontent.com/ajgoras/job-search-mern/main/csv/images/job-search-logo-white.png"
           alt="logo"
         ></img>
-        {loggedUser.email === "" ? (
-          <span></span>
-        ) : (
-          <div id="loggedUserInfo">
-            <p className="purpleColor">Logged as {loggedUser.email}</p>
-          </div>
-        )}
-
-        <div></div>
         <div className="headerButtonsDiv">
           {loggedUser.email === "" ? (
             <span></span>
@@ -90,32 +81,44 @@ function Header({
       </div>
       <div id="headerTextDiv">
         <h2>Find a job in IT</h2>
+        {loggedUser.email === "" ? (
+          <span></span>
+        ) : (
+          <div id="loggedUserInfo">
+            <p className="loggedUserInfoText">
+              Logged as{" "}
+              <span className="loggedUserInfoTextCompanyName">
+                {loggedUser.company_name}
+              </span>
+            </p>
+          </div>
+        )}
       </div>
-        <LoginModal
-          show={showLoginModal}
-          onHide={() => setShowLoginModal(false)}
-          setloggeduser={setLoggedUser}
-          setloggedasadmin={setLoggedAsAdmin}
-        ></LoginModal>
-        <RegisterModal
-          show={showRegisterModal}
-          onHide={() => setShowRegisterModal(false)}
-          setloggeduser={setLoggedUser}
-          setloggedasadmin={setLoggedAsAdmin}
-        ></RegisterModal>
-        <AddOfferModal
-          loggedcompany={loggedCompany}
-          loggedcompanylogo={loggedCompanyLogo}
-          loggedasadmin={loggedAsAdmin}
-          show={showAddOfferModal}
-          onHide={() => setShowAddOfferModal(false)}
-        ></AddOfferModal>
-        <ShowApplicationsModal
-          loggedcompany={loggedCompany}
-          loggedasadmin={loggedAsAdmin}
-          show={showShowApplicationsModal}
-          onHide={() => setShowShowApplicationsModal(false)}
-        ></ShowApplicationsModal>
+      <LoginModal
+        show={showLoginModal}
+        onHide={() => setShowLoginModal(false)}
+        setloggeduser={setLoggedUser}
+        setloggedasadmin={setLoggedAsAdmin}
+      ></LoginModal>
+      <RegisterModal
+        show={showRegisterModal}
+        onHide={() => setShowRegisterModal(false)}
+        setloggeduser={setLoggedUser}
+        setloggedasadmin={setLoggedAsAdmin}
+      ></RegisterModal>
+      <AddOfferModal
+        loggedcompany={loggedCompany}
+        loggedcompanylogo={loggedCompanyLogo}
+        loggedasadmin={loggedAsAdmin}
+        show={showAddOfferModal}
+        onHide={() => setShowAddOfferModal(false)}
+      ></AddOfferModal>
+      <ShowApplicationsModal
+        loggedcompany={loggedCompany}
+        loggedasadmin={loggedAsAdmin}
+        show={showShowApplicationsModal}
+        onHide={() => setShowShowApplicationsModal(false)}
+      ></ShowApplicationsModal>
     </div>
   );
 }
