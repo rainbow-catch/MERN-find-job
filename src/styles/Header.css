@@ -4,12 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
+  padding: 7px 15px 14px 12px;
+  border: 1px solid #0000002e;
 }
 
 .jobSearchLogo {
+  pointer-events: none;
+  user-select: none;
   height: 60px;
-  transform: translateY(-4px);
   width: auto;
 }
 
@@ -19,6 +21,20 @@
 
 #exampleInputPassword1 {
   width: 350px;
+}
+
+#headerTextDiv{
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+#headerTextDiv h2{
+  pointer-events: none;
+  user-select: none;
+  font-family: 'Pacifico', cursive !important;
+  font-size: 30px !important;
+  color: whitesmoke;
 }
 
 
@@ -68,8 +84,13 @@
 }
 
 .headerButton {
+  height: 30px;
   font-size: 15px;
-  padding: 5px;
-  background-color: #6a2dac;
-  border: none;
+  padding: 6px;
+  background-color: #6a2dac00;
+  border: solid 1px rgba(209, 209, 209, 0.391);
+}
+.headerButton:hover {
+  background-color: #536a85;
+  border: solid 1px #1b1b1b00;
 }
