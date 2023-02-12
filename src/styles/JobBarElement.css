@@ -10,7 +10,7 @@
   margin: 40px;
   margin-top: 0;
   background-image:
-    linear-gradient(163deg, #4964da 0%, rgba(146, 73, 221, 0.8) 11.8%, rgba(176, 60, 196, 0.6) 23.6%, rgba(192, 55, 173, 0.4) 35.4%, rgba(217, 46, 116, 0) 59%), radial-gradient(100% 100% at 10% 100%, #fdd575 0%, #fcc06a 14.29%, #fbaa63 28.57%, #f99262 42.86%, #f77868 57.14%, #f55973 71.43%, #d22e8c 100%);
+  linear-gradient(to top, #283647, #3e5067);
   padding: 20px;
   padding-left: 50px;
   padding-right: 50px;
@@ -22,7 +22,7 @@
 .jobBarElement {
   transition: all 0.5s;
   margin-bottom: 20px;
-  background-color: #ffc6ff;
+  background-color: #d1d9e8;
   padding: 20px;
   border-radius: 10px;
   border-width: 2px;
@@ -100,7 +100,7 @@
   margin-left: 70px;
   border: none;
   color: whitesmoke;
-  background-color: #b65eb6;
+  background-color: #5e80b6;
   padding: 6px 14px 6px 14px;
   border-radius: 6px;
 }
