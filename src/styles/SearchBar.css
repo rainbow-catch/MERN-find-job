@@ -41,9 +41,9 @@
 .searchTagWithDelete {
   background-color: #1b1b1b28;
   border-radius: 200px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   min-height: 20px;
-  min-width: 35px;
+  min-width: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
