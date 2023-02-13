@@ -106,9 +106,15 @@ button.shake {
 }
 
 .gradient-button{
-  background-image: linear-gradient(90deg, #305291, #3a3b50);
+  background-size: 155% 100%;
+  background-image: linear-gradient(to left, #5a75a2, #414258);
   color: whitesmoke;
   border: solid 1px transparent;
+  transition: all .3s ease-in-out;
+}
+
+.gradient-button:hover {
+  background-position: 100% 0;
 }
 
 @keyframes shake {
