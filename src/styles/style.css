@@ -105,6 +105,12 @@ button.shake {
   margin-bottom: 2px;
 }
 
+.gradient-button{
+  background-image: linear-gradient(90deg, #305291, #3a3b50);
+  color: whitesmoke;
+  border: solid 1px transparent;
+}
+
 @keyframes shake {
 
   10%,

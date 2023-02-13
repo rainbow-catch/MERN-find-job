@@ -1,0 +1,81 @@
+#loginform {
+  box-sizing: border-box !important;
+  height: 300px;
+  width: 440px;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-section{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-input{
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  padding-top: 32px;
+  padding-left: 2px;
+  padding-bottom: 5px;
+  border: none;
+  outline: none;
+}
+
+.input-label{
+  position: absolute;
+  border-bottom: 1px solid #0000007b;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.input-label::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #305291;
+  left: 0;
+  bottom: -0.5px;
+  transform: translateX(-101%);
+  transition: all .3s ease;
+}
+
+.form-input:focus + .input-label::after{
+  transform: translateX(0%);
+}
+
+.label-name {
+  position: absolute;
+  bottom: 2px;
+  transition: all .3s ease;
+}
+
+.form-input:focus + .input-label .label-name{
+  bottom: 35px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #305291;
+}
+
+.form-input:valid + .input-label .label-name{
+  bottom: 35px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.submit-button {
+  font-size: 20px;
+  width: 50%;
+  margin-top: 25px;
+  color: whitesmoke;
+  padding: 5px;
+}

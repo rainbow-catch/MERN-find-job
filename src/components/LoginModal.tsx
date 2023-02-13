@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
+import "../styles/LoginModal.css";
 import axios from "axios";
 
 function LoginModal(props: any) {
@@ -13,37 +14,39 @@ function LoginModal(props: any) {
 
   const loginSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
-    axios.post("http://localhost:8888/login",{email,password}).then((res) => {
-      if (res.data.status === "ok") {
-        setHeaderMessage("Logged in!");
-        setMessage(`Successfully logged as ${email}`);
-        props.setloggeduser((prev: object) => {
-          return {
-            ...prev,
-            email: email,
-            company_name: res.data.company_name,
-            logo: res.data.logo,
-          };
-        });
-        if (email === "admin@admin.com") {
-          props.setloggedasadmin(true);
+    axios
+      .post("http://localhost:8888/login", { email, password })
+      .then((res) => {
+        if (res.data.status === "ok") {
+          setHeaderMessage("Logged in!");
+          setMessage(`Successfully logged as ${email}`);
+          props.setloggeduser((prev: object) => {
+            return {
+              ...prev,
+              email: email,
+              company_name: res.data.company_name,
+              logo: res.data.logo,
+            };
+          });
+          if (email === "admin@admin.com") {
+            props.setloggedasadmin(true);
+          }
+          setEmail("");
+          setPassword("");
+          setAlertModalShow(true);
+          window.localStorage.setItem("token", res.data.data);
+        } else {
+          setMessage("Bad login or password!");
+          setHeaderMessage("Can't Login!");
+          setAlertModalShow(true);
         }
-        setEmail("");
-        setPassword("");
-        setAlertModalShow(true);
-        window.localStorage.setItem("token", res.data.data);
-      } else {
-        setMessage("Bad login or password!");
-        setHeaderMessage("Can't Login!");
-        setAlertModalShow(true);
-      }
-    });
+      });
   };
 
   return (
     <Modal
       {...props}
-      size="lg"
+      size=""
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -52,32 +55,37 @@ function LoginModal(props: any) {
       </Modal.Header>
       <Modal.Body>
         <form id="loginform" onSubmit={loginSubmit}>
-          <div className="form-group">
-            <label>Email address</label>
+          <div className="form-section">
             <input
-              type="email"
-              className="form-control"
-              id="EmailInput"
+              required
+              type="text"
+              className="form-input"
               name="EmailInput"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
             />
+            <label htmlFor="EmailInput" className="input-label">
+              <span className="label-name">Email Address</span>
+            </label>
           </div>
-          <div className="form-group">
-            <label>Password</label>
+          <div className="form-section">
             <input
+              required
               type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Password"
+              name="PasswordInput"
+              className="form-input"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
             />
+            <label htmlFor="EmailInput" className="input-label">
+              <span className="label-name">Password</span>
+            </label>
           </div>
           <div className="form-group form-check"></div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="gradient-button submit-button btn btn-primary"
+          >
             Login
           </button>
         </form>

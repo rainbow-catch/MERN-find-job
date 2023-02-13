@@ -5,7 +5,7 @@ function AlertModal(props:any) {
   return (
     <Modal
       {...props}
-      size="lg"
+      size=""
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -18,7 +18,7 @@ function AlertModal(props:any) {
         <p>{props.message}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Ok</Button>
+        <Button className="gradient-button" onClick={props.onHide}>Ok</Button>
       </Modal.Footer>
     </Modal>
   );
