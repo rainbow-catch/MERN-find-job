@@ -93,6 +93,9 @@ function LoginModal(props: any) {
           show={alertModalShow}
           onHide={() => {
             setAlertModalShow(false);
+            if (headerMessage ==="Logged in!") {
+              props.onHide();
+            }
           }}
           message={message}
           headermessage={headerMessage}
