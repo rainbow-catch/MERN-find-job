@@ -4,6 +4,7 @@ import AlertModal from "./AlertModal";
 import "../styles/style.css";
 import "../styles/LoginModal.css";
 import axios from "axios";
+import { checkFormValidity } from "../functions/checkFormValidity";
 
 function LoginModal(props: any) {
   const [password, setPassword] = useState("");
@@ -11,6 +12,12 @@ function LoginModal(props: any) {
   const [message, setMessage] = useState("");
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
+  const [shake, setShake] = useState(false);
+
+  const startShake = () => {
+    setShake(true);
+    setTimeout(() => setShake(false), 650);
+  };
 
   const loginSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
@@ -59,7 +66,9 @@ function LoginModal(props: any) {
             <input
               required
               type="email"
-              className={email==="" ? "form-input" : "form-input form-input-filled"}
+              className={
+                email === "" ? "form-input" : "form-input form-input-filled"
+              }
               name="EmailInput"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
@@ -84,7 +93,14 @@ function LoginModal(props: any) {
           <div className="form-group form-check"></div>
           <button
             type="submit"
-            className="gradient-button submit-button btn btn-primary"
+            className={
+              shake ? "shake" : "gradient-button submit-button btn btn-primary"
+            }
+            onClick={() => {
+              if (checkFormValidity({ email, password }) === false) {
+                startShake();
+              }
+            }}
           >
             Login
           </button>
@@ -93,7 +109,7 @@ function LoginModal(props: any) {
           show={alertModalShow}
           onHide={() => {
             setAlertModalShow(false);
-            if (headerMessage ==="Logged in!") {
+            if (headerMessage === "Logged in!") {
               props.onHide();
             }
           }}
