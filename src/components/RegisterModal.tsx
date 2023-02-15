@@ -2,8 +2,9 @@ import { FormEvent, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
+import "../styles/RegisterModal.css";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { checkFormValidity } from "../functions/checkFormValidity";
 
 function RegisterModal(props: any) {
   const [password, setPassword] = useState("");
@@ -13,7 +14,6 @@ function RegisterModal(props: any) {
   const [message, setMessage] = useState("");
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
-  const [validated, setValidated] = useState(true);
   const [shake, setShake] = useState(false);
 
   const startShake = () => {
@@ -22,124 +22,121 @@ function RegisterModal(props: any) {
   };
 
   const registerSubmit = (e: HTMLFormElement | FormEvent) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      startShake();
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      e.preventDefault();
-      axios
-        .post("http://localhost:8888/register", {
-          email,
-          password,
-          companyName,
-          logo,
-        })
-        .then((res) => {
-          if (res.data.status === "ok") {
-            setHeaderMessage("Registration request sent!");
-            setMessage(
-              `Successfully sended registration request. \n Wait for reply`
-            );
-            setEmail("");
-            setPassword("");
-            setCompanyName("");
-            setLogo("");
-            setAlertModalShow(true);
-            window.localStorage.setItem("token", res.data.data);
-          } else {
-            setMessage("Bad login or password!");
-            setHeaderMessage("Can't Registered!");
-            setAlertModalShow(true);
-          }
-        });
-    };
-  }
+    e.preventDefault();
+    axios
+      .post("http://localhost:8888/register", {
+        email,
+        password,
+        companyName,
+        logo,
+      })
+      .then((res) => {
+        if (res.data.status === "ok") {
+          setHeaderMessage("Registration request sent!");
+          setMessage(
+            `Successfully sended registration request. \n Wait for reply`
+          );
+          setEmail("");
+          setPassword("");
+          setCompanyName("");
+          setLogo("");
+          setAlertModalShow(true);
+          window.localStorage.setItem("token", res.data.data);
+        } else {
+          setMessage("Bad login or password!");
+          setHeaderMessage("Can't Registered!");
+          setAlertModalShow(true);
+        }
+      });
+  };
   return (
     <Modal
       {...props}
-      size="lg"
+      size=""
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Create company account</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Create company account
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form
-          noValidate
-          validated={validated}
-          id="registerform"
-          onSubmit={registerSubmit}
-        >
-          <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
+        <form id="registerform" onSubmit={registerSubmit}>
+          <div className="form-section">
+            <input
               required
-              name="EmailInput"
-              value={email}
-              id="EmailInput"
-              onChange={(event) => setEmail(event.target.value)}
-              className="form-control"
               type="email"
-              placeholder="Enter email"
+              className={
+                email === "" ? "form-input" : "form-input form-input-filled"
+              }
+              name="EmailInput"
+              onChange={(event) => setEmail(event.target.value)}
+              value={email}
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter your email address
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="text">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
+            <label htmlFor="EmailInput" className="input-label">
+              <span className="label-name">Email Address</span>
+            </label>
+          </div>
+          <div className="form-section">
+            <input
               required
-              value={password}
-              id="exampleInputPassword1"
-              onChange={(event) => setPassword(event.target.value)}
-              className="form-control"
               type="password"
-              placeholder="Enter password"
+              name="PasswordInput"
+              className="form-input"
+              onChange={(event) => setPassword(event.target.value)}
+              value={password}
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter your password
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>Full Company Name</Form.Label>
-            <Form.Control
+            <label htmlFor="PasswordInput" className="input-label">
+              <span className="label-name">Password</span>
+            </label>
+          </div>
+          <div className="form-section">
+            <input
               required
-              value={companyName}
-              id="CompanyNameInput"
-              onChange={(event) => setCompanyName(event.target.value)}
-              className="form-control"
               type="text"
-              placeholder="Enter your full company name"
               name="CompanyNameInput"
+              className="form-input"
+              onChange={(event) => setCompanyName(event.target.value)}
+              value={companyName}
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter your company name
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>Full Company Name</Form.Label>
-            <Form.Control
+            <label htmlFor="CompanyNameInput" className="input-label">
+              <span className="label-name">Full Company Name</span>
+            </label>
+          </div>
+          <div className="form-section">
+            <input
               required
-              value={logo}
-              id="LogoInput"
-              onChange={(event) => setLogo(event.target.value)}
-              className="form-control"
               type="url"
-              placeholder="Enter your company logo link"
               name="LogoInput"
+              className={
+                logo === "" ? "form-input" : "form-input form-input-filled"
+              }
+              onChange={(event) => setLogo(event.target.value)}
+              value={logo}
             />
-            <Form.Control.Feedback type="invalid">
-              Please paste your company logo image link
-            </Form.Control.Feedback>
-          </Form.Group>
+            <label htmlFor="LogoInput" className="input-label">
+              <span className="label-name">Company Logo Link</span>
+            </label>
+          </div>
           <div className="form-group form-check"></div>
-          <Button className={shake ? "shake" : ""} type="submit">Send Registration request</Button>
-        </Form>
+          <button
+            type="submit"
+            className={
+              shake ? "shake" : "gradient-button submit-button btn btn-primary"
+            }
+            onClick={() => {
+              if (
+                checkFormValidity({ email, password, companyName, logo }) ===
+                false
+              ) {
+                startShake();
+              }
+            }}
+          >
+            Create Account
+          </button>
+        </form>
         <AlertModal
           show={alertModalShow}
           onHide={() => {

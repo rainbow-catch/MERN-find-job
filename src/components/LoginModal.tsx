@@ -58,8 +58,8 @@ function LoginModal(props: any) {
           <div className="form-section">
             <input
               required
-              type="text"
-              className="form-input"
+              type="email"
+              className={email==="" ? "form-input" : "form-input form-input-filled"}
               name="EmailInput"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
@@ -77,7 +77,7 @@ function LoginModal(props: any) {
               onChange={(event) => setPassword(event.target.value)}
               value={password}
             />
-            <label htmlFor="EmailInput" className="input-label">
+            <label htmlFor="PasswordInput" className="input-label">
               <span className="label-name">Password</span>
             </label>
           </div>
