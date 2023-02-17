@@ -15,6 +15,9 @@ function RegisterModal(props: any) {
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
   const [shake, setShake] = useState(false);
+  const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
+    boolean[]
+  >([]);
 
   const startShake = () => {
     setShake(true);
@@ -73,6 +76,19 @@ function RegisterModal(props: any) {
               name="EmailInput"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
+              placeholder={
+                placeHoldersVisibility[0]
+                  ? "Enter your company email address"
+                  : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[0] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
             <label htmlFor="EmailInput" className="input-label">
               <span className="label-name">Email Address</span>
@@ -86,6 +102,17 @@ function RegisterModal(props: any) {
               className="form-input"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
+              placeholder={
+                placeHoldersVisibility[1] ? "Enter your password" : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[1] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
             <label htmlFor="PasswordInput" className="input-label">
               <span className="label-name">Password</span>
@@ -99,6 +126,17 @@ function RegisterModal(props: any) {
               className="form-input"
               onChange={(event) => setCompanyName(event.target.value)}
               value={companyName}
+              placeholder={
+                placeHoldersVisibility[2] ? "Enter your full company name" : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[2] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
             <label htmlFor="CompanyNameInput" className="input-label">
               <span className="label-name">Full Company Name</span>
@@ -114,6 +152,17 @@ function RegisterModal(props: any) {
               }
               onChange={(event) => setLogo(event.target.value)}
               value={logo}
+              placeholder={
+                placeHoldersVisibility[3] ? "Paste your company logo link" : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[3] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
             <label htmlFor="LogoInput" className="input-label">
               <span className="label-name">Company Logo Link</span>

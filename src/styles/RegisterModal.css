@@ -28,6 +28,10 @@
   border: none;
   outline: none;
 }
+.form-input::placeholder{
+  opacity: 0.4;  
+  font-size: 15px;
+}
 
 .input-label{
   position: absolute;
