@@ -1,11 +1,11 @@
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
-import { Form, InputGroup } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
+import "../styles/AddOfferModal.css";
 import { Offer } from "../types/Offer";
+import { checkFormValidity } from "../functions/checkFormValidity";
 function AddOfferModal(props: any) {
   const loggedAsAdmin = props.loggedasadmin;
   const loggedCompany = props.loggedcompany;
@@ -26,9 +26,11 @@ function AddOfferModal(props: any) {
     about_us: "",
     logo: "",
   });
-  const [validated, setValidated] = useState(true);
   const [shake, setShake] = useState(false);
   const [hideModalBody, setHideModalBody] = useState(false);
+  const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
+    boolean[]
+  >([]);
   const startShake = () => {
     setShake(true);
     setTimeout(() => setShake(false), 650);
@@ -49,39 +51,31 @@ function AddOfferModal(props: any) {
   const [alertModalShow, setAlertModalShow] = useState(false);
 
   const createOffer = (e: HTMLFormElement | FormEvent) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      startShake();
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      setValidated(true);
-      e.preventDefault();
-      axios
-        .post("http://localhost:8888/create", offer)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      if (offer) {
-        setMessage(`Successfully added ${offer.ad_content} offer!`);
-        setHideModalBody(true);
-        setAlertModalShow(true);
-        setOffer({
-          company_name: "",
-          days_ago: "",
-          contract_types: "",
-          country: "",
-          ad_content: "",
-          job_type: "",
-          seniority: "",
-          technology_1: "",
-          technology_2: "",
-          technology_3: "",
-          salary: "",
-          description: "",
-          about_us: "",
-          logo: "",
-        });
-      }
+    e.preventDefault();
+    axios
+      .post("http://localhost:8888/create", offer)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    if (offer) {
+      setMessage(`Successfully added ${offer.ad_content} offer!`);
+      setHideModalBody(true);
+      setAlertModalShow(true);
+      setOffer({
+        company_name: "",
+        days_ago: "",
+        contract_types: "",
+        country: "",
+        ad_content: "",
+        job_type: "",
+        seniority: "",
+        technology_1: "",
+        technology_2: "",
+        technology_3: "",
+        salary: "",
+        description: "",
+        about_us: "",
+        logo: "",
+      });
     }
   };
 
@@ -99,7 +93,7 @@ function AddOfferModal(props: any) {
     <>
       <Modal
         {...props}
-        size="lg"
+        size=""
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className={hideModalBody ? "displayNone" : ""}
@@ -110,240 +104,359 @@ function AddOfferModal(props: any) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form noValidate validated={validated} onSubmit={createOffer}>
+          <form id="addofferform" onSubmit={createOffer}>
             {loggedAsAdmin ? (
-              <Form.Group controlId="text">
-                <Form.Label>Company Name</Form.Label>
-                <InputGroup className="inputGroupWidth" hasValidation>
-                  <Form.Control
-                    className="inputWidth"
-                    name="company_name"
-                    type="text"
-                    placeholder="Enter company name"
-                    value={offer.company_name}
-                    onChange={handleChange}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter your company name.
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
+              <div className="form-section">
+                <input
+                  required
+                  type="text"
+                  className={
+                    offer.company_name === ""
+                      ? "form-input"
+                      : "form-input form-input-filled"
+                  }
+                  name="company_name"
+                  onChange={handleChange}
+                  value={offer.company_name}
+                  placeholder={
+                    placeHoldersVisibility[0] ? "Enter company name" : ""
+                  }
+                  onFocus={() => {
+                    const newArr = [...placeHoldersVisibility];
+                    newArr[0] = true;
+                    setPlaceHoldersVisibility(newArr);
+                  }}
+                  onBlur={() => {
+                    setPlaceHoldersVisibility([]);
+                  }}
+                />
+                <label htmlFor="company_name" className="input-label">
+                  <span className="label-name">Company name</span>
+                </label>
+              </div>
             ) : (
-              <Form.Group controlId="text">
-                <Form.Label>Company Name</Form.Label>
-                <InputGroup className="inputGroupWidth" hasValidation>
-                  <Form.Control
-                    className="inputWidth"
-                    name="company_name"
-                    type="text"
-                    placeholder="Enter company name"
-                    value={offer.company_name}
-                    onChange={handleChange}
-                    disabled
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter your company name.
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-            )}
-            <Form.Group controlId="text">
-              <Form.Label>Job Title</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="ad_content"
-                  type="text"
-                  placeholder="e.g. Junior Frontend Developer"
-                  value={offer.ad_content}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter your job offer title.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Seniority</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Select
-                  className="inputWidth"
-                  name="seniorty"
-                  value={offer.seniority}
-                  onChange={handleChange}
-                  required
-                >
-                  <option>Junior</option>
-                  <option>Mid</option>
-                  <option>Senior</option>
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">
-                  Please select seniority.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Technologies</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="technology_1"
-                  type="text"
-                  placeholder="Enter first technology"
-                  value={offer.technology_1}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter your technology.
-                </Form.Control.Feedback>
-              </InputGroup>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="technology_2"
-                  type="text"
-                  placeholder="Enter second technology"
-                  value={offer.technology_2}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="technology_3"
-                  type="text"
-                  placeholder="Enter third technology"
-                  value={offer.technology_3}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Salary</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="salary"
-                  type="text"
-                  placeholder="e.g. 5500$"
-                  value={offer.salary}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter salary.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Contract Type</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="contract_types"
-                  type="text"
-                  placeholder="e.g. B2B"
-                  value={offer.contract_types}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter contract type.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>
-                Job type/Main technology/Main specialization
-              </Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="job_type"
-                  type="text"
-                  placeholder="e.g. Frontend"
-                  value={offer.job_type}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter contract type.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Localization</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="country"
-                  type="text"
-                  placeholder="e.g. worldwide/remote"
-                  value={offer.country}
-                  onChange={handleChange}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter localization.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Company image logo link</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
+              <div className="form-section">
+                <input
                   disabled
-                  className="inputWidth"
-                  name="logo"
-                  type="text"
-                  placeholder="e.g. https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                  value={offer.logo}
-                  onChange={handleChange}
                   required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter image logo link.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <Form.Label>Description</Form.Label>
-              <InputGroup className="inputGroupWidth" hasValidation>
-                <Form.Control
-                  required
-                  className="inputWidth"
-                  name="description"
                   type="text"
-                  placeholder="Write more information about job offer.."
-                  value={offer.description}
+                  className={
+                    offer.company_name === ""
+                      ? "form-input"
+                      : "form-input form-input-filled"
+                  }
+                  name="company_name"
                   onChange={handleChange}
+                  value={offer.company_name}
+                  placeholder={
+                    placeHoldersVisibility[0] ? "Enter company name" : ""
+                  }
+                  onFocus={() => {
+                    const newArr = [...placeHoldersVisibility];
+                    newArr[0] = true;
+                    setPlaceHoldersVisibility(newArr);
+                  }}
+                  onBlur={() => {
+                    setPlaceHoldersVisibility([]);
+                  }}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Please enter description.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="text">
-              <InputGroup className="inputGroupWidth displayNone" hasValidation>
-                <Form.Control
-                  className="inputWidth"
-                  name="days_ago"
-                  type="text"
-                  value={new Date().toDateString()}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please enter description.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Button type="submit" className={shake ? "shake" : ""}>
-              Add new Offer
-            </Button>
-          </Form>
+                <label htmlFor="company_name" className="input-label">
+                  <span className="label-name">Company name</span>
+                </label>
+              </div>
+            )}
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="ad_content"
+                onChange={handleChange}
+                value={offer.ad_content}
+                placeholder={
+                  placeHoldersVisibility[1]
+                    ? "e.g. Junior Frontend Developer"
+                    : ""
+                }
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[1] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="ad_content" className="input-label">
+                <span className="label-name">Job title</span>
+              </label>
+            </div>
+            <div className="form-section-select">
+              <label className="form-select-label">Seniority</label>
+              <select
+                className="form-select"
+                name="seniority"
+                value={offer.seniority}
+                onChange={handleChange}
+                required
+              >
+                <option value={"Junior"}>Junior</option>
+                <option value={"Mid"}>Mid</option>
+                <option value={"Senior"}>Senior</option>
+              </select>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="technology_1"
+                onChange={handleChange}
+                value={offer.technology_1}
+                placeholder={
+                  placeHoldersVisibility[2] ? "Enter first technology" : ""
+                }
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[2] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="technology_1" className="input-label">
+                <span className="label-name">Technology</span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="technology_2"
+                onChange={handleChange}
+                value={offer.technology_2}
+                placeholder={
+                  placeHoldersVisibility[3] ? "Enter second technology" : ""
+                }
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[3] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="technology_2" className="input-label">
+                <span className="label-name">Technology</span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="technology_3"
+                onChange={handleChange}
+                value={offer.technology_3}
+                placeholder={
+                  placeHoldersVisibility[4] ? "Enter third technology" : ""
+                }
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[4] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="technology_3" className="input-label">
+                <span className="label-name">Technology</span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="salary"
+                onChange={handleChange}
+                value={offer.salary}
+                placeholder={placeHoldersVisibility[5] ? "e.g. 5500$" : ""}
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[5] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="salary" className="input-label">
+                <span className="label-name">Salary</span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="contract_types"
+                onChange={handleChange}
+                value={offer.contract_types}
+                placeholder={placeHoldersVisibility[6] ? "e.g. B2B" : ""}
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[6] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="contract_types" className="input-label">
+                <span className="label-name">Contract Type</span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="job_type"
+                onChange={handleChange}
+                value={offer.job_type}
+                placeholder={placeHoldersVisibility[7] ? "e.g. Frontend" : ""}
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[7] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="job_type" className="input-label">
+                <span className="label-name">
+                  Job type/Main technology/specialization
+                </span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                type="text"
+                className="form-input"
+                name="country"
+                onChange={handleChange}
+                value={offer.country}
+                placeholder={placeHoldersVisibility[8] ? "e.g. remote" : ""}
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[8] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="country" className="input-label">
+                <span className="label-name">Localization</span>
+              </label>
+            </div>
+            <div className="form-section">
+              <input
+                required
+                disabled
+                type="text"
+                className={
+                  offer.logo === ""
+                    ? "form-input"
+                    : "form-input form-input-filled"
+                }
+                name="logo"
+                onChange={handleChange}
+                value={offer.logo}
+                placeholder={
+                  placeHoldersVisibility[9]
+                    ? "e.g. https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                    : ""
+                }
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[9] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+              <label htmlFor="logo" className="input-label">
+                <span className="label-name">Company image logo link</span>
+              </label>
+            </div>
+            <div className="form-section" id="form-section-textarea">
+              <label className="form-select-label">Description</label>
+              <textarea
+                required
+                className="form-input"
+                id="form-input-textarea"
+                rows={20}
+                name="description"
+                onChange={handleChange}
+                value={offer.description}
+                placeholder={
+                  placeHoldersVisibility[10]
+                    ? "Write more information about job offer.."
+                    : ""
+                }
+                onFocus={() => {
+                  const newArr = [...placeHoldersVisibility];
+                  newArr[10] = true;
+                  setPlaceHoldersVisibility(newArr);
+                }}
+                onBlur={() => {
+                  setPlaceHoldersVisibility([]);
+                }}
+              />
+            </div>
+            <div className="form-group form-check"></div>
+            <button
+              type="submit"
+              className={
+                shake
+                  ? "shake"
+                  : "gradient-button submit-button btn btn-primary"
+              }
+              onClick={() => {
+                if (
+                  checkFormValidity({
+                    company_name: offer.company_name,
+                    days_ago: offer.days_ago,
+                    contract_types: offer.contract_types,
+                    country: offer.country,
+                    ad_content: offer.ad_content,
+                    job_type: offer.job_type,
+                    seniority: offer.seniority,
+                    technology_1: offer.technology_1,
+                    technology_2: offer.technology_2,
+                    technology_3: offer.technology_3,
+                    salary: offer.salary,
+                    description: offer.description,
+                    about_us: offer.about_us,
+                    logo: offer.logo,
+                  }) === false
+                ) {
+                  startShake();
+                }
+              }}
+            >
+              Add Offer
+            </button>
+          </form>
         </Modal.Body>
       </Modal>
       <AlertModal
