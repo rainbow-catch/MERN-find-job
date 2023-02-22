@@ -1,5 +1,4 @@
 import "../styles/ApplyModal.css";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import { FormEvent, useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import { DisplayOffer } from "../types/DisplayOffer";
 import { renderSeniority } from "../functions/renderSeniority";
 import { Application } from "../types/Application";
 import { ApplyForm } from "../types/ApplyForm";
+import { checkFormValidity } from "../functions/checkFormValidity";
 
 function ApplyModal(props: any) {
   const [message, setMessage] = useState("Successfully applied new job offer!");
@@ -42,8 +42,11 @@ function ApplyModal(props: any) {
   });
   const [cv, setCv] = useState("");
 
-  const [validated, setValidated] = useState(true);
   const [shake, setShake] = useState(false);
+  const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
+    boolean[]
+  >([]);
+
   const startShake = () => {
     setShake(true);
     setTimeout(() => setShake(false), 650);
@@ -54,45 +57,38 @@ function ApplyModal(props: any) {
   }, [props]);
 
   const sendApplication = (e: HTMLFormElement | FormEvent) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      startShake();
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      e.preventDefault();
-      const data = new FormData();
-      data.append("file", cv);
-      data.append("upload_preset", "job-search");
-      data.append("cloud_name", "dyqgdjrr1");
-      axios
-        .post("https://api.cloudinary.com/v1_1/dyqgdjrr1/raw/upload", data)
-        .then((res) => {
-          const applicationToSend: Application = {
-            _id: "",
-            firstName: application.firstName,
-            lastName: application.lastName,
-            email: application.email,
-            cv: res.data.url,
-            company_name: jobOfferForApply.company_name,
-            ad_content: jobOfferForApply.ad_content,
-            logo: jobOfferForApply.logo,
-            seniority: jobOfferForApply.seniority,
-            technologies: `${jobOfferForApply.technology_1}\n ${jobOfferForApply.technology_2}\n ${jobOfferForApply.technology_3}`,
-          };
-          axios
-            .post("http://localhost:8888/sendApplication", applicationToSend)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-          setMessage(
-            `Successfully applied to ${jobOfferForApply.company_name} as ${jobOfferForApply.ad_content}`
-          );
-          setAlertModalShow(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    e.preventDefault();
+    const data = new FormData();
+    data.append("file", cv);
+    data.append("upload_preset", "job-search");
+    data.append("cloud_name", "dyqgdjrr1");
+    axios
+      .post("https://api.cloudinary.com/v1_1/dyqgdjrr1/raw/upload", data)
+      .then((res) => {
+        const applicationToSend: Application = {
+          _id: "",
+          firstName: application.firstName,
+          lastName: application.lastName,
+          email: application.email,
+          cv: res.data.url,
+          company_name: jobOfferForApply.company_name,
+          ad_content: jobOfferForApply.ad_content,
+          logo: jobOfferForApply.logo,
+          seniority: jobOfferForApply.seniority,
+          technologies: `${jobOfferForApply.technology_1}\n ${jobOfferForApply.technology_2}\n ${jobOfferForApply.technology_3}`,
+        };
+        axios
+          .post("http://localhost:8888/sendApplication", applicationToSend)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+        setMessage(
+          `Successfully applied to ${jobOfferForApply.company_name} as ${jobOfferForApply.ad_content}`
+        );
+        setAlertModalShow(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleChange = (e: any) => {
@@ -108,7 +104,7 @@ function ApplyModal(props: any) {
   return (
     <Modal
       {...props}
-      size="lg"
+      size=""
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -141,73 +137,111 @@ function ApplyModal(props: any) {
             </div>
           </div>
         </section>
-        <Form noValidate validated={validated} onSubmit={sendApplication}>
-          <Form.Group controlId="text">
-            <Form.Label>Firstname</Form.Label>
-            <Form.Control
+        <form id="applyform" onSubmit={sendApplication}>
+          <div className="form-section">
+            <input
               required
+              type="text"
+              className="form-input"
               name="firstName"
+              onChange={handleChange}
               value={application.firstName}
-              onChange={handleChange}
-              className="inputWidth"
-              type="text"
-              placeholder="Enter your firstname"
+              placeholder={placeHoldersVisibility[0] ? "Enter your Name" : ""}
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[0] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter your firstname
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>Lastname</Form.Label>
-            <Form.Control
+            <label htmlFor="EmailInput" className="input-label">
+              <span className="label-name">Name</span>
+            </label>
+          </div>
+          <div className="form-section">
+            <input
               required
+              type="text"
+              className="form-input"
               name="lastName"
+              onChange={handleChange}
               value={application.lastName}
-              onChange={handleChange}
-              className="inputWidth"
-              type="text"
-              placeholder="Enter your lastname"
+              placeholder={
+                placeHoldersVisibility[1] ? "Enter your Lastname" : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[1] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter your lastname
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>E-mail</Form.Label>
-            <Form.Control
+            <label htmlFor="EmailInput" className="input-label">
+              <span className="label-name">Lastname</span>
+            </label>
+          </div>
+          <div className="form-section">
+            <input
               required
-              name="email"
-              value={application.email}
-              onChange={handleChange}
-              className="inputWidth"
               type="email"
-              placeholder="Enter your email"
+              className={
+                application.email === ""
+                  ? "form-input"
+                  : "form-input form-input-filled"
+              }
+              name="email"
+              onChange={handleChange}
+              value={application.email}
+              placeholder={
+                placeHoldersVisibility[2] ? "Enter your email address" : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[2] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
-            <Form.Control.Feedback type="invalid">
-              Please enter your email
-            </Form.Control.Feedback>
-          </Form.Group>
+            <label htmlFor="EmailInput" className="input-label">
+              <span className="label-name">Email Address</span>
+            </label>
+          </div>
           <Form.Group controlId="file">
-            <Form.Label>CV</Form.Label>
+            <Form.Label className="cv-description">CV</Form.Label>
             <Form.Control
               required
               name="cv"
               onChange={(e: any) => {
                 setCv(e.target.files[0]);
               }}
-              className="inputWidth"
+              className="cv-file-input"
               type="file"
-              placeholder="Enter your email"
             />
-            <Form.Control.Feedback type="invalid">
-              Please upload your CV
-            </Form.Control.Feedback>
           </Form.Group>
-          <br></br>
-          <Button className={shake ? "shake" : ""} type="submit">
+          <div className="form-group form-check"></div>
+          <button
+            type="submit"
+            className={
+              shake ? "shake" : "gradient-button submit-button btn btn-primary"
+            }
+            onClick={() => {
+              const { firstName, lastName, email } = application;
+              if (
+                checkFormValidity({ firstName, lastName, email, cv }) === false
+              ) {
+                startShake();
+              }
+            }}
+          >
             Apply
-          </Button>
-        </Form>
+          </button>
+        </form>
         <AlertModal
           show={alertModalShow}
           onHide={() => {
