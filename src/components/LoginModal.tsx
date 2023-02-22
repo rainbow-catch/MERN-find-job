@@ -13,6 +13,9 @@ function LoginModal(props: any) {
   const [headerMessage, setHeaderMessage] = useState("");
   const [alertModalShow, setAlertModalShow] = useState(false);
   const [shake, setShake] = useState(false);
+  const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
+    boolean[]
+  >([]);
 
   const startShake = () => {
     setShake(true);
@@ -72,6 +75,19 @@ function LoginModal(props: any) {
               name="EmailInput"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
+              placeholder={
+                placeHoldersVisibility[0]
+                  ? "Enter your company email address"
+                  : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[0] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
             <label htmlFor="EmailInput" className="input-label">
               <span className="label-name">Email Address</span>
@@ -85,6 +101,17 @@ function LoginModal(props: any) {
               className="form-input"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
+              placeholder={
+                placeHoldersVisibility[1] ? "Enter your password" : ""
+              }
+              onFocus={() => {
+                const newArr = [...placeHoldersVisibility];
+                newArr[1] = true;
+                setPlaceHoldersVisibility(newArr);
+              }}
+              onBlur={() => {
+                setPlaceHoldersVisibility([]);
+              }}
             />
             <label htmlFor="PasswordInput" className="input-label">
               <span className="label-name">Password</span>
