@@ -104,7 +104,7 @@ function AddOfferModal(props: any) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form id="addofferform" onSubmit={createOffer}>
+          <form id="add-offer-form" onSubmit={createOffer}>
             {loggedAsAdmin ? (
               <div className="form-section">
                 <input

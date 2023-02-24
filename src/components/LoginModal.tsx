@@ -64,7 +64,7 @@ function LoginModal(props: any) {
         <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form id="loginform" onSubmit={loginSubmit}>
+        <form id="login-form" onSubmit={loginSubmit}>
           <div className="form-section">
             <input
               required

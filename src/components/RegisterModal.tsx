@@ -65,7 +65,7 @@ function RegisterModal(props: any) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form id="registerform" onSubmit={registerSubmit}>
+        <form id="register-form" onSubmit={registerSubmit}>
           <div className="form-section">
             <input
               required

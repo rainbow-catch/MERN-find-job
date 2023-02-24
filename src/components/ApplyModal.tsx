@@ -137,7 +137,7 @@ function ApplyModal(props: any) {
             </div>
           </div>
         </section>
-        <form id="applyform" onSubmit={sendApplication}>
+        <form id="apply-form" onSubmit={sendApplication}>
           <div className="form-section">
             <input
               required
