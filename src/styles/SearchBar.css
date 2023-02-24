@@ -8,16 +8,14 @@
 
 #searchBar {
   height: 45px;
-  padding: 7px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding: 7px 50px;
   background-color: whitesmoke;
   min-width: 450px;
   border-radius: 10px;
   display: flex;
   gap: 30px;
   align-items: center;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 #searchInput {
