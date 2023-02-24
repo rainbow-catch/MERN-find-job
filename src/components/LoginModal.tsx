@@ -124,7 +124,7 @@ function LoginModal(props: any) {
               shake ? "shake" : "gradient-button submit-button btn btn-primary"
             }
             onClick={() => {
-              if (checkFormValidity({ email, password }) === false) {
+              if (!checkFormValidity({email, password})) {
                 startShake();
               }
             }}

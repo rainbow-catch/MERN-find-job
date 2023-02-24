@@ -433,7 +433,7 @@ function AddOfferModal(props: any) {
               }
               onClick={() => {
                 if (
-                  checkFormValidity({
+                  !checkFormValidity({
                     company_name: offer.company_name,
                     days_ago: offer.days_ago,
                     contract_types: offer.contract_types,
@@ -448,7 +448,7 @@ function AddOfferModal(props: any) {
                     description: offer.description,
                     about_us: offer.about_us,
                     logo: offer.logo,
-                  }) === false
+                  })
                 ) {
                   startShake();
                 }

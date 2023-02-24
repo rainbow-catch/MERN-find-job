@@ -233,7 +233,7 @@ function ApplyModal(props: any) {
             onClick={() => {
               const { firstName, lastName, email } = application;
               if (
-                checkFormValidity({ firstName, lastName, email, cv }) === false
+                !checkFormValidity({firstName, lastName, email, cv})
               ) {
                 startShake();
               }

@@ -21,7 +21,7 @@ const ShowApplicationsModal = (props: any) => {
     applications.forEach((application) => {
       if (
         application.company_name === loggedCompany ||
-        loggedAsAdmin === true
+        loggedAsAdmin
       ) {
         newArr.push(application);
       }

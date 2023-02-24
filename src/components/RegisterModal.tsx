@@ -176,8 +176,7 @@ function RegisterModal(props: any) {
             }
             onClick={() => {
               if (
-                checkFormValidity({ email, password, companyName, logo }) ===
-                false
+                !checkFormValidity({email, password, companyName, logo})
               ) {
                 startShake();
               }
