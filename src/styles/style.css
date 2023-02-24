@@ -65,6 +65,7 @@ hr {
   border: #1b1b1b87 0.5px solid;
   opacity: 1;
 }
+
 .icon {
   height: 67px;
   width: 67px;
@@ -103,7 +104,7 @@ button.shake {
   margin-bottom: 2px;
 }
 
-.gradient-button{
+.gradient-button {
   background-size: 155% 100%;
   background-image: linear-gradient(to left, #5a75a2, #414258);
   color: whitesmoke;
@@ -113,6 +114,20 @@ button.shake {
 
 .gradient-button:hover {
   background-position: 100% 0;
+}
+
+.shake {
+  border-radius: 0.375rem;
+  background-size: 155% 100%;
+  background-image: linear-gradient(to right, #9e0d3d, #c41b1b);
+  color: whitesmoke;
+  border: solid 1px transparent;
+  transition: all .3s ease-in-out;
+  font-size: 20px;
+  width: 50%;
+  margin-top: 25px;
+  padding: 8.25px;
+  margin-bottom: 2px;
 }
 
 @keyframes shake {

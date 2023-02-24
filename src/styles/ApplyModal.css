@@ -126,18 +126,3 @@
   color: whitesmoke;
   padding: 5px;
 }
-
-.shake{
-  border-radius: 0.375rem;
-  background-size: 155% 100%;
-  background-image: linear-gradient(to right, #9e0d3d, #c41b1b);
-  color: whitesmoke;
-  border: solid 1px transparent;
-  transition: all .3s ease-in-out;
-  font-size: 20px;
-  width: 50%;
-  margin-top: 25px;
-  color: whitesmoke;
-  padding: 8.25px;
-  margin-bottom: 2px;
-}
