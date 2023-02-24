@@ -1,10 +1,10 @@
 import "../styles/style.css";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { Fade } from "react-reveal";
+import {Fade} from "react-reveal";
 import ApplyModal from "./ApplyModal";
 import RemoveOfferModal from "./RemoveOfferModal";
-import { DisplayOffer } from "../types/DisplayOffer";
+import {DisplayOffer} from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
 
@@ -396,7 +396,7 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
       <div className="jobBar">
         {loading ? (
           <div id="loadingDiv">
-            <Spinner animation="border" />
+            <Spinner animation="border" variant="light"/>
             <p id="loadingParagraph">Loading job offers...</p>
           </div>
         ) : (
