@@ -37,7 +37,7 @@ function RegisterModal(props: any) {
         if (res.data.status === "ok") {
           setHeaderMessage("Registration request sent!");
           setMessage(
-            `Successfully sended registration request. \n Wait for reply`
+            `Successfully sent registration request. \n Wait for reply`
           );
           setEmail("");
           setPassword("");
