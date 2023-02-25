@@ -95,7 +95,6 @@ const Application = mongoose.model(
 
 app.listen(port, () => {
   console.log(`server started at ${port}!`);
-  console.log('test');
 });
 
 app.get("/", (req, res) => {
