@@ -47,5 +47,13 @@ _If you want to run app locally_
 - Enjoy! 🎉
 
 ## Presentation
-![Screenshot1](#)
+
+![Screenshot1](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/1.png)
+![Screenshot2](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/2.png)
+![Screenshot3](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/3.png)
+![Screenshot4](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/4.png)
+![Screenshot5](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/5.png)
+![Screenshot6](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/6.png)
+![Screenshot7](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/7.png)
+
 
