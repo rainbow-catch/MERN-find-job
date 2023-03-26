@@ -1,4 +1,4 @@
-# Job Search application
+# Job Search Application
 
 ---
 
