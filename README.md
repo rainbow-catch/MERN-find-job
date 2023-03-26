@@ -1,3 +1,5 @@
-# Job search
+# Job Search application
 
-Project in progress
+---
+
+_Job search application created in MERN stack._
