@@ -10,6 +10,7 @@ app.set("view engine", "ejs");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+const csvtojson = require("csvtojson");
 mongoose.connect(url);
 //const bcrypt = require("bcryptjs");
 
@@ -93,8 +94,42 @@ const Application = mongoose.model(
   "applications"
 );
 
+const clearDatabase = () => {
+  dbModel.deleteMany({}).then(() => {
+    console.log("deleted all offers");
+  });
+  const csvFilePath = "csv/offersv3Format.csv";
+  csvtojson()
+    .fromFile(csvFilePath)
+    .then((jsonObj) => {
+      jsonObj.forEach((el) => {
+        const offerToAdd = new dbModel({
+          id_: el.id,
+          company_name: el.company_name,
+          days_ago: el.days_ago,
+          contract_types: el.contract_types,
+          country: el.country,
+          ad_content: el.ad_content,
+          job_type: el.job_type,
+          seniority: el.seniority,
+          technology_1: el.technology_1,
+          technology_2: el.technology_2,
+          technology_3: el.technology_3,
+          salary: el.salary,
+          description: el.description,
+          about_us: el.about_us,
+          logo: el.logo,
+        });
+        offerToAdd
+          .save()
+          .catch((err) => console.log(err));
+      });
+    });
+};
+
 app.listen(port, () => {
   console.log(`server started at ${port}!`);
+  clearDatabase();
 });
 
 app.get("/", (req, res) => {
