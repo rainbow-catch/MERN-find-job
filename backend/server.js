@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { ObjectId } = require("mongodb");
 const url =
   "mongodb+srv://readwrite:<password>@cluster0.viapohm.mongodb.net/job-search?retryWrites=true&w=majority";
 const port = process.env.PORT || 8888;
@@ -13,84 +12,22 @@ app.use(express.urlencoded({ extended: false }));
 const csvtojson = require("csvtojson");
 mongoose.connect(url);
 //const bcrypt = require("bcryptjs");
+const dbSchemas = require("./schemas/schemas");
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "wedddrftwefe3425gtwvr31f254gvtweqr23d41f2g4v";
 
-const dbSchema = {
-  id_: ObjectId,
-  company_name: String,
-  days_ago: String,
-  contract_types: String,
-  country: String,
-  ad_content: String,
-  job_type: String,
-  seniority: String,
-  technology_1: String,
-  technology_2: String,
-  technology_3: String,
-  salary: String,
-  description: String,
-  about_us: String,
-  logo: String,
-};
-
-const offerSchema = {
-  company_name: String,
-  days_ago: String,
-  contract_types: String,
-  country: String,
-  ad_content: String,
-  job_type: String,
-  seniority: String,
-  technology_1: String,
-  technology_2: String,
-  technology_3: String,
-  salary: String,
-  description: String,
-  about_us: String,
-  logo: String,
-};
-
-const userSchema = {
-  id_: ObjectId,
-  email: String,
-  password: String,
-  company_name: String,
-  logo: String,
-};
-const registrationRequestSchema = {
-  id_: ObjectId,
-  email: String,
-  password: String,
-  company_name: String,
-  logo: String,
-};
-
-const applicationSchema = {
-  id_: ObjectId,
-  firstName: String,
-  lastName: String,
-  email: String,
-  cv: String,
-  company_name: String,
-  ad_content: String,
-  logo: String,
-  seniority: String,
-  technologies: String,
-};
-
-const dbModel = mongoose.model("dbModel", dbSchema, "offers");
-const userModel = mongoose.model("userModel", userSchema, "users");
-const Offer = mongoose.model("Offer", offerSchema, "offers");
+const dbModel = mongoose.model("dbModel", dbSchemas.dbSchema, "offers");
+const userModel = mongoose.model("userModel", dbSchemas.userSchema, "users");
+const Offer = mongoose.model("Offer", dbSchemas.offerSchema, "offers");
 const registrationRequestModel = mongoose.model(
   "registrationRequestModel",
-  registrationRequestSchema,
+  dbSchemas.registrationRequestSchema,
   "registrationRequests"
 );
 const ApplicationModel = mongoose.model(
   "Application",
-  applicationSchema,
+  dbSchemas.applicationSchema,
   "applications"
 );
 
