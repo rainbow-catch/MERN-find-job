@@ -88,7 +88,7 @@ const registrationRequestModel = mongoose.model(
   registrationRequestSchema,
   "registrationRequests"
 );
-const Application = mongoose.model(
+const ApplicationModel = mongoose.model(
   "Application",
   applicationSchema,
   "applications"
@@ -151,7 +151,7 @@ app.get("/sendToFront", (req, res) => {
 });
 
 app.get("/getApplications", (req, res) => {
-  Application.find({})
+  ApplicationModel.find({})
     .then((items) => res.json(items))
     .catch((err) => console.log(err));
 });
@@ -237,7 +237,7 @@ app.post("/create", (req, res) => {
 });
 
 app.post("/sendApplication", (req, res) => {
-  const newApplication = new Application({
+  const newApplication = new ApplicationModel({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
