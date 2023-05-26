@@ -44,7 +44,7 @@ function AddOfferModal(props: any) {
         logo: loggedCompanyLogo,
       };
     });
-  }, [props]);
+  }, [props, loggedCompany,loggedCompanyLogo]);
 
   const [message, setMessage] = useState("Successfully added new job offer!");
   const [headerMessage] = useState("Successfully added job offer!");
