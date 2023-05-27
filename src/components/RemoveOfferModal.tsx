@@ -4,6 +4,7 @@ import { Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 
 const RemoveOfferModal = (props:any) => {
   const [message, setMessage] = useState(
@@ -17,11 +18,11 @@ const RemoveOfferModal = (props:any) => {
   const removeOffer = (id:any) => {
     console.log(id);
     axios
-      .get(`http://localhost:8888/removeOffer/${id}`)
+      .get(axiosUrls.removeOfferUrl(id))
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     axios
-      .delete(`http://localhost:8888/removeOffer/${id}`)
+      .delete(axiosUrls.removeOfferUrl(id))
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     setTimeout(() => {

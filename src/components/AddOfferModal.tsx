@@ -6,6 +6,7 @@ import "../styles/style.css";
 import "../styles/AddOfferModal.css";
 import { Offer } from "../types/Offer";
 import { checkFormValidity } from "../functions/checkFormValidity";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 function AddOfferModal(props: any) {
   const loggedAsAdmin = props.loggedasadmin;
   const loggedCompany = props.loggedcompany;
@@ -53,7 +54,7 @@ function AddOfferModal(props: any) {
   const createOffer = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8888/create", offer)
+      .post(axiosUrls.createOfferUrl, offer)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     if (offer) {

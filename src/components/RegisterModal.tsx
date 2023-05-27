@@ -5,6 +5,7 @@ import "../styles/style.css";
 import "../styles/RegisterModal.css";
 import axios from "axios";
 import { checkFormValidity } from "../functions/checkFormValidity";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 
 function RegisterModal(props: any) {
   const [password, setPassword] = useState("");
@@ -27,7 +28,7 @@ function RegisterModal(props: any) {
   const registerSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8888/register", {
+      .post(axiosUrls.registerUrl, {
         email,
         password,
         companyName,

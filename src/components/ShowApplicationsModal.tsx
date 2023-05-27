@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "../styles/style.css";
 import { Application } from "../types/Application";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 
 const ShowApplicationsModal = (props: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
@@ -11,7 +12,7 @@ const ShowApplicationsModal = (props: any) => {
 
   //getting applications from db
   useEffect(() => {
-    axios.get("http://localhost:8888/getApplications").then((res) => {
+    axios.get(axiosUrls.getApplicationsUrl).then((res) => {
       setApplications(res.data);
     });
   }, []);

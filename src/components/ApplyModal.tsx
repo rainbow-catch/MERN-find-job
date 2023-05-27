@@ -9,6 +9,7 @@ import { renderSeniority } from "../functions/renderSeniority";
 import { Application } from "../types/Application";
 import { ApplyForm } from "../types/ApplyForm";
 import { checkFormValidity } from "../functions/checkFormValidity";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 
 function ApplyModal(props: any) {
   const [message, setMessage] = useState("Successfully applied new job offer!");
@@ -63,7 +64,7 @@ function ApplyModal(props: any) {
     data.append("upload_preset", "job-search");
     data.append("cloud_name", "dyqgdjrr1");
     axios
-      .post("https://api.cloudinary.com/v1_1/dyqgdjrr1/raw/upload", data)
+      .post(axiosUrls.cloudinaryApi, data)
       .then((res) => {
         const applicationToSend: Application = {
           _id: "",
@@ -78,7 +79,7 @@ function ApplyModal(props: any) {
           technologies: `${jobOfferForApply.technology_1}\n ${jobOfferForApply.technology_2}\n ${jobOfferForApply.technology_3}`,
         };
         axios
-          .post("http://localhost:8888/sendApplication", applicationToSend)
+          .post(axiosUrls.sendApplicationUrl, applicationToSend)
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
         setMessage(

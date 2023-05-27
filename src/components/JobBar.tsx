@@ -7,6 +7,7 @@ import RemoveOfferModal from "./RemoveOfferModal";
 import {DisplayOffer} from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 
 export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmin}: any) {
   //dbSchema
@@ -373,7 +374,7 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
 
   //getting data from node.js server
   useEffect(() => {
-    axios.get("http://localhost:8888/sendToFront").then((res) => {
+    axios.get(axiosUrls.getOffersUrl).then((res) => {
       setJobs(res.data);
       setLoading(false);
     });

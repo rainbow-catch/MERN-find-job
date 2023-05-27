@@ -5,6 +5,7 @@ import "../styles/style.css";
 import "../styles/LoginModal.css";
 import axios from "axios";
 import { checkFormValidity } from "../functions/checkFormValidity";
+import { axiosUrls } from "../axiosUrls/axiosUrls";
 
 function LoginModal(props: any) {
   const [password, setPassword] = useState("");
@@ -25,7 +26,7 @@ function LoginModal(props: any) {
   const loginSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8888/login", { email, password })
+      .post(axiosUrls.loginUrl, { email, password })
       .then((res) => {
         if (res.data.status === "ok") {
           setHeaderMessage("Logged in!");
