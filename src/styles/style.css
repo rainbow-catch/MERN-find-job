@@ -153,3 +153,16 @@ button.shake {
     transform: translate3d(4px, 0, 0);
   }
 }
+
+@media only screen and (max-width: 420px) {
+  html {
+    zoom: 88%;
+  }
+
+}
+
+@media only screen and (hover: none) and (pointer: coarse) {
+  body {
+    margin-bottom: 190px;
+  }
+}

@@ -7,7 +7,7 @@
 }
 
 .jobBar {
-  margin: 0 40px 40px;
+  margin: 0 5px 0 5px;
   background-image:
   linear-gradient(to top, #283647, #3e5067);
   padding: 35px 50px 20px;
@@ -104,4 +104,14 @@
   height: 67px;
   width: 67px;
   border-radius: 12px;
+}
+
+@media only screen and (max-width: 420px){
+  .jobBar {
+    padding: 25px 35px 25px;
+    min-width: 300px;
+  }
+  .jobBarElement {
+    padding: 17px;
+  }
 }

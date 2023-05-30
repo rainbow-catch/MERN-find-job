@@ -42,7 +42,7 @@ export default function SearchBarWithJobBar({
                 placeholder="Search"
               ></input>
               <button id="searchButton">🔍</button>
-              <div id="searchTagsDiv">
+              <div id={searchTags.length===0 ? 'searchTagsDiv' : 'searchTagsDivWithTags'}>
                 {searchTags.length !== 0 ? (
                   searchTags.map((tag: any, index: any) => {
                     return !tag.hoverState ? (

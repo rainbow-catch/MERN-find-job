@@ -22,12 +22,16 @@
   margin-left: 5px;
   height: 24px;
 }
+#searchInput:focus{
+  outline: #213349 1px solid;
+}
 
 #searchButton {
   margin-left: -20px;
 }
 
-#searchTagsDiv {
+#searchTagsDiv,
+#searchTagsDivWithTags {
   display: flex;
   gap: 10px;
 }
@@ -49,4 +53,28 @@
 
 .searchTagWithDelete:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 420px) {
+  #searchBar {
+    height: 35px;
+    padding: 4px 40px;
+    min-width: 354px;
+  }
+  #searchInput {
+    margin-left: 0px;
+    height: 18px;
+  }
+  #searchButton {
+    zoom: 90%;
+  }
+  #searchTagsDivWithTags {
+    position: absolute;
+    top: 49px;
+    left: 15px;
+    background-color: #2836475a;
+    padding: 5px;
+    border-radius: 5px;
+    gap: 12px;
+  }
 }

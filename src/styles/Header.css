@@ -104,3 +104,26 @@
     font-size: 1.72vw;
   }
 }
+
+@media only screen and (max-width: 420px){
+  .jobSearchLogo {
+    height: 55px;
+  }
+  #headerTextDiv{
+    height: 90px;
+  }
+  #headerTextDiv h2{
+    font-size: 27px !important;
+  }
+  .loggedUserInfoText {
+    font-size: 11px;
+    margin-top: -40px;
+  }
+  .headerButton {
+    margin-right: -10px;
+    margin-left: 10px;
+    height: 25px;
+    font-size: 13px;
+    padding: 3px;
+  }
+}
