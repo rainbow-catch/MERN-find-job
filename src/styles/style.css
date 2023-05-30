@@ -159,10 +159,14 @@ button.shake {
     zoom: 88%;
   }
 
+  .placeholderText {
+    opacity: 0.5;
+    font-size: 11px;
+  }
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {
   body {
-    margin-bottom: 190px;
+    margin-bottom: 120px;
   }
 }
