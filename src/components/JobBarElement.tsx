@@ -4,15 +4,17 @@ import { Fade } from "react-reveal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { renderTime } from "../functions/renderTime";
 import { DisplayOffer } from "../types/DisplayOffer";
+import { JobsContextType } from "../types/JobsContextType";
+import { useContext } from "react";
+import { JobsContext } from "../contexts/JobsContext";
 export default function JobBarElement({
   job,
-  jobs,
-  setjobs,
   setapplymodalshow,
   setjobofferforapply,
   setremoveoffermodalshow,
   loggeduser,
 }: any) {
+  const { jobs, overwriteJobs }: JobsContextType = useContext(JobsContext);
   return (
     <div
       key={job.id_}
@@ -24,7 +26,7 @@ export default function JobBarElement({
         );
         if (newJob) {
           newJob.isDescriptionVisible = true;
-          setjobs([...newJobs]);
+          overwriteJobs([...newJobs]);
         }
       }}
     >
