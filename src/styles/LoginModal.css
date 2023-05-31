@@ -85,3 +85,9 @@
   color: whitesmoke;
   padding: 5px;
 }
+
+@media only screen and (max-width: 420px){
+  #login-form {
+    padding: 0px 40px 10px 0px;
+  }
+}

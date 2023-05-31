@@ -114,4 +114,8 @@
   .jobBarElement {
     padding: 17px;
   }
+  .applyButton {
+    padding: 1px 12px 1px 12px;
+    border-radius: 6px;
+  }
 }

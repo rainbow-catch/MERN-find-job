@@ -126,3 +126,35 @@
   color: whitesmoke;
   padding: 5px;
 }
+
+@media only screen and (max-width: 420px){
+  #contained-modal-title-vcenter{
+    font-size: 18px;
+  }
+  .apply-header{
+    gap: 20px;
+  }
+  .apply-header-logo{
+    height: 95px;
+  }
+  #apply-form {
+    box-sizing: border-box !important;
+    height: 420px;
+    width: 440px;
+    padding: 5px 60px 30px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .form-input{
+    font-size: 18px;
+    width: 300px;
+    height: 100%;
+    padding-top: 32px;
+    padding-left: 2px;
+    padding-bottom: 5px;
+    border: none;
+    outline: none;
+  }
+}
