@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -7,10 +7,14 @@ import "../styles/AddOfferModal.css";
 import { Offer } from "../types/Offer";
 import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import { JobsContextType } from "../types/JobsContextType";
+import { JobsContext } from "../contexts/JobsContext";
 function AddOfferModal(props: any) {
   const loggedAsAdmin = props.loggedasadmin;
   const loggedCompany = props.loggedcompany;
   const loggedCompanyLogo = props.loggedcompanylogo;
+
+  const { addJob }: JobsContextType = useContext(JobsContext);
   const [offer, setOffer] = useState<Offer>({
     company_name: "",
     days_ago: "",
@@ -77,6 +81,7 @@ function AddOfferModal(props: any) {
         about_us: "",
         logo: "",
       });
+      addJob(offer);
     }
   };
 

@@ -1,5 +1,5 @@
 import "../styles/style.css";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Spinner from "react-bootstrap/Spinner";
 import {Fade} from "react-reveal";
 import ApplyModal from "./ApplyModal";
@@ -8,10 +8,13 @@ import {DisplayOffer} from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import { JobsContext } from "../contexts/JobsContext";
+import { JobsContextType } from "../types/JobsContextType";
 
 export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmin}: any) {
   //dbSchema
-  const [jobs, setJobs] = useState<DisplayOffer[]>([]);
+  //const [jobs, setJobs] = useState<DisplayOffer[]>([]);
+  const { jobs, overwriteJobs }: JobsContextType = useContext(JobsContext);
 
   //applyModalState
   const [applyModalShow, setApplyModalShow] = useState(false);
@@ -375,10 +378,10 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
   //getting data from node.js server
   useEffect(() => {
     axios.get(axiosUrls.getOffersUrl).then((res) => {
-      setJobs(res.data);
+      overwriteJobs(res.data);
       setLoading(false);
     });
-    setLoading(true);
+    setLoading(true);// eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -388,7 +391,7 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
       job.isDescriptionVisible = false;
       job.frontendId = index;
     });
-    setJobs(newJobs);
+    overwriteJobs(newJobs);// eslint-disable-next-line
   }, [jobs]);
 
   //database output to frontend
@@ -406,8 +409,6 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
               <Fade key={index} duration={700}>
                 <JobBarElement
                   job={job}
-                  jobs={jobs}
-                  setjobs={setJobs}
                   setapplymodalshow={setApplyModalShow}
                   setjobofferforapply={setJobOfferForApply}
                   setremoveoffermodalshow={setRemoveOfferModalShow}

@@ -17,7 +17,8 @@ _Job search application created in MERN stack._
 - Admin account can delete all offers, browse all applications, add offers on behalf of other companies 👨🏼‍💻
 
 ### Live Link:
-[Coming soon](#)
+[Coming soon](https://jobsearchmern.netlify.app/)
+_You have to wait for the backend server to start up, because it runs on free hosting and shuts down after not being used for a while._
 
 ### Future Plans:
 - Add sorting jobs
