@@ -14,8 +14,13 @@ export function JobsProvider({ children }: any) {
     setJobs((prevState) => [...prevState, job]);
   };
 
+  const removeJob = (id: string) => {
+    const offerToRemove = jobs.find((item) => item._id === id);
+    setJobs(jobs.filter((item) => item !== offerToRemove));
+  };
+
   return (
-    <JobsContext.Provider value={{ jobs, overwriteJobs, addJob }}>
+    <JobsContext.Provider value={{ jobs, overwriteJobs, addJob, removeJob }}>
       {children}
     </JobsContext.Provider>
   );
