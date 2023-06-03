@@ -36,6 +36,29 @@ _You have to wait for the backend server to start up, because it runs on free ho
 ### External APIs:
 - [Cloudinary](https://cloudinary.com/)
 
+### Company account login details
+
+|email                              |password|company_name               |
+|-----------------------------------|--------|---------------------------|
+|admin@admin.com                    |admin   |(admin)                      |
+|andertonlabequipment@gmail.com     |hlestbdq|Anderton Lab Equipment Ltd |
+|learfinishing@gmail.com            |bsjnakov|Lear Finishing Ltd         |
+|leonardkitchens@gmail.com          |vublcrcz|Leonard Kitchens Ltd       |
+|ingramautomotive@gmail.com         |jrcioqfb|Ingram Automotive Ltd      |
+|holmesvideoservices@gmail.com      |aywfptta|Holmes Video Services Ltd  |
+|finehirecars@gmail.com             |htgipurq|Fine Hire Cars Ltd         |
+|ogradyexhibitions@gmail.com        |bnfpxutw|O'Grady Exhibitions        |
+|yorkecycles@gmail.com              |qpvqjekq|Yorke Cycles               |
+|riversidetransport@gmail.com       |lvnoigay|Riverside Transport        |
+|dimblebyrefrigeration@gmail.com    |sxuzkxvj|Dimbleby Refrigeration     |
+|saddlemoreofficefurniture@gmail.com|ggmihbpp|Saddlemore Office Furniture|
+|diamondphotography@gmail.com       |elkunats|Diamond Photography        |
+|suttonbuilders@gmail.com           |zwxwuhtd|Sutton Builders            |
+|experttechnologies@gmail.com       |oshurdcp|Expert Technologies        |
+|ingemanworkshops@gmail.com         |mtrjvmjx|Ingeman Workshops          |
+|silverfabrics@gmail.com           |fjtzojj |Silver Fabrics             |
+
+
 ### Installation
 _If you want to run app locally_
 - Clone or download repository
