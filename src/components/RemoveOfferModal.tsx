@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import { JobsContextType } from "../types/JobsContextType";
+import { JobsContext } from "../contexts/JobsContext";
 
-const RemoveOfferModal = (props:any) => {
+const RemoveOfferModal = (props: any) => {
+  const { removeJob }: JobsContextType = useContext(JobsContext);
   const [message, setMessage] = useState(
     "This offer doesn't belong to your company"
   );
@@ -15,7 +18,7 @@ const RemoveOfferModal = (props:any) => {
   );
   const [alertModalShow, setAlertModalShow] = useState(false);
 
-  const removeOffer = (id:any) => {
+  const removeOffer = (id: string) => {
     console.log(id);
     axios
       .get(axiosUrls.removeOfferUrl(id))
@@ -25,9 +28,7 @@ const RemoveOfferModal = (props:any) => {
       .delete(axiosUrls.removeOfferUrl(id))
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    setTimeout(() => {
-      window.location.reload();
-    }, 4500);
+    removeJob(id);
   };
 
   return (
@@ -41,7 +42,7 @@ const RemoveOfferModal = (props:any) => {
         <div>
           <Alert variant="danger" onClose={() => props.onHide()} dismissible>
             <Alert.Heading>
-              You are going to remove {props.removingJobOffer.ad_content} offer
+              You are going to remove {props.removingjoboffer.ad_content} offer
             </Alert.Heading>
             <p>When you click Remove button, the offer will be removed.</p>
             <p> This action is irreversible</p>
@@ -51,15 +52,15 @@ const RemoveOfferModal = (props:any) => {
           className="btn btn-danger"
           onClick={() => {
             if (
-              props.removingJobOffer.company_name === props.loggedUser ||
+              props.removingjoboffer.company_name === props.loggedUser ||
               props.loggedAsAdmin === true
             ) {
               setHeaderMessage("Successfully deleted job offer");
-              setMessage("Wait for page refresh...");
+              setMessage(
+                `${props.removingjoboffer.ad_content} offer has been removed`
+              );
               setAlertModalShow(true);
-              setTimeout(() => {
-                removeOffer(props.removingJobOffer._id);
-              }, 4000);
+              removeOffer(props.removingjoboffer._id);
             } else {
               setHeaderMessage("You can't remove this offer");
               setMessage("This offer doesn't belong to your company");

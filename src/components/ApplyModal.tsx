@@ -16,7 +16,7 @@ function ApplyModal(props: any) {
   const [headerMessage] = useState("You've applied for a job offer!");
   const [alertModalShow, setAlertModalShow] = useState(false);
   const [jobOfferForApply, setJobOfferForApply] = useState<DisplayOffer>({
-    id_: "string",
+    _id: "string",
     company_name: "string",
     days_ago: "string",
     contract_types: "string",
