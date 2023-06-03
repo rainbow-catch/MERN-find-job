@@ -24,7 +24,7 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
 
   //job offer applied for
   const [jobOfferForApply, setJobOfferForApply] = useState<DisplayOffer>({
-    id_: "string",
+    _id: "string",
     company_name: "string",
     days_ago: "string",
     contract_types: "string",
@@ -429,7 +429,7 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
         loggedUser={loggedUser}
         show={removeOfferModalShow}
         onHide={() => setRemoveOfferModalShow(false)}
-        removingJobOffer={jobOfferForApply}
+        removingjoboffer={jobOfferForApply}
       ></RemoveOfferModal>
     </div>
   );

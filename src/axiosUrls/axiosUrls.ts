@@ -14,7 +14,7 @@ export const axiosUrls = {
   getOffersUrl: `${serverUrl}/sendToFront`,
   loginUrl: `${serverUrl}/login`,
   registerUrl: `${serverUrl}/register`,
-  removeOfferUrl: (id: number) => {
+  removeOfferUrl: (id: string) => {
     return `${serverUrl}/removeOffer/${id}`;
   },
   getApplicationsUrl: `${serverUrl}/getApplications`,
