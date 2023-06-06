@@ -32,11 +32,11 @@ const ApplicationModel = mongoose.model(
 );
 
 const clearDatabase = () => {
-  const csvFilePath = "csv/offersv3Format.csv";
+  const offersCsvFilePath = "csv/offersv3Format.csv";
   dbModel.deleteMany({}).then(() => {
     console.log("deleted all offers");
     csvtojson()
-      .fromFile(csvFilePath)
+      .fromFile(offersCsvFilePath)
       .then((jsonObj) => {
         jsonObj.forEach((el) => {
           const offerToAdd = new dbModel({
@@ -59,7 +59,7 @@ const clearDatabase = () => {
           offerToAdd.save().catch((err) => console.log(err));
         });
       })
-      .then(() => console.log("database has been renewed"));
+      .then(() => console.log("offers has been renewed"));
   });
 };
 
