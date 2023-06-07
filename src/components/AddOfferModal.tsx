@@ -9,6 +9,7 @@ import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { JobsContextType } from "../types/JobsContextType";
 import { JobsContext } from "../contexts/JobsContext";
+
 function AddOfferModal(props: any) {
   const loggedAsAdmin = props.loggedasadmin;
   const loggedCompany = props.loggedcompany;
@@ -49,7 +50,7 @@ function AddOfferModal(props: any) {
         logo: loggedCompanyLogo,
       };
     });
-  }, [props, loggedCompany,loggedCompanyLogo]);
+  }, [props, loggedCompany, loggedCompanyLogo]);
 
   const [message, setMessage] = useState("Successfully added new job offer!");
   const [headerMessage] = useState("Successfully added job offer!");
@@ -373,37 +374,70 @@ function AddOfferModal(props: any) {
                 <span className="label-name">Localization</span>
               </label>
             </div>
-            <div className="form-section">
-              <input
-                required
-                disabled
-                type="text"
-                className={
-                  offer.logo === ""
-                    ? "form-input"
-                    : "form-input form-input-filled"
-                }
-                name="logo"
-                onChange={handleChange}
-                value={offer.logo}
-                placeholder={
-                  placeHoldersVisibility[9]
-                    ? "e.g. https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                    : ""
-                }
-                onFocus={() => {
-                  const newArr = [...placeHoldersVisibility];
-                  newArr[9] = true;
-                  setPlaceHoldersVisibility(newArr);
-                }}
-                onBlur={() => {
-                  setPlaceHoldersVisibility([]);
-                }}
-              />
-              <label htmlFor="logo" className="input-label">
-                <span className="label-name">Company image logo link</span>
-              </label>
-            </div>
+            {loggedAsAdmin ? (
+              <div className="form-section">
+                <input
+                  required
+                  type="url"
+                  className={
+                    offer.logo === ""
+                      ? "form-input"
+                      : "form-input form-input-filled"
+                  }
+                  name="logo"
+                  onChange={handleChange}
+                  value={offer.logo}
+                  placeholder={
+                    placeHoldersVisibility[9]
+                      ? "e.g. https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                      : ""
+                  }
+                  onFocus={() => {
+                    const newArr = [...placeHoldersVisibility];
+                    newArr[9] = true;
+                    setPlaceHoldersVisibility(newArr);
+                  }}
+                  onBlur={() => {
+                    setPlaceHoldersVisibility([]);
+                  }}
+                />
+                <label htmlFor="logo" className="input-label">
+                  <span className="label-name">Company image logo link</span>
+                </label>
+              </div>
+            ) : (
+              <div className="form-section">
+                <input
+                  required
+                  disabled
+                  type="text"
+                  className={
+                    offer.logo === ""
+                      ? "form-input"
+                      : "form-input form-input-filled"
+                  }
+                  name="logo"
+                  onChange={handleChange}
+                  value={offer.logo}
+                  placeholder={
+                    placeHoldersVisibility[9]
+                      ? "e.g. https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                      : ""
+                  }
+                  onFocus={() => {
+                    const newArr = [...placeHoldersVisibility];
+                    newArr[9] = true;
+                    setPlaceHoldersVisibility(newArr);
+                  }}
+                  onBlur={() => {
+                    setPlaceHoldersVisibility([]);
+                  }}
+                />
+                <label htmlFor="logo" className="input-label">
+                  <span className="label-name">Company image logo link</span>
+                </label>
+              </div>
+            )}
             <div className="form-section" id="form-section-textarea">
               <label className="form-select-label">Description</label>
               <textarea
@@ -478,4 +512,5 @@ function AddOfferModal(props: any) {
     </>
   );
 }
+
 export default AddOfferModal;
