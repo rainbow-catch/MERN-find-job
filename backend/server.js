@@ -32,11 +32,12 @@ const ApplicationModel = mongoose.model(
 );
 
 const clearDatabase = () => {
-  const csvFilePath = "csv/offersv3Format.csv";
+  const offersCsvFilePath = "csv/offersv3Format.csv";
+  const applicationsCsvFilePath = "csv/applications.csv";
   dbModel.deleteMany({}).then(() => {
     console.log("deleted all offers");
     csvtojson()
-      .fromFile(csvFilePath)
+      .fromFile(offersCsvFilePath)
       .then((jsonObj) => {
         jsonObj.forEach((el) => {
           const offerToAdd = new dbModel({
@@ -59,8 +60,35 @@ const clearDatabase = () => {
           offerToAdd.save().catch((err) => console.log(err));
         });
       })
-      .then(() => console.log("database has been renewed"));
+      .then(() => console.log("offers has been renewed"));
   });
+  ApplicationModel.deleteMany({})
+    .then(() => {
+      console.log("deleted all applications");
+      csvtojson()
+        .fromFile(applicationsCsvFilePath)
+        .then((jsonObj) => {
+          jsonObj.forEach((el) => {
+            const applicationToAdd = new ApplicationModel({
+              id_: el.id_,
+              firstName: el.firstName,
+              lastName: el.lastName,
+              email: el.email,
+              cv: el.cv,
+              company_name: el.company_name,
+              ad_content: el.ad_content,
+              logo: el.logo,
+              seniority: el.seniority,
+              technologies: el.technologies,
+            });
+            applicationToAdd.save().catch((err) => console.log(err));
+          });
+        });
+    })
+    .then(() => console.log("applications has been renewed"))
+    .then(() => {
+      console.log("Database has been renewed!");
+    });
 };
 
 app.listen(port, () => {
