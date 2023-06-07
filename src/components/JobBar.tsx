@@ -1,17 +1,22 @@
 import "../styles/style.css";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import {Fade} from "react-reveal";
+import { Fade } from "react-reveal";
 import ApplyModal from "./ApplyModal";
 import RemoveOfferModal from "./RemoveOfferModal";
-import {DisplayOffer} from "../types/DisplayOffer";
+import { DisplayOffer } from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { JobsContext } from "../contexts/JobsContext";
 import { JobsContextType } from "../types/JobsContextType";
 
-export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmin}: any) {
+export default function JobBar({
+  searchText,
+  searchTags,
+  loggedUser,
+  loggedAsAdmin,
+}: any) {
   //dbSchema
   //const [jobs, setJobs] = useState<DisplayOffer[]>([]);
   const { jobs, overwriteJobs }: JobsContextType = useContext(JobsContext);
@@ -367,21 +372,22 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
     }
     return result;
   };
-  const filteredJobs: DisplayOffer[] = filterJobs(
-    searchText,
-    searchTags
-  );
+  const filteredJobs: DisplayOffer[] = filterJobs(searchText, searchTags);
 
-  //loadingState for displaying loading gif
+  //loadingState for displaying loading spinner
   const [loading, setLoading] = useState(false);
-
+  const [loadingLongerThan5sec, setLoadingLongerThan5sec] = useState(false);
+  //TODO:
   //getting data from node.js server
   useEffect(() => {
     axios.get(axiosUrls.getOffersUrl).then((res) => {
       overwriteJobs(res.data);
       setLoading(false);
     });
-    setLoading(true);// eslint-disable-next-line
+    setTimeout(() => {
+      setLoadingLongerThan5sec(true);
+    }, 5000);
+    setLoading(true); // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -391,7 +397,7 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
       job.isDescriptionVisible = false;
       job.frontendId = index;
     });
-    overwriteJobs(newJobs);// eslint-disable-next-line
+    overwriteJobs(newJobs); // eslint-disable-next-line
   }, [jobs]);
 
   //database output to frontend
@@ -400,8 +406,17 @@ export default function JobBar({searchText, searchTags, loggedUser, loggedAsAdmi
       <div className="jobBar">
         {loading ? (
           <div id="loadingDiv">
-            <Spinner animation="border" variant="light"/>
-            <p id="loadingParagraph">Loading job offers...</p>
+            <Spinner animation="border" variant="light" />
+            <p className="loadingParagraph">Loading job offers...</p>
+            {loadingLongerThan5sec && (
+              <Fade bottom distance={"10px"} duration={1000}>
+                <p className="loadingParagraph2">
+                  You have to wait for the backend server to start up, because
+                  it runs on free hosting and shuts down after not being used
+                  for a while.
+                </p>
+              </Fade>
+            )}
           </div>
         ) : (
           filteredJobs.map((job, index) => {

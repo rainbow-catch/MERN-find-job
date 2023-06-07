@@ -80,9 +80,15 @@ hr {
   gap: 20px;
 }
 
-#loadingParagraph {
+.loadingParagraph {
   color: whitesmoke;
   margin-left: 15px;
+  padding: 0 100px 0 100px;
+}
+.loadingParagraph2 {
+  color: rgba(245, 245, 245, 0.77);
+  margin-left: 15px;
+  padding: 0 80px 0 80px;
 }
 
 #CompanyNameInput {
