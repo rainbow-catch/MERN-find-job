@@ -377,13 +377,19 @@ export default function JobBar({
   //loadingState for displaying loading spinner
   const [loading, setLoading] = useState(false);
   const [loadingLongerThan5sec, setLoadingLongerThan5sec] = useState(false);
-  //TODO:
+  const [isBackendError, setIsBackendError] = useState(false);
+
   //getting data from node.js server
   useEffect(() => {
-    axios.get(axiosUrls.getOffersUrl).then((res) => {
-      overwriteJobs(res.data);
-      setLoading(false);
-    });
+    axios
+      .get(axiosUrls.getOffersUrl)
+      .then((res) => {
+        overwriteJobs(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setIsBackendError(true);
+      });
     setTimeout(() => {
       setLoadingLongerThan5sec(true);
     }, 5000);
@@ -404,34 +410,43 @@ export default function JobBar({
   return (
     <div id="jobBarContainer">
       <div className="jobBar">
-        {loading ? (
-          <div id="loadingDiv">
-            <Spinner animation="border" variant="light" />
-            <p className="loadingParagraph">Loading job offers...</p>
-            {loadingLongerThan5sec && (
-              <Fade bottom distance={"10px"} duration={1000}>
-                <p className="loadingParagraph2">
-                  You have to wait for the backend server to start up, because
-                  it runs on free hosting and shuts down after not being used
-                  for a while.
-                </p>
-              </Fade>
+        {!isBackendError ? (
+          <div>
+            {loading ? (
+              <div id="loadingDiv">
+                <Spinner animation="border" variant="light" />
+                <p className="loadingParagraph">Loading job offers...</p>
+                {loadingLongerThan5sec && (
+                  <Fade bottom distance={"10px"} duration={1000}>
+                    <p className="loadingParagraph2">
+                      You have to wait for the backend server to start up,
+                      because it runs on free hosting and shuts down after not
+                      being used for a while.
+                    </p>
+                  </Fade>
+                )}
+              </div>
+            ) : (
+              filteredJobs.map((job, index) => {
+                return (
+                  <Fade key={index} duration={700}>
+                    <JobBarElement
+                      job={job}
+                      setapplymodalshow={setApplyModalShow}
+                      setjobofferforapply={setJobOfferForApply}
+                      setremoveoffermodalshow={setRemoveOfferModalShow}
+                      loggeduser={loggedUser}
+                    ></JobBarElement>
+                  </Fade>
+                );
+              })
             )}
           </div>
         ) : (
-          filteredJobs.map((job, index) => {
-            return (
-              <Fade key={index} duration={700}>
-                <JobBarElement
-                  job={job}
-                  setapplymodalshow={setApplyModalShow}
-                  setjobofferforapply={setJobOfferForApply}
-                  setremoveoffermodalshow={setRemoveOfferModalShow}
-                  loggeduser={loggedUser}
-                ></JobBarElement>
-              </Fade>
-            );
-          })
+          <div id="backendServerErrorDiv">
+            <p className="backendServerErrorParagraph">Backend server error.. <span className="backendServerErrorSpan">:(</span></p>
+            <p className="loadingParagraph">Try to reload the page.</p>
+          </div>
         )}
       </div>
       <ApplyModal

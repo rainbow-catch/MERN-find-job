@@ -79,6 +79,19 @@ hr {
   flex-direction: column;
   gap: 20px;
 }
+#backendServerErrorDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.backendServerErrorParagraph{
+  color: #c41b1b;
+}
+.backendServerErrorSpan{
+  color: whitesmoke;
+}
 
 .loadingParagraph {
   color: whitesmoke;
