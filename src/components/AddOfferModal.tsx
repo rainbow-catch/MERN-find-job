@@ -378,7 +378,7 @@ function AddOfferModal(props: any) {
               <div className="form-section">
                 <input
                   required
-                  type="text"
+                  type="url"
                   className={
                     offer.logo === ""
                       ? "form-input"
