@@ -50,7 +50,7 @@ export default function JobBar({
 
   //dynamic job searching
   //filtering by search text function
-  const filterJobs = (searchValue: string, searchTags: string) => {
+  const filterJobs = (searchValue: string, searchTags: string[]) => {
     const filteredByInput = jobs.filter(
       (job) =>
         job.ad_content.toLowerCase().match(searchValue.toLowerCase()) ||
@@ -64,306 +64,27 @@ export default function JobBar({
         job.technology_3.toLowerCase().match(searchValue.toLowerCase())
     );
 
-    //filtering by confirmed tags
-    //TODO: Rewrite it better :)
-    let filteredByTags: any[] = [];
-    if (searchTags.length > 0) {
-      filteredByTags = jobs.filter(
-        (job) =>
-          job.ad_content.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.company_name.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.contract_types.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.country.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.job_type.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.seniority.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.technology_1.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.technology_2.toLowerCase().match(searchTags[0].toLowerCase()) ||
-          job.technology_3.toLowerCase().match(searchTags[0].toLowerCase())
-      );
+    const filteredByTags = searchTags.length > 0
+      ? jobs.filter((job) =>
+        searchTags.every((tag: string) =>
+          job.ad_content.toLowerCase().match(tag.toLowerCase()) ||
+          job.company_name.toLowerCase().match(tag.toLowerCase()) ||
+          job.contract_types.toLowerCase().match(tag.toLowerCase()) ||
+          job.country.toLowerCase().match(tag.toLowerCase()) ||
+          job.job_type.toLowerCase().match(tag.toLowerCase()) ||
+          job.seniority.toLowerCase().match(tag.toLowerCase()) ||
+          job.technology_1.toLowerCase().match(tag.toLowerCase()) ||
+          job.technology_2.toLowerCase().match(tag.toLowerCase()) ||
+          job.technology_3.toLowerCase().match(tag.toLowerCase())
+        )
+      )
+      : [];
 
-      if (searchTags.length > 1) {
-        filteredByTags = jobs.filter(
-          (job) =>
-            (job.ad_content.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_3.toLowerCase().match(searchTags[0].toLowerCase()))
-        );
-      }
-      if (searchTags.length > 2) {
-        filteredByTags = jobs.filter(
-          (job) =>
-            (job.ad_content.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_3.toLowerCase().match(searchTags[0].toLowerCase()))
-        );
-      }
-      if (searchTags.length > 3) {
-        filteredByTags = jobs.filter(
-          (job) =>
-            (job.ad_content.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_3.toLowerCase().match(searchTags[0].toLowerCase()))
-        );
-      }
-      if (searchTags.length > 4) {
-        filteredByTags = jobs.filter(
-          (job) =>
-            (job.ad_content.toLowerCase().match(searchTags[4].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[4].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[4].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[4].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[4].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[4].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[4].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[4].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[4].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[3].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[3].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[2].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[2].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[1].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase()) ||
-              job.technology_3
-                .toLowerCase()
-                .match(searchTags[1].toLowerCase())) &&
-            (job.ad_content.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.company_name
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.contract_types
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.country.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.job_type.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.seniority.toLowerCase().match(searchTags[0].toLowerCase()) ||
-              job.technology_1
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_2
-                .toLowerCase()
-                .match(searchTags[0].toLowerCase()) ||
-              job.technology_3.toLowerCase().match(searchTags[0].toLowerCase()))
-        );
-      }
-    }
     const result: DisplayOffer[] = [];
     filteredByInput.forEach(
       (val) => filteredByTags.includes(val) && result.push(val)
     );
+
     if (searchTags.length === 0) {
       return filteredByInput;
     }
@@ -372,6 +93,8 @@ export default function JobBar({
     }
     return result;
   };
+
+
   const filteredJobs: DisplayOffer[] = filterJobs(searchText, searchTags);
 
   //loadingState for displaying loading spinner

@@ -1,4 +1,4 @@
-import "../styles/SearchBar.css"
+import "../styles/SearchBar.css";
 import "../styles/style.css";
 import { useState } from "react";
 import { Fade } from "react-reveal";
@@ -42,7 +42,13 @@ export default function SearchBarWithJobBar({
                 placeholder="Search"
               ></input>
               <button id="searchButton">🔍</button>
-              <div id={searchTags.length===0 ? 'searchTagsDiv' : 'searchTagsDivWithTags'}>
+              <div
+                id={
+                  searchTags.length === 0
+                    ? "searchTagsDiv"
+                    : "searchTagsDivWithTags"
+                }
+              >
                 {searchTags.length !== 0 ? (
                   searchTags.map((tag: any, index: any) => {
                     return !tag.hoverState ? (
@@ -105,7 +111,10 @@ export default function SearchBarWithJobBar({
         ></JobBar>
       </Fade>
       <TagsModal
-        setSearchTags={() => setSearchTags([])}
+        setSearchTags={() => {
+          setSearchTags([]);
+          setModalShow(false);
+        }}
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
