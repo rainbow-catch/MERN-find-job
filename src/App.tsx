@@ -4,7 +4,7 @@ import "./styles/style.css";
 import Header from "./components/Header";
 import SearchBarWithJobBar from "./components/SearchBarWithJobBar";
 import { LoggedUser } from "./types/LoggedUser";
-import { JobsProvider } from "./contexts/JobsContext";
+import { ContextsProvider } from "./contexts/Contexts";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState<LoggedUser>({
@@ -15,7 +15,7 @@ function App() {
   });
   const [loggedAsAdmin, setLoggedAsAdmin] = useState(false);
   return (
-    <JobsProvider>
+    <ContextsProvider>
       <div id="Index">
         <div id="upperBackground">
           <Header
@@ -30,7 +30,7 @@ function App() {
           loggedAsAdmin={loggedAsAdmin}
         ></SearchBarWithJobBar>
       </div>
-    </JobsProvider>
+    </ContextsProvider>
   );
 }
 

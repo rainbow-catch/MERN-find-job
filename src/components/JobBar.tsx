@@ -8,7 +8,7 @@ import { DisplayOffer } from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
-import { JobsContext } from "../contexts/JobsContext";
+import { Contexts } from "../contexts/Contexts";
 import { JobsContextType } from "../types/JobsContextType";
 
 export default function JobBar({
@@ -19,7 +19,7 @@ export default function JobBar({
 }: any) {
   //dbSchema
   //const [jobs, setJobs] = useState<DisplayOffer[]>([]);
-  const { jobs, overwriteJobs }: JobsContextType = useContext(JobsContext);
+  const { jobs, overwriteJobs }: JobsContextType = useContext(Contexts);
 
   //applyModalState
   const [applyModalShow, setApplyModalShow] = useState(false);

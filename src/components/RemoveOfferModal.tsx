@@ -6,10 +6,10 @@ import AlertModal from "./AlertModal";
 import "../styles/style.css";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { JobsContextType } from "../types/JobsContextType";
-import { JobsContext } from "../contexts/JobsContext";
+import { Contexts } from "../contexts/Contexts";
 
 const RemoveOfferModal = (props: any) => {
-  const { removeJob }: JobsContextType = useContext(JobsContext);
+  const { removeJob }: JobsContextType = useContext(Contexts);
   const [message, setMessage] = useState(
     "This offer doesn't belong to your company"
   );

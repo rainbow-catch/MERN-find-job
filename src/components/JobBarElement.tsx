@@ -6,7 +6,7 @@ import { renderTime } from "../functions/renderTime";
 import { DisplayOffer } from "../types/DisplayOffer";
 import { JobsContextType } from "../types/JobsContextType";
 import { useContext } from "react";
-import { JobsContext } from "../contexts/JobsContext";
+import { Contexts } from "../contexts/Contexts";
 export default function JobBarElement({
   job,
   setapplymodalshow,
@@ -14,7 +14,7 @@ export default function JobBarElement({
   setremoveoffermodalshow,
   loggeduser,
 }: any) {
-  const { jobs, overwriteJobs }: JobsContextType = useContext(JobsContext);
+  const { jobs, overwriteJobs }: JobsContextType = useContext(Contexts);
   return (
     <div
       key={job.id_}

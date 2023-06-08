@@ -1,15 +1,14 @@
 import { createContext, useState } from "react";
 import { DisplayOffer } from "../types/DisplayOffer";
 
-export const JobsContext = createContext<any>(null);
+export const Contexts = createContext<any>(null);
 
-export function JobsProvider({ children }: any) {
+export function ContextsProvider({ children }: any) {
   const [jobs, setJobs] = useState<DisplayOffer[]>([]);
 
   const overwriteJobs = (value: DisplayOffer[]) => {
     setJobs(value);
   };
-
   const addJob = (job: DisplayOffer) => {
     setJobs((prevState) => [...prevState, job]);
   };
@@ -20,8 +19,8 @@ export function JobsProvider({ children }: any) {
   };
 
   return (
-    <JobsContext.Provider value={{ jobs, overwriteJobs, addJob, removeJob }}>
+    <Contexts.Provider value={{ jobs, overwriteJobs, addJob, removeJob }}>
       {children}
-    </JobsContext.Provider>
+    </Contexts.Provider>
   );
 }
