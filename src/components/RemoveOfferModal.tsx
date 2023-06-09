@@ -5,11 +5,12 @@ import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
-import { JobsContextType } from "../types/JobsContextType";
+import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
 
 const RemoveOfferModal = (props: any) => {
-  const { removeJob }: JobsContextType = useContext(Contexts);
+  const { removeJob, loggedUser, loggedAsAdmin }: ContextsType = useContext(Contexts);
+  const loggedUserCompanyName = loggedUser.company_name;
   const [message, setMessage] = useState(
     "This offer doesn't belong to your company"
   );
@@ -52,8 +53,8 @@ const RemoveOfferModal = (props: any) => {
           className="btn btn-danger"
           onClick={() => {
             if (
-              props.removingjoboffer.company_name === props.loggedUser ||
-              props.loggedAsAdmin === true
+              props.removingjoboffer.company_name === loggedUserCompanyName ||
+              loggedAsAdmin
             ) {
               setHeaderMessage("Successfully deleted job offer");
               setMessage(

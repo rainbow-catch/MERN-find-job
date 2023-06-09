@@ -19,7 +19,6 @@ function RegisterModal(props: any) {
   const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
     boolean[]
   >([]);
-
   const startShake = () => {
     setShake(true);
     setTimeout(() => setShake(false), 650);
@@ -176,9 +175,7 @@ function RegisterModal(props: any) {
               shake ? "shake" : "gradient-button submit-button btn btn-primary"
             }
             onClick={() => {
-              if (
-                !checkFormValidity({email, password, companyName, logo})
-              ) {
+              if (!checkFormValidity({ email, password, companyName, logo })) {
                 startShake();
               }
             }}
@@ -199,4 +196,5 @@ function RegisterModal(props: any) {
     </Modal>
   );
 }
+
 export default RegisterModal;

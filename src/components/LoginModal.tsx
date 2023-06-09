@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import {FormEvent, useContext, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -6,6 +6,8 @@ import "../styles/LoginModal.css";
 import axios from "axios";
 import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import {ContextsType} from "../types/ContextsType";
+import {Contexts} from "../contexts/Contexts";
 
 function LoginModal(props: any) {
   const [password, setPassword] = useState("");
@@ -17,6 +19,7 @@ function LoginModal(props: any) {
   const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
     boolean[]
   >([]);
+  const { setLoggedUser,setLoggedAsAdmin }: ContextsType = useContext(Contexts);
 
   const startShake = () => {
     setShake(true);
@@ -31,7 +34,7 @@ function LoginModal(props: any) {
         if (res.data.status === "ok") {
           setHeaderMessage("Logged in!");
           setMessage(`Successfully logged as ${email}`);
-          props.setloggeduser((prev: object) => {
+          setLoggedUser((prev: object) => {
             return {
               ...prev,
               email: email,
@@ -40,7 +43,7 @@ function LoginModal(props: any) {
             };
           });
           if (email === "admin@admin.com") {
-            props.setloggedasadmin(true);
+            setLoggedAsAdmin(true);
           }
           setEmail("");
           setPassword("");

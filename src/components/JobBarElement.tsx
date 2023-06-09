@@ -4,7 +4,7 @@ import { Fade } from "react-reveal";
 import { renderSeniority } from "../functions/renderSeniority";
 import { renderTime } from "../functions/renderTime";
 import { DisplayOffer } from "../types/DisplayOffer";
-import { JobsContextType } from "../types/JobsContextType";
+import { ContextsType } from "../types/ContextsType";
 import { useContext } from "react";
 import { Contexts } from "../contexts/Contexts";
 export default function JobBarElement({
@@ -12,9 +12,10 @@ export default function JobBarElement({
   setapplymodalshow,
   setjobofferforapply,
   setremoveoffermodalshow,
-  loggeduser,
 }: any) {
-  const { jobs, overwriteJobs }: JobsContextType = useContext(Contexts);
+  const {loggedUser}:ContextsType = useContext(Contexts);
+  const loggedUserCompanyName = loggedUser.company_name;
+  const { jobs, overwriteJobs }: ContextsType = useContext(Contexts);
   return (
     <div
       key={job.id_}
@@ -74,7 +75,7 @@ export default function JobBarElement({
                       return <p key={index}>{line}</p>;
                     }
                   )}
-                  {loggeduser === "" ? (
+                  {loggedUserCompanyName === "" ? (
                     <div className="applyButtonDiv">
                       <button
                         onClick={() => {

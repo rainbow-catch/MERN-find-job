@@ -7,15 +7,14 @@ import "../styles/AddOfferModal.css";
 import { Offer } from "../types/Offer";
 import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
-import { JobsContextType } from "../types/JobsContextType";
+import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
 
 function AddOfferModal(props: any) {
-  const loggedAsAdmin = props.loggedasadmin;
-  const loggedCompany = props.loggedcompany;
-  const loggedCompanyLogo = props.loggedcompanylogo;
-
-  const { addJob }: JobsContextType = useContext(Contexts);
+  const { addJob, loggedAsAdmin, loggedUser }: ContextsType =
+    useContext(Contexts);
+  const loggedCompany = loggedUser.company_name;
+  const loggedCompanyLogo = loggedUser.logo;
   const [offer, setOffer] = useState<Offer>({
     company_name: "",
     days_ago: "",
