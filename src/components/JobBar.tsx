@@ -8,18 +8,15 @@ import { DisplayOffer } from "../types/DisplayOffer";
 import axios from "axios";
 import JobBarElement from "./JobBarElement";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
-import { JobsContext } from "../contexts/JobsContext";
-import { JobsContextType } from "../types/JobsContextType";
+import { Contexts } from "../contexts/Contexts";
+import { ContextsType } from "../types/ContextsType";
 
 export default function JobBar({
   searchText,
   searchTags,
-  loggedUser,
-  loggedAsAdmin,
 }: any) {
   //dbSchema
-  //const [jobs, setJobs] = useState<DisplayOffer[]>([]);
-  const { jobs, overwriteJobs }: JobsContextType = useContext(JobsContext);
+  const { jobs, overwriteJobs }: ContextsType = useContext(Contexts);
 
   //applyModalState
   const [applyModalShow, setApplyModalShow] = useState(false);
@@ -158,7 +155,6 @@ export default function JobBar({
                       setapplymodalshow={setApplyModalShow}
                       setjobofferforapply={setJobOfferForApply}
                       setremoveoffermodalshow={setRemoveOfferModalShow}
-                      loggeduser={loggedUser}
                     ></JobBarElement>
                   </Fade>
                 );
@@ -178,8 +174,6 @@ export default function JobBar({
         onHide={() => setApplyModalShow(false)}
       ></ApplyModal>
       <RemoveOfferModal
-        loggedAsAdmin={loggedAsAdmin}
-        loggedUser={loggedUser}
         show={removeOfferModalShow}
         onHide={() => setRemoveOfferModalShow(false)}
         removingjoboffer={jobOfferForApply}

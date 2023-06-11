@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "../styles/style.css";
 import { Application } from "../types/Application";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import { ContextsType } from "../types/ContextsType";
+import { Contexts } from "../contexts/Contexts";
 
 const ShowApplicationsModal = (props: any) => {
   const [applications, setApplications] = useState<Application[]>([]);
-  const loggedCompany = props.loggedcompany;
-  const loggedAsAdmin:boolean = props.loggedasadmin;
+  const { loggedAsAdmin, loggedUser }: ContextsType = useContext(Contexts);
+  const loggedCompany = loggedUser.company_name;
 
   //getting applications from db
   useEffect(() => {
@@ -20,10 +22,7 @@ const ShowApplicationsModal = (props: any) => {
   const filterApplications = () => {
     const newArr: Application[] = [];
     applications.forEach((application) => {
-      if (
-        application.company_name === loggedCompany ||
-        loggedAsAdmin
-      ) {
+      if (application.company_name === loggedCompany || loggedAsAdmin) {
         newArr.push(application);
       }
     });

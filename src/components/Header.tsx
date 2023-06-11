@@ -1,25 +1,21 @@
 import "../styles/style.css";
 import "../styles/Header.css";
-import { useState } from "react";
+import {useContext, useState} from "react";
 import { Button } from "react-bootstrap";
 import AddOfferModal from "./AddOfferModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import ShowApplicationsModal from "./ShowApplicationsModal";
+import {ContextsType} from "../types/ContextsType";
+import {Contexts} from "../contexts/Contexts";
 
-function Header({
-  setLoggedUser,
-  loggedUser,
-  loggedAsAdmin,
-  setLoggedAsAdmin,
-}: any) {
+function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showAddOfferModal, setShowAddOfferModal] = useState(false);
   const [showShowApplicationsModal, setShowShowApplicationsModal] =
     useState(false);
-  const loggedCompany: string = loggedUser.company_name;
-  const loggedCompanyLogo: string = loggedUser.logo;
+  const {loggedUser}:ContextsType = useContext(Contexts);
   return (
     <div>
       <div id="upperNavbar">
@@ -97,25 +93,16 @@ function Header({
       <LoginModal
         show={showLoginModal}
         onHide={() => setShowLoginModal(false)}
-        setloggeduser={setLoggedUser}
-        setloggedasadmin={setLoggedAsAdmin}
       ></LoginModal>
       <RegisterModal
         show={showRegisterModal}
         onHide={() => setShowRegisterModal(false)}
-        setloggeduser={setLoggedUser}
-        setloggedasadmin={setLoggedAsAdmin}
       ></RegisterModal>
       <AddOfferModal
-        loggedcompany={loggedCompany}
-        loggedcompanylogo={loggedCompanyLogo}
-        loggedasadmin={loggedAsAdmin}
         show={showAddOfferModal}
         onHide={() => setShowAddOfferModal(false)}
       ></AddOfferModal>
       <ShowApplicationsModal
-        loggedcompany={loggedCompany}
-        loggedasadmin={loggedAsAdmin}
         show={showShowApplicationsModal}
         onHide={() => setShowShowApplicationsModal(false)}
       ></ShowApplicationsModal>

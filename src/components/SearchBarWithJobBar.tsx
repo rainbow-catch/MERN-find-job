@@ -6,10 +6,7 @@ import TagsModal from "./TagsModal";
 import JobBar from "./JobBar";
 import { SearchTag } from "../types/SearchTag";
 
-export default function SearchBarWithJobBar({
-  loggedUser,
-  loggedAsAdmin,
-}: any) {
+export default function SearchBarWithJobBar() {
   const [searchText, setSearchText] = useState("");
   const [searchTags, setSearchTags] = useState<SearchTag[]>(() => {
     return [];
@@ -104,8 +101,6 @@ export default function SearchBarWithJobBar({
       </div>
       <Fade delay={350} duration={900}>
         <JobBar
-          loggedUser={loggedUser}
-          loggedAsAdmin={loggedAsAdmin}
           searchText={searchText}
           searchTags={searchTags.map((tag: SearchTag) => tag.string)}
         ></JobBar>
