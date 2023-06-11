@@ -1,13 +1,13 @@
 import "../styles/style.css";
 import "../styles/Header.css";
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import AddOfferModal from "./AddOfferModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import ShowApplicationsModal from "./ShowApplicationsModal";
-import {ContextsType} from "../types/ContextsType";
-import {Contexts} from "../contexts/Contexts";
+import { ContextsType } from "../types/ContextsType";
+import { Contexts } from "../contexts/Contexts";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -15,7 +15,7 @@ function Header() {
   const [showAddOfferModal, setShowAddOfferModal] = useState(false);
   const [showShowApplicationsModal, setShowShowApplicationsModal] =
     useState(false);
-  const {loggedUser}:ContextsType = useContext(Contexts);
+  const { loggedUser, handleLogout }: ContextsType = useContext(Contexts);
   return (
     <div>
       <div id="upperNavbar">
@@ -56,7 +56,7 @@ function Header() {
               className="headerButton"
               id="loginButton"
               onClick={() => {
-                window.location.reload();
+                handleLogout();
               }}
             >
               Logout

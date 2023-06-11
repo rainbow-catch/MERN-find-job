@@ -7,7 +7,7 @@ export interface ContextsType {
   addJob: any;
   removeJob: any;
   loggedUser: LoggedUser;
-  setLoggedUser: any;
+  handleLogin: any;
+  handleLogout: any;
   loggedAsAdmin: boolean;
-  setLoggedAsAdmin: any;
 }

@@ -8,13 +8,27 @@ export function ContextsProvider({ children }: any) {
   //jobsProvider
   const [jobs, setJobs] = useState<DisplayOffer[]>([]);
   //loggedUserProvider
-  const [loggedUser, setLoggedUser] = useState<LoggedUser>({
-    email: "",
-    password: "",
-    company_name: "",
-    logo: "",
+  const [loggedUser, setLoggedUser] = useState<LoggedUser>(() => {
+    const sessionStorageValue = sessionStorage.getItem("loggedUser");
+    if (sessionStorageValue !== null) {
+      return JSON.parse(sessionStorageValue);
+    } else {
+      return {
+        email: "",
+        password: "",
+        company_name: "",
+        logo: "",
+      };
+    }
   });
-  const [loggedAsAdmin, setLoggedAsAdmin] = useState(false);
+  const [loggedAsAdmin, setLoggedAsAdmin] = useState(() => {
+    const sessionStorageValue = sessionStorage.getItem("loggedAsAdmin");
+    if (sessionStorageValue !== null) {
+      return JSON.parse(sessionStorageValue);
+    } else {
+      return false;
+    }
+  });
 
   const overwriteJobs = (value: DisplayOffer[]) => {
     setJobs(value);
@@ -28,6 +42,20 @@ export function ContextsProvider({ children }: any) {
     setJobs(jobs.filter((item) => item !== offerToRemove));
   };
 
+  const handleLogin = (loginDetails: LoggedUser) => {
+    setLoggedUser(loginDetails);
+    sessionStorage.setItem("loggedUser", JSON.stringify(loginDetails));
+    if (loginDetails.email === "admin@admin.com") {
+      setLoggedAsAdmin(true);
+      sessionStorage.setItem("loggedAsAdmin", JSON.stringify("true"));
+    }
+  };
+  const handleLogout = () => {
+    sessionStorage.removeItem("loggedUser");
+    sessionStorage.removeItem("loggedAsAdmin");
+    window.location.reload();
+  };
+
   return (
     <Contexts.Provider
       value={{
@@ -36,9 +64,9 @@ export function ContextsProvider({ children }: any) {
         addJob,
         removeJob,
         loggedUser,
-        setLoggedUser,
+        handleLogin,
+        handleLogout,
         loggedAsAdmin,
-        setLoggedAsAdmin,
       }}
     >
       {children}

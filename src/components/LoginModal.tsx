@@ -1,4 +1,4 @@
-import {FormEvent, useContext, useState} from "react";
+import { FormEvent, useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -6,8 +6,8 @@ import "../styles/LoginModal.css";
 import axios from "axios";
 import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
-import {ContextsType} from "../types/ContextsType";
-import {Contexts} from "../contexts/Contexts";
+import { ContextsType } from "../types/ContextsType";
+import { Contexts } from "../contexts/Contexts";
 
 function LoginModal(props: any) {
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ function LoginModal(props: any) {
   const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
     boolean[]
   >([]);
-  const { setLoggedUser,setLoggedAsAdmin }: ContextsType = useContext(Contexts);
+  const { handleLogin }: ContextsType = useContext(Contexts);
 
   const startShake = () => {
     setShake(true);
@@ -28,33 +28,26 @@ function LoginModal(props: any) {
 
   const loginSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
-    axios
-      .post(axiosUrls.loginUrl, { email, password })
-      .then((res) => {
-        if (res.data.status === "ok") {
-          setHeaderMessage("Logged in!");
-          setMessage(`Successfully logged as ${email}`);
-          setLoggedUser((prev: object) => {
-            return {
-              ...prev,
-              email: email,
-              company_name: res.data.company_name,
-              logo: res.data.logo,
-            };
-          });
-          if (email === "admin@admin.com") {
-            setLoggedAsAdmin(true);
-          }
-          setEmail("");
-          setPassword("");
-          setAlertModalShow(true);
-          window.localStorage.setItem("token", res.data.data);
-        } else {
-          setMessage("Bad login or password!");
-          setHeaderMessage("Can't Login!");
-          setAlertModalShow(true);
-        }
-      });
+    axios.post(axiosUrls.loginUrl, { email, password }).then((res) => {
+      if (res.data.status === "ok") {
+        setHeaderMessage("Logged in!");
+        setMessage(`Successfully logged as ${email}`);
+        handleLogin({
+          email: email,
+          password: password,
+          company_name: res.data.company_name,
+          logo: res.data.logo,
+        });
+        setEmail("");
+        setPassword("");
+        setAlertModalShow(true);
+        window.localStorage.setItem("token", res.data.data);
+      } else {
+        setMessage("Bad login or password!");
+        setHeaderMessage("Can't Login!");
+        setAlertModalShow(true);
+      }
+    });
   };
 
   return (
@@ -128,7 +121,7 @@ function LoginModal(props: any) {
               shake ? "shake" : "gradient-button submit-button btn btn-primary"
             }
             onClick={() => {
-              if (!checkFormValidity({email, password})) {
+              if (!checkFormValidity({ email, password })) {
                 startShake();
               }
             }}
@@ -151,4 +144,5 @@ function LoginModal(props: any) {
     </Modal>
   );
 }
+
 export default LoginModal;
