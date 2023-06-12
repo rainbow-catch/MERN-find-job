@@ -26,31 +26,33 @@ function RegisterModal(props: any) {
 
   const registerSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
-    axios
-      .post(axiosUrls.registerUrl, {
-        email,
-        password,
-        companyName,
-        logo,
-      })
-      .then((res) => {
-        if (res.data.status === "ok") {
-          setHeaderMessage("Registration request sent!");
-          setMessage(
-            `Successfully sent registration request. \n Wait for reply`
-          );
-          setEmail("");
-          setPassword("");
-          setCompanyName("");
-          setLogo("");
-          setAlertModalShow(true);
-          window.localStorage.setItem("token", res.data.data);
-        } else {
-          setMessage("Bad login or password!");
-          setHeaderMessage("Can't Registered!");
-          setAlertModalShow(true);
-        }
-      });
+    if (checkFormValidity({ email, password, companyName, logo })) {
+      axios
+        .post(axiosUrls.registerUrl, {
+          email,
+          password,
+          companyName,
+          logo,
+        })
+        .then((res) => {
+          if (res.data.status === "ok") {
+            setHeaderMessage("Registration request sent!");
+            setMessage(
+              `Successfully sent registration request. \n Wait for reply`
+            );
+            setEmail("");
+            setPassword("");
+            setCompanyName("");
+            setLogo("");
+            setAlertModalShow(true);
+            window.localStorage.setItem("token", res.data.data);
+          } else {
+            setMessage("Bad login or password!");
+            setHeaderMessage("Can't Registered!");
+            setAlertModalShow(true);
+          }
+        });
+    }
   };
   return (
     <Modal
