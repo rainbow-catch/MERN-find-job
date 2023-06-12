@@ -9,13 +9,12 @@ export const checkFormValidity = (formElements: any) => {
 
   vals.forEach((val, index) => {
     if (keys[index] === "email") {
-      if (val.match(/[A-Za-z0-9]+@[A-Za-z0-9]+/i) && val !== null && val !== "") {
+      if (val.match(/[A-Za-z0-9]+@[A-Za-z0-9]+/i) && val !== "") {
         counter++;
       }
     } else if (keys[index] === "logo") {
       if (
         val.match(/[A-Za-z]+:\/\/[A-Za-z0-9]+\.[A-Za-z]+/i) &&
-        val !== null &&
         val !== ""
       ) {
         counter++;
