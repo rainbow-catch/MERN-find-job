@@ -8,7 +8,7 @@ export const checkFormValidity = (formElements: any) => {
   let counter = 0;
 
   function isImage(url: string) {
-    return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   }
 
   vals.forEach((val, index) => {
@@ -22,6 +22,12 @@ export const checkFormValidity = (formElements: any) => {
           counter++;
         }
       }
+    } else if (
+      keys[index] === "days_ago" ||
+      keys[index] === "seniority" ||
+      keys[index] === "about_us"
+    ) {
+      counter++;
     } else if (val !== null && val !== "") {
       counter++;
     }
