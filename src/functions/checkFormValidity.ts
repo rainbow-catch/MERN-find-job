@@ -26,9 +26,5 @@ export const checkFormValidity = (formElements: any) => {
       counter++;
     }
   });
-  if (count === counter) {
-    return true;
-  } else {
-    return false;
-  }
+  return count === counter;
 };
