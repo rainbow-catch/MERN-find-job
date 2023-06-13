@@ -157,25 +157,53 @@ app.post("/register", async (req, res) => {
   console.log(password);
   console.log(companyName);
   console.log(logo);
-  const newRegistrationRequest = new registrationRequestModel({
+  const newRegistrationRequest = new userModel({
     email: req.body.email,
     password: req.body.password,
     company_name: req.body.companyName,
     logo: req.body.logo,
   });
-  newRegistrationRequest
-    .save()
-    .then((doc) => {
-      console.log(doc);
-      if (res.status(201)) {
-        return res.json({
-          status: "ok",
-        });
-      } else {
-        return res.json({ error: "error" });
-      }
-    })
-    .catch((err) => console.log(err));
+  const emailAccount = await userModel.findOne({ email: email }).exec();
+  const companyNameAccount = await userModel
+    .findOne({ company_name: companyName })
+    .exec();
+  if (!emailAccount && !companyNameAccount) {
+    newRegistrationRequest
+      .save()
+      .then((doc) => {
+        console.log(doc);
+        if (res.status(201)) {
+          return res.json({
+            status: "ok",
+            doc: "The company account has been successfully created!",
+          });
+        } else {
+          return res.json({ error: "error" });
+        }
+      })
+      .catch((err) => console.log(err));
+  } else if (!companyNameAccount) {
+    res.json({
+      status: "error",
+      error: "An account with this email address already exists!",
+    });
+  } else if (!emailAccount) {
+    res.json({
+      status: "error",
+      error: "An account with this company name already exists!",
+    });
+  } else if (emailAccount && companyNameAccount) {
+    res.json({
+      status: "error",
+      error:
+        "An account with this email address and company name already exists!",
+    });
+  } else {
+    res.json({
+      status: "error",
+      error: "You can't create this account!",
+    });
+  }
 });
 
 app.post("/create", (req, res) => {

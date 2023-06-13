@@ -36,10 +36,8 @@ function RegisterModal(props: any) {
         })
         .then((res) => {
           if (res.data.status === "ok") {
-            setHeaderMessage("Registration request sent!");
-            setMessage(
-              `Successfully sent registration request. \n Wait for reply`
-            );
+            setHeaderMessage("Registration successful!");
+            setMessage(`${res.data.doc}`);
             setEmail("");
             setPassword("");
             setCompanyName("");
@@ -47,10 +45,16 @@ function RegisterModal(props: any) {
             setAlertModalShow(true);
             window.localStorage.setItem("token", res.data.data);
           } else {
-            setMessage("Bad login or password!");
-            setHeaderMessage("Can't Registered!");
+            setMessage(`${res.data.error}`);
+            setHeaderMessage("Can't create account");
             setAlertModalShow(true);
+            setPassword("");
           }
+        })
+        .catch(() => {
+          setMessage("Try to reload the page.");
+          setHeaderMessage("Backend server error..");
+          setAlertModalShow(true);
         });
     }
   };
