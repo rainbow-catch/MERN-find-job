@@ -57,31 +57,50 @@ function AddOfferModal(props: any) {
 
   const createOffer = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
-    axios
-      .post(axiosUrls.createOfferUrl, offer)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    if (offer) {
-      setMessage(`Successfully added ${offer.ad_content} offer!`);
-      setHideModalBody(true);
-      setAlertModalShow(true);
-      setOffer({
-        company_name: "",
-        days_ago: "",
-        contract_types: "",
-        country: "",
-        ad_content: "",
-        job_type: "",
-        seniority: "",
-        technology_1: "",
-        technology_2: "",
-        technology_3: "",
-        salary: "",
-        description: "",
-        about_us: "",
-        logo: "",
-      });
-      addJob(offer);
+    if (
+      checkFormValidity({
+        company_name: offer.company_name,
+        days_ago: offer.days_ago,
+        contract_types: offer.contract_types,
+        country: offer.country,
+        ad_content: offer.ad_content,
+        job_type: offer.job_type,
+        seniority: offer.seniority,
+        technology_1: offer.technology_1,
+        technology_2: offer.technology_2,
+        technology_3: offer.technology_3,
+        salary: offer.salary,
+        description: offer.description,
+        about_us: offer.about_us,
+        logo: offer.logo,
+      })
+    ) {
+      axios
+        .post(axiosUrls.createOfferUrl, offer)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      if (offer) {
+        setMessage(`Successfully added ${offer.ad_content} offer!`);
+        setHideModalBody(true);
+        setAlertModalShow(true);
+        setOffer({
+          company_name: "",
+          days_ago: "",
+          contract_types: "",
+          country: "",
+          ad_content: "",
+          job_type: "",
+          seniority: "",
+          technology_1: "",
+          technology_2: "",
+          technology_3: "",
+          salary: "",
+          description: "",
+          about_us: "",
+          logo: "",
+        });
+        addJob(offer);
+      }
     }
   };
 
