@@ -34,6 +34,7 @@ const ApplicationModel = mongoose.model(
 const clearDatabase = () => {
   const offersCsvFilePath = "csv/offersv3Format.csv";
   const applicationsCsvFilePath = "csv/applications.csv";
+  const usersCsvFilePath = "csv/usersV2Format.csv";
   dbModel.deleteMany({}).then(() => {
     console.log("deleted all offers");
     csvtojson()
@@ -61,6 +62,24 @@ const clearDatabase = () => {
         });
       })
       .then(() => console.log("offers has been renewed"));
+  });
+  userModel.deleteMany({}).then(() => {
+    console.log("deleted all users");
+    csvtojson()
+      .fromFile(usersCsvFilePath)
+      .then((jsonObj) => {
+        jsonObj.forEach((el) => {
+          const userToAdd = new userModel({
+            id_: el.id_,
+            email: el.email,
+            password: el.password,
+            company_name: el.company_name,
+            logo: el.logo,
+          });
+          userToAdd.save().catch((err) => console.log(err));
+        });
+      })
+      .then(() => console.log("users has been renewed"));
   });
   ApplicationModel.deleteMany({})
     .then(() => {
