@@ -34,6 +34,7 @@ const ApplicationModel = mongoose.model(
 const clearDatabase = () => {
   const offersCsvFilePath = "csv/offersv3Format.csv";
   const applicationsCsvFilePath = "csv/applications.csv";
+  const usersCsvFilePath = "csv/usersV2Format.csv";
   dbModel.deleteMany({}).then(() => {
     console.log("deleted all offers");
     csvtojson()
@@ -61,6 +62,24 @@ const clearDatabase = () => {
         });
       })
       .then(() => console.log("offers has been renewed"));
+  });
+  userModel.deleteMany({}).then(() => {
+    console.log("deleted all users");
+    csvtojson()
+      .fromFile(usersCsvFilePath)
+      .then((jsonObj) => {
+        jsonObj.forEach((el) => {
+          const userToAdd = new userModel({
+            id_: el.id_,
+            email: el.email,
+            password: el.password,
+            company_name: el.company_name,
+            logo: el.logo,
+          });
+          userToAdd.save().catch((err) => console.log(err));
+        });
+      })
+      .then(() => console.log("users has been renewed"));
   });
   ApplicationModel.deleteMany({})
     .then(() => {
@@ -157,25 +176,53 @@ app.post("/register", async (req, res) => {
   console.log(password);
   console.log(companyName);
   console.log(logo);
-  const newRegistrationRequest = new registrationRequestModel({
+  const newRegistrationRequest = new userModel({
     email: req.body.email,
     password: req.body.password,
     company_name: req.body.companyName,
     logo: req.body.logo,
   });
-  newRegistrationRequest
-    .save()
-    .then((doc) => {
-      console.log(doc);
-      if (res.status(201)) {
-        return res.json({
-          status: "ok",
-        });
-      } else {
-        return res.json({ error: "error" });
-      }
-    })
-    .catch((err) => console.log(err));
+  const emailAccount = await userModel.findOne({ email: email }).exec();
+  const companyNameAccount = await userModel
+    .findOne({ company_name: companyName })
+    .exec();
+  if (!emailAccount && !companyNameAccount) {
+    newRegistrationRequest
+      .save()
+      .then((doc) => {
+        console.log(doc);
+        if (res.status(201)) {
+          return res.json({
+            status: "ok",
+            doc: "The company account has been successfully created!",
+          });
+        } else {
+          return res.json({ error: "error" });
+        }
+      })
+      .catch((err) => console.log(err));
+  } else if (!companyNameAccount) {
+    res.json({
+      status: "error",
+      error: "An account with this email address already exists!",
+    });
+  } else if (!emailAccount) {
+    res.json({
+      status: "error",
+      error: "An account with this company name already exists!",
+    });
+  } else if (emailAccount && companyNameAccount) {
+    res.json({
+      status: "error",
+      error:
+        "An account with this email address and company name already exists!",
+    });
+  } else {
+    res.json({
+      status: "error",
+      error: "You can't create this account!",
+    });
+  }
 });
 
 app.post("/create", (req, res) => {
