@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { DisplayOffer } from "../types/DisplayOffer";
 import { LoggedUser } from "../types/LoggedUser";
+import { Application } from "../types/Application";
 
 export const Contexts = createContext<any>(null);
 
@@ -30,6 +31,9 @@ export function ContextsProvider({ children }: any) {
     }
   });
 
+  //applicationsProvider
+  const [applications, setApplications] = useState<Application[]>([]);
+
   const overwriteJobs = (value: DisplayOffer[]) => {
     setJobs(value);
   };
@@ -56,6 +60,13 @@ export function ContextsProvider({ children }: any) {
     window.location.reload();
   };
 
+  const overwriteApplications = (value: Application[]) => {
+    setApplications(value);
+  };
+  const addApplication = (application: Application) => {
+    setApplications((prevState) => [...prevState, application]);
+  };
+
   return (
     <Contexts.Provider
       value={{
@@ -67,6 +78,9 @@ export function ContextsProvider({ children }: any) {
         handleLogin,
         handleLogout,
         loggedAsAdmin,
+        applications,
+        overwriteApplications,
+        addApplication,
       }}
     >
       {children}

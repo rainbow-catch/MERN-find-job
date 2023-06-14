@@ -1,5 +1,6 @@
 import { DisplayOffer } from "./DisplayOffer";
 import { LoggedUser } from "./LoggedUser";
+import { Application } from "./Application";
 
 export interface ContextsType {
   jobs: DisplayOffer[];
@@ -10,4 +11,7 @@ export interface ContextsType {
   handleLogin: any;
   handleLogout: any;
   loggedAsAdmin: boolean;
+  applications: Application[];
+  overwriteApplications: any;
+  addApplication: any;
 }
