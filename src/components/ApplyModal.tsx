@@ -1,7 +1,7 @@
 import "../styles/ApplyModal.css";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import { FormEvent, useEffect, useState } from "react";
+import {FormEvent, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import AlertModal from "./AlertModal";
 import { DisplayOffer } from "../types/DisplayOffer";
@@ -10,6 +10,8 @@ import { Application } from "../types/Application";
 import { ApplyForm } from "../types/ApplyForm";
 import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import {ContextsType} from "../types/ContextsType";
+import {Contexts} from "../contexts/Contexts";
 
 function ApplyModal(props: any) {
   const [message, setMessage] = useState("Successfully applied new job offer!");
@@ -34,6 +36,8 @@ function ApplyModal(props: any) {
     isDescriptionVisible: false,
     frontendId: 0,
   });
+
+  const {addApplication}:ContextsType = useContext(Contexts);
 
   const [application, setApplication] = useState<ApplyForm>({
     firstName: "",
@@ -85,6 +89,7 @@ function ApplyModal(props: any) {
         setMessage(
           `Successfully applied to ${jobOfferForApply.company_name} as ${jobOfferForApply.ad_content}`
         );
+        addApplication(applicationToSend);
         setAlertModalShow(true);
       })
       .catch((err) => {

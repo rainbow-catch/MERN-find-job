@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import "../styles/style.css";
 import { Application } from "../types/Application";
@@ -8,15 +8,16 @@ import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
 
 const ShowApplicationsModal = (props: any) => {
-  const [applications, setApplications] = useState<Application[]>([]);
+  const { applications, overwriteApplications }: ContextsType =
+    useContext(Contexts);
   const { loggedAsAdmin, loggedUser }: ContextsType = useContext(Contexts);
   const loggedCompany = loggedUser.company_name;
 
   //getting applications from db
   useEffect(() => {
     axios.get(axiosUrls.getApplicationsUrl).then((res) => {
-      setApplications(res.data);
-    });
+      overwriteApplications(res.data);
+    }); // eslint-disable-next-line
   }, []);
 
   const filterApplications = () => {
