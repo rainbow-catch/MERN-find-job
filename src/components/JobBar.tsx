@@ -128,7 +128,7 @@ export default function JobBar({
 
   //database output to frontend
   return (
-    <div id="jobBarContainer">
+    <div id="jobBarContainer" title="jobBarContainer">
       <div className="jobBar">
         {!isBackendError ? (
           <div>
