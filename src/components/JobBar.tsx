@@ -11,10 +11,7 @@ import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { Contexts } from "../contexts/Contexts";
 import { ContextsType } from "../types/ContextsType";
 
-export default function JobBar({
-  searchText,
-  searchTags,
-}: any) {
+export default function JobBar({ searchText, searchTags }: any) {
   //dbSchema
   const { jobs, overwriteJobs }: ContextsType = useContext(Contexts);
 
@@ -61,21 +58,23 @@ export default function JobBar({
         job.technology_3.toLowerCase().match(searchValue.toLowerCase())
     );
 
-    const filteredByTags = searchTags.length > 0
-      ? jobs.filter((job) =>
-        searchTags.every((tag: string) =>
-          job.ad_content.toLowerCase().match(tag.toLowerCase()) ||
-          job.company_name.toLowerCase().match(tag.toLowerCase()) ||
-          job.contract_types.toLowerCase().match(tag.toLowerCase()) ||
-          job.country.toLowerCase().match(tag.toLowerCase()) ||
-          job.job_type.toLowerCase().match(tag.toLowerCase()) ||
-          job.seniority.toLowerCase().match(tag.toLowerCase()) ||
-          job.technology_1.toLowerCase().match(tag.toLowerCase()) ||
-          job.technology_2.toLowerCase().match(tag.toLowerCase()) ||
-          job.technology_3.toLowerCase().match(tag.toLowerCase())
-        )
-      )
-      : [];
+    const filteredByTags =
+      searchTags.length > 0
+        ? jobs.filter((job) =>
+            searchTags.every(
+              (tag: string) =>
+                job.ad_content.toLowerCase().match(tag.toLowerCase()) ||
+                job.company_name.toLowerCase().match(tag.toLowerCase()) ||
+                job.contract_types.toLowerCase().match(tag.toLowerCase()) ||
+                job.country.toLowerCase().match(tag.toLowerCase()) ||
+                job.job_type.toLowerCase().match(tag.toLowerCase()) ||
+                job.seniority.toLowerCase().match(tag.toLowerCase()) ||
+                job.technology_1.toLowerCase().match(tag.toLowerCase()) ||
+                job.technology_2.toLowerCase().match(tag.toLowerCase()) ||
+                job.technology_3.toLowerCase().match(tag.toLowerCase())
+            )
+          )
+        : [];
 
     const result: DisplayOffer[] = [];
     filteredByInput.forEach(
@@ -90,7 +89,6 @@ export default function JobBar({
     }
     return result;
   };
-
 
   const filteredJobs: DisplayOffer[] = filterJobs(searchText, searchTags);
 
@@ -117,7 +115,7 @@ export default function JobBar({
   }, []);
 
   useEffect(() => {
-    console.log(jobs);
+    //console.log(jobs);
     const newJobs = jobs;
     newJobs.forEach((job, index) => {
       job.isDescriptionVisible = false;
@@ -128,12 +126,12 @@ export default function JobBar({
 
   //database output to frontend
   return (
-    <div id="jobBarContainer">
+    <div id="jobBarContainer" title="jobBarContainer">
       <div className="jobBar">
         {!isBackendError ? (
           <div>
             {loading ? (
-              <div id="loadingDiv">
+              <div id="loadingDiv" title="loadingDiv">
                 <Spinner animation="border" variant="light" />
                 <p className="loadingParagraph">Loading job offers...</p>
                 {loadingLongerThan5sec && (
@@ -149,21 +147,26 @@ export default function JobBar({
             ) : (
               filteredJobs.map((job, index) => {
                 return (
-                  <Fade key={index} duration={700}>
-                    <JobBarElement
-                      job={job}
-                      setapplymodalshow={setApplyModalShow}
-                      setjobofferforapply={setJobOfferForApply}
-                      setremoveoffermodalshow={setRemoveOfferModalShow}
-                    ></JobBarElement>
-                  </Fade>
+                  <div key={index} title="jobBarElement">
+                    <Fade key={index} duration={700}>
+                      <JobBarElement
+                        job={job}
+                        setapplymodalshow={setApplyModalShow}
+                        setjobofferforapply={setJobOfferForApply}
+                        setremoveoffermodalshow={setRemoveOfferModalShow}
+                      ></JobBarElement>
+                    </Fade>
+                  </div>
                 );
               })
             )}
           </div>
         ) : (
           <div id="backendServerErrorDiv">
-            <p className="backendServerErrorParagraph">Backend server error.. <span className="backendServerErrorSpan">:(</span></p>
+            <p className="backendServerErrorParagraph">
+              Backend server error..{" "}
+              <span className="backendServerErrorSpan">:(</span>
+            </p>
             <p className="loadingParagraph">Try to reload the page.</p>
           </div>
         )}
