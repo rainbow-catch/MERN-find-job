@@ -61,7 +61,7 @@ function LoginModal(props: any) {
         <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form id="login-form" onSubmit={loginSubmit}>
+        <form id="login-form" onSubmit={loginSubmit} title="login-form">
           <div className="form-section">
             <input
               required
@@ -70,6 +70,7 @@ function LoginModal(props: any) {
                 email === "" ? "form-input" : "form-input form-input-filled"
               }
               name="EmailInput"
+              title="EmailInput"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
               placeholder={
@@ -95,6 +96,7 @@ function LoginModal(props: any) {
               required
               type="password"
               name="PasswordInput"
+              title="PasswordInput"
               className="form-input"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
@@ -116,6 +118,7 @@ function LoginModal(props: any) {
           </div>
           <div className="form-group form-check"></div>
           <button
+            title='submitButton'
             type="submit"
             className={
               shake ? "shake" : "gradient-button submit-button btn btn-primary"
