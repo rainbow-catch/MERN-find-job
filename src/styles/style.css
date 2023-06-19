@@ -182,6 +182,9 @@ button.shake {
     opacity: 0.5;
     font-size: 11px;
   }
+  .loadingParagraph {
+    padding: 0 60px 0 60px;
+  }
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {
