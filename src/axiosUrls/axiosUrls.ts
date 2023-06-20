@@ -1,6 +1,6 @@
 let serverUrl = "https://jobsearchmern.onrender.com";
 
-if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
   serverUrl = "http://localhost:8888";
 } else {
   serverUrl = "https://jobsearchmern.onrender.com";
