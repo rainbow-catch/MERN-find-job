@@ -80,4 +80,4 @@ _If you want to run app locally_
 ![Screenshot6](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/6.png)
 ![Screenshot7](https://raw.githubusercontent.com/ajgoras/job-search-mern/main/screenshots/7.png)
 
-
+_All companies, job offers and logos are imaginary and untrue_
