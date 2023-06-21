@@ -76,6 +76,7 @@ function RegisterModal(props: any) {
             <input
               required
               type="email"
+              title="EmailInput"
               className={
                 email === "" ? "form-input" : "form-input form-input-filled"
               }
@@ -105,6 +106,7 @@ function RegisterModal(props: any) {
               required
               type="password"
               name="PasswordInput"
+              title="PasswordInput"
               className="form-input"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
@@ -129,6 +131,7 @@ function RegisterModal(props: any) {
               required
               type="text"
               name="CompanyNameInput"
+              title="CompanyNameInput"
               className="form-input"
               onChange={(event) => setCompanyName(event.target.value)}
               value={companyName}
@@ -153,6 +156,7 @@ function RegisterModal(props: any) {
               required
               type="url"
               name="LogoInput"
+              title="LogoInput"
               className={
                 logo === "" ? "form-input" : "form-input form-input-filled"
               }
@@ -177,6 +181,7 @@ function RegisterModal(props: any) {
           <div className="form-group form-check"></div>
           <button
             type="submit"
+            title="submitButton"
             className={
               shake ? "shake" : "gradient-button submit-button btn btn-primary"
             }
