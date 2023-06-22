@@ -24,13 +24,14 @@ function Header() {
           src="https://raw.githubusercontent.com/ajgoras/job-search-mern/main/csv/images/job-search-logo-white.png"
           alt="logo"
         ></img>
-        <div className="headerButtonsDiv">
+        <div className="headerButtonsDiv" title="headerButtonsDiv">
           {loggedUser.email === "" ? (
             <span></span>
           ) : (
             <div className="headerButtonsAfterLoginDiv">
               <Button
                 className="headerButton"
+                title="showApplicationsButton"
                 onClick={() => setShowShowApplicationsModal(true)}
               >
                 Show Applications
