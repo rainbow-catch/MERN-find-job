@@ -14,5 +14,13 @@ export const mockLoggedUser = (user: string) => {
     loggedUser.logo =
       "https://raw.githubusercontent.com/ajgoras/job-search-mern/main/csv/images/adminLogo.png";
   }
+  if (user === "ingramautomotive@gmail.com") {
+    loggedUser.email = "ingramautomotive@gmail.com";
+    loggedUser.password = "jrcioqfb";
+    loggedUser.company_name = "Ingram Automotive Ltd";
+    loggedUser.logo =
+      "https://raw.githubusercontent.com/ajgoras/job-search-mern/main/csv/images/Ingram%20Automotive%20Ltd.png";
+  }
+
   return loggedUser;
 };
