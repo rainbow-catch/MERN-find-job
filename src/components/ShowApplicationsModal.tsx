@@ -43,7 +43,7 @@ const ShowApplicationsModal = (props: any) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div id="applicationsOutputDiv">
+        <div id="applicationsOutputDiv" title="applicationsOutputDiv">
           {filterApplications().map((application) => {
             return (
               <div key={application._id}>
