@@ -40,4 +40,46 @@ describe("Show Applications Modal Test", () => {
       expect(application).toBeInTheDocument();
     }
   });
+
+  test("should show applications for specific company without every application", async () => {
+    const mockData: ContextsType = {
+      jobs: [],
+      overwriteJobs: () => {},
+      addJob: () => {},
+      removeJob: () => {},
+      loggedUser: mockLoggedUser("ingramautomotive@gmail.com"),
+      handleLogin: () => {},
+      handleLogout: () => {},
+      loggedAsAdmin: false,
+      applications: mockApplications(),
+      overwriteApplications: () => {},
+      addApplication: () => {},
+    };
+    render(
+      <Contexts.Provider value={mockData}>
+        <Header></Header>
+      </Contexts.Provider>
+    );
+
+    const expectedApplications = mockApplications().filter((application) => application.company_name === "Ingram Automotive Ltd");
+    const unexpectedApplications = mockApplications().filter((application) => application.company_name !== "Ingram Automotive Ltd");
+    const showApplicationsButton = screen.getByTitle("showApplicationsButton");
+    fireEvent.click(showApplicationsButton);
+    const applications = await screen.findByTitle("applicationsOutputDiv");
+    expect(applications).toBeInTheDocument();
+
+    for (const el of expectedApplications) {
+      const application = screen.queryByText(
+        "Technologies: " + el.technologies
+      );
+      expect(application).toBeInTheDocument();
+    }
+
+    for (const el of unexpectedApplications) {
+      const application = screen.queryByText(
+        "Technologies: " + el.technologies
+      );
+      expect(application).not.toBeInTheDocument();
+    }
+  });
 });
