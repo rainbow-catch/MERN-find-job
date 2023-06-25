@@ -42,6 +42,7 @@ describe("Show Applications Modal Test", () => {
   });
 
   test("should show applications for specific company without every application", async () => {
+    const whichCompany = Math.floor(Math.random() * 2);
     const mockData: ContextsType = {
       jobs: [],
       overwriteJobs: () => {},
@@ -55,14 +56,21 @@ describe("Show Applications Modal Test", () => {
       overwriteApplications: () => {},
       addApplication: () => {},
     };
+    if (whichCompany === 1) {
+      mockData.loggedUser = mockLoggedUser("experttechnologies@gmail.com");
+    }
     render(
       <Contexts.Provider value={mockData}>
         <Header></Header>
       </Contexts.Provider>
     );
 
-    const expectedApplications = mockApplications().filter((application) => application.company_name === "Ingram Automotive Ltd");
-    const unexpectedApplications = mockApplications().filter((application) => application.company_name !== "Ingram Automotive Ltd");
+    const expectedApplications = mockApplications().filter(
+      (application) => application.company_name === mockData.loggedUser.company_name
+    );
+    const unexpectedApplications = mockApplications().filter(
+      (application) => application.company_name !== mockData.loggedUser.company_name
+    );
     const showApplicationsButton = screen.getByTitle("showApplicationsButton");
     fireEvent.click(showApplicationsButton);
     const applications = await screen.findByTitle("applicationsOutputDiv");
