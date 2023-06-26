@@ -494,6 +494,7 @@ function AddOfferModal(props: any) {
             <div className="form-group form-check"></div>
             <button
               type="submit"
+              title="addOfferButton"
               className={
                 shake
                   ? "shake"
