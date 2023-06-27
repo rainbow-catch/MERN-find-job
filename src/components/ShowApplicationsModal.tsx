@@ -6,13 +6,14 @@ import { Application } from "../types/Application";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
+import { useNavigate } from "react-router-dom";
 
 const ShowApplicationsModal = (props: any) => {
   const { applications, overwriteApplications }: ContextsType =
     useContext(Contexts);
   const { loggedAsAdmin, loggedUser }: ContextsType = useContext(Contexts);
   const loggedCompany = loggedUser.company_name;
-
+  const navigate = useNavigate();
   //getting applications from db
   useEffect(() => {
     axios.get(axiosUrls.getApplicationsUrl).then((res) => {
@@ -37,7 +38,7 @@ const ShowApplicationsModal = (props: any) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onHide={() => navigate("/")}>
         <Modal.Title id="contained-modal-title-vcenter">
           Applications
         </Modal.Title>

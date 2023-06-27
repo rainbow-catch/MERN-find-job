@@ -1,19 +1,15 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/style.css";
-import Header from "./components/Header";
-import SearchBarWithJobBar from "./components/SearchBarWithJobBar";
 import { ContextsProvider } from "./contexts/Contexts";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { router } from "./routes/router";
 
 function App() {
+  
   return (
     <ContextsProvider>
-      <div id="Index">
-        <div id="upperBackground">
-          <Header></Header>
-        </div>
-        <SearchBarWithJobBar></SearchBarWithJobBar>
-      </div>
+      <RouterProvider router={router} />
     </ContextsProvider>
   );
 }

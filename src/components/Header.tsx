@@ -5,17 +5,16 @@ import { Button } from "react-bootstrap";
 import AddOfferModal from "./AddOfferModal";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-import ShowApplicationsModal from "./ShowApplicationsModal";
 import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showAddOfferModal, setShowAddOfferModal] = useState(false);
-  const [showShowApplicationsModal, setShowShowApplicationsModal] =
-    useState(false);
   const { loggedUser, handleLogout }: ContextsType = useContext(Contexts);
+  const navigate = useNavigate();
   return (
     <div>
       <div id="upperNavbar">
@@ -32,7 +31,7 @@ function Header() {
               <Button
                 className="headerButton"
                 title="showApplicationsButton"
-                onClick={() => setShowShowApplicationsModal(true)}
+                onClick={() => navigate("applications")}
               >
                 Show Applications
               </Button>
@@ -104,10 +103,6 @@ function Header() {
         show={showAddOfferModal}
         onHide={() => setShowAddOfferModal(false)}
       ></AddOfferModal>
-      <ShowApplicationsModal
-        show={showShowApplicationsModal}
-        onHide={() => setShowShowApplicationsModal(false)}
-      ></ShowApplicationsModal>
     </div>
   );
 }
