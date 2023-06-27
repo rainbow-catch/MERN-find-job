@@ -32,7 +32,9 @@ test("should render default job offers", async () => {
   expect(jobBarContainer).toBeInTheDocument();
 
   for (const el of jobsCompanies) {
-    const jobBarElement = await screen.findByText(el);
-    expect(jobBarElement).toBeInTheDocument();
+    const jobBarElements = await screen.findAllByText(el);
+    jobBarElements.forEach((jobOffer) => {
+      expect(jobOffer).toBeInTheDocument();
+    });
   }
 });
