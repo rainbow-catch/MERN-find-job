@@ -38,6 +38,7 @@ function Header() {
               </Button>
               <Button
                 className="headerButton"
+                title="showAddOfferModalButton"
                 onClick={() => setShowAddOfferModal(true)}
               >
                 Add Offer

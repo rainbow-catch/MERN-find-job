@@ -129,7 +129,7 @@ function AddOfferModal(props: any) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form id="add-offer-form" onSubmit={createOffer}>
+          <form id="add-offer-form" title="addOfferForm" onSubmit={createOffer}>
             {loggedAsAdmin ? (
               <div className="form-section">
                 <input
@@ -196,6 +196,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="ad_content"
+                title="ad_content"
                 onChange={handleChange}
                 value={offer.ad_content}
                 placeholder={
@@ -221,6 +222,7 @@ function AddOfferModal(props: any) {
               <select
                 className="form-select"
                 name="seniority"
+                title="seniority"
                 value={offer.seniority}
                 onChange={handleChange}
                 required
@@ -236,6 +238,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="technology_1"
+                title="technology_1"
                 onChange={handleChange}
                 value={offer.technology_1}
                 placeholder={
@@ -260,6 +263,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="technology_2"
+                title="technology_2"
                 onChange={handleChange}
                 value={offer.technology_2}
                 placeholder={
@@ -284,6 +288,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="technology_3"
+                title="technology_3"
                 onChange={handleChange}
                 value={offer.technology_3}
                 placeholder={
@@ -308,6 +313,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="salary"
+                title="salary"
                 onChange={handleChange}
                 value={offer.salary}
                 placeholder={placeHoldersVisibility[5] ? "e.g. 5500$" : ""}
@@ -330,6 +336,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="contract_types"
+                title="contract_types"
                 onChange={handleChange}
                 value={offer.contract_types}
                 placeholder={placeHoldersVisibility[6] ? "e.g. B2B" : ""}
@@ -352,6 +359,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="job_type"
+                title="job_type"
                 onChange={handleChange}
                 value={offer.job_type}
                 placeholder={placeHoldersVisibility[7] ? "e.g. Frontend" : ""}
@@ -376,6 +384,7 @@ function AddOfferModal(props: any) {
                 type="text"
                 className="form-input"
                 name="country"
+                title="country"
                 onChange={handleChange}
                 value={offer.country}
                 placeholder={placeHoldersVisibility[8] ? "e.g. remote" : ""}
@@ -464,6 +473,7 @@ function AddOfferModal(props: any) {
                 id="form-input-textarea"
                 rows={20}
                 name="description"
+                title="description"
                 onChange={handleChange}
                 value={offer.description}
                 placeholder={
@@ -484,6 +494,7 @@ function AddOfferModal(props: any) {
             <div className="form-group form-check"></div>
             <button
               type="submit"
+              title="addOfferButton"
               className={
                 shake
                   ? "shake"
