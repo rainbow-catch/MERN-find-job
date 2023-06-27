@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "../styles/style.css";
 import { Application } from "../types/Application";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const ShowApplicationsModal = (props: any) => {
   const { applications, overwriteApplications }: ContextsType =
     useContext(Contexts);
+  const [show, setShow] = useState(true);
   const { loggedAsAdmin, loggedUser }: ContextsType = useContext(Contexts);
   const loggedCompany = loggedUser.company_name;
   const navigate = useNavigate();
@@ -37,8 +38,17 @@ const ShowApplicationsModal = (props: any) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      show={show}
     >
-      <Modal.Header closeButton onHide={() => navigate("/")}>
+      <Modal.Header
+        closeButton
+        onHide={() => {
+          setShow(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
+        }}
+      >
         <Modal.Title id="contained-modal-title-vcenter">
           Applications
         </Modal.Title>

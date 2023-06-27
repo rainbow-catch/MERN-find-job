@@ -25,9 +25,7 @@ export const router = createBrowserRouter([
           </div>
           <SearchBarWithJobBar></SearchBarWithJobBar>
         </div>
-        <ShowApplicationsModal
-          show={true}
-        ></ShowApplicationsModal>
+        <ShowApplicationsModal></ShowApplicationsModal>
       </>
     ),
   },
