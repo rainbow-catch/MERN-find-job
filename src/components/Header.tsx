@@ -31,7 +31,7 @@ function Header() {
               <Button
                 className="headerButton"
                 title="showApplicationsButton"
-                onClick={() => navigate("applications")}
+                onClick={() => navigate("/applications")}
               >
                 Show Applications
               </Button>
