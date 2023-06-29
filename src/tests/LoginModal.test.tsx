@@ -3,18 +3,21 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { ContextsProvider } from "../contexts/Contexts";
 import "@testing-library/jest-dom";
 import LoginModal from "../components/LoginModal";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Login Modal Test", () => {
   test("should login as admin", async () => {
     let showLoginModal = true;
     render(
       <ContextsProvider>
-        <LoginModal
-          show={showLoginModal}
-          onHide={() => {
-            showLoginModal = false;
-          }}
-        ></LoginModal>
+        <BrowserRouter>
+          <LoginModal
+            show={showLoginModal}
+            onHide={() => {
+              showLoginModal = false;
+            }}
+          ></LoginModal>
+        </BrowserRouter>
       </ContextsProvider>
     );
 
@@ -25,8 +28,8 @@ describe("Login Modal Test", () => {
 
     //const loginForm = screen.getByTitle("login-form");
     //console.log(prettyDOM(loginForm));
-    const loginInput = screen.getByTitle("EmailInput");
-    const passwordInput = screen.getByTitle("PasswordInput");
+    const loginInput = await screen.findByTitle("EmailInput");
+    const passwordInput = await screen.findByTitle("PasswordInput");
     fireEvent.change(loginInput, { target: { value: loginData.email } });
     fireEvent.change(passwordInput, { target: { value: loginData.password } });
     const submitButton = screen.getByTitle("submitButton");
@@ -41,12 +44,14 @@ describe("Login Modal Test", () => {
     let showLoginModal = true;
     render(
       <ContextsProvider>
-        <LoginModal
-          show={showLoginModal}
-          onHide={() => {
-            showLoginModal = false;
-          }}
-        ></LoginModal>
+        <BrowserRouter>
+          <LoginModal
+            show={showLoginModal}
+            onHide={() => {
+              showLoginModal = false;
+            }}
+          ></LoginModal>
+        </BrowserRouter>
       </ContextsProvider>
     );
 
@@ -55,15 +60,13 @@ describe("Login Modal Test", () => {
       password: "adminnn",
     };
 
-    const loginInput = screen.getByTitle("EmailInput");
-    const passwordInput = screen.getByTitle("PasswordInput");
+    const loginInput = await screen.findByTitle("EmailInput");
+    const passwordInput = await screen.findByTitle("PasswordInput");
     fireEvent.change(loginInput, { target: { value: loginData.email } });
     fireEvent.change(passwordInput, { target: { value: loginData.password } });
     const submitButton = screen.getByTitle("submitButton");
     fireEvent.click(submitButton);
-    const errorInfo = await screen.findByText(
-      "Bad login or password!"
-    );
+    const errorInfo = await screen.findByText("Bad login or password!");
     expect(errorInfo).toBeInTheDocument();
   });
 });
