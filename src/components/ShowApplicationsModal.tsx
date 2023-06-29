@@ -11,12 +11,15 @@ import { useNavigate } from "react-router-dom";
 const ShowApplicationsModal = (props: any) => {
   const { applications, overwriteApplications }: ContextsType =
     useContext(Contexts);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const { loggedAsAdmin, loggedUser }: ContextsType = useContext(Contexts);
   const loggedCompany = loggedUser.company_name;
   const navigate = useNavigate();
   //getting applications from db
   useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 20);
     axios.get(axiosUrls.getApplicationsUrl).then((res) => {
       overwriteApplications(res.data);
     }); // eslint-disable-next-line
