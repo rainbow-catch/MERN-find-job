@@ -1,11 +1,12 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, prettyDOM, render, screen } from "@testing-library/react";
 import { Contexts } from "../contexts/Contexts";
 import "@testing-library/jest-dom";
-import Header from "../components/Header";
 import { ContextsType } from "../types/ContextsType";
 import { mockApplications } from "../functions/mockApplications";
 import { mockLoggedUser } from "../functions/mockLoggedUser";
+import { RouterProvider } from "react-router-dom";
+import { router } from "../routes/router";
 
 describe("Show Applications Modal Test", () => {
   test("should show default applications", async () => {
@@ -24,7 +25,7 @@ describe("Show Applications Modal Test", () => {
     };
     render(
       <Contexts.Provider value={mockData}>
-        <Header></Header>
+        <RouterProvider router={router} />
       </Contexts.Provider>
     );
 
@@ -61,15 +62,17 @@ describe("Show Applications Modal Test", () => {
     }
     render(
       <Contexts.Provider value={mockData}>
-        <Header></Header>
+        <RouterProvider router={router} />
       </Contexts.Provider>
     );
 
     const expectedApplications = mockApplications().filter(
-      (application) => application.company_name === mockData.loggedUser.company_name
+      (application) =>
+        application.company_name === mockData.loggedUser.company_name
     );
     const unexpectedApplications = mockApplications().filter(
-      (application) => application.company_name !== mockData.loggedUser.company_name
+      (application) =>
+        application.company_name !== mockData.loggedUser.company_name
     );
     const showApplicationsButton = screen.getByTitle("showApplicationsButton");
     fireEvent.click(showApplicationsButton);

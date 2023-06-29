@@ -10,9 +10,7 @@ import { Contexts } from "../contexts/Contexts";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [showAddOfferModal, setShowAddOfferModal] = useState(false);
   const { loggedUser, handleLogout }: ContextsType = useContext(Contexts);
   const navigate = useNavigate();
   return (
@@ -31,14 +29,14 @@ function Header() {
               <Button
                 className="headerButton"
                 title="showApplicationsButton"
-                onClick={() => navigate("applications")}
+                onClick={() => navigate("/applications")}
               >
                 Show Applications
               </Button>
               <Button
                 className="headerButton"
                 title="showAddOfferModalButton"
-                onClick={() => setShowAddOfferModal(true)}
+                onClick={() => navigate("/addOffer")}
               >
                 Add Offer
               </Button>
@@ -48,7 +46,7 @@ function Header() {
             <Button
               className="headerButton"
               id="loginButton"
-              onClick={() => setShowLoginModal(true)}
+              onClick={() => navigate("/login")}
             >
               Login
             </Button>
@@ -91,18 +89,10 @@ function Header() {
           </div>
         )}
       </div>
-      <LoginModal
-        show={showLoginModal}
-        onHide={() => setShowLoginModal(false)}
-      ></LoginModal>
       <RegisterModal
         show={showRegisterModal}
         onHide={() => setShowRegisterModal(false)}
       ></RegisterModal>
-      <AddOfferModal
-        show={showAddOfferModal}
-        onHide={() => setShowAddOfferModal(false)}
-      ></AddOfferModal>
     </div>
   );
 }

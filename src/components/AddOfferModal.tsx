@@ -9,6 +9,7 @@ import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
+import { useNavigate } from "react-router-dom";
 
 function AddOfferModal(props: any) {
   const { addJob, loggedAsAdmin, loggedUser }: ContextsType =
@@ -49,11 +50,16 @@ function AddOfferModal(props: any) {
         logo: loggedCompanyLogo,
       };
     });
+    setTimeout(() => {
+      setShow(true);
+    }, 20);
   }, [props, loggedCompany, loggedCompanyLogo]);
 
   const [message, setMessage] = useState("Successfully added new job offer!");
   const [headerMessage] = useState("Successfully added job offer!");
   const [alertModalShow, setAlertModalShow] = useState(false);
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const createOffer = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
@@ -122,8 +128,17 @@ function AddOfferModal(props: any) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className={hideModalBody ? "displayNone" : ""}
+        show={show}
       >
-        <Modal.Header closeButton>
+        <Modal.Header
+          closeButton
+          onHide={() => {
+            setShow(false);
+            setTimeout(() => {
+              navigate("/");
+            }, 100);
+          }}
+        >
           <Modal.Title id="contained-modal-title-vcenter">
             <p>Add new job offer</p>
           </Modal.Title>
@@ -532,7 +547,10 @@ function AddOfferModal(props: any) {
         show={alertModalShow}
         onHide={() => {
           setAlertModalShow(false);
-          props.onHide();
+          setShow(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
           setHideModalBody(false);
         }}
         message={message}

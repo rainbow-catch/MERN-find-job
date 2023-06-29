@@ -1,12 +1,13 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, prettyDOM, render, screen } from "@testing-library/react";
 import { Contexts } from "../contexts/Contexts";
 import "@testing-library/jest-dom";
-import Header from "../components/Header";
 import { ContextsType } from "../types/ContextsType";
 import { mockLoggedUser } from "../functions/mockLoggedUser";
 import { mockJobOffers } from "../functions/mockJobOffers";
 import { DisplayOffer } from "../types/DisplayOffer";
+import { RouterProvider } from "react-router-dom";
+import { router } from "../routes/router";
 
 describe("Add Offer Modal Test", () => {
   test("should add new job offer for specific company", async () => {
@@ -45,7 +46,7 @@ describe("Add Offer Modal Test", () => {
     }
     render(
       <Contexts.Provider value={mockData}>
-        <Header></Header>
+        <RouterProvider router={router} />
       </Contexts.Provider>
     );
 
@@ -54,17 +55,17 @@ describe("Add Offer Modal Test", () => {
     );
     fireEvent.click(showAddOfferModalButton);
 
-    const adContent = screen.getByTitle("ad_content");
-    const seniority = screen.getByTitle("seniority");
-    const technology_1 = screen.getByTitle("technology_1");
-    const technology_2 = screen.getByTitle("technology_2");
-    const technology_3 = screen.getByTitle("technology_3");
-    const salary = screen.getByTitle("salary");
-    const contract_types = screen.getByTitle("contract_types");
-    const job_type = screen.getByTitle("job_type");
-    const country = screen.getByTitle("country");
-    const description = screen.getByTitle("description");
-    const addOfferButton = screen.getByTitle("addOfferButton");
+    const adContent = await screen.findByTitle("ad_content");
+    const seniority = await screen.findByTitle("seniority");
+    const technology_1 = await screen.findByTitle("technology_1");
+    const technology_2 = await screen.findByTitle("technology_2");
+    const technology_3 = await screen.findByTitle("technology_3");
+    const salary = await screen.findByTitle("salary");
+    const contract_types = await screen.findByTitle("contract_types");
+    const job_type = await screen.findByTitle("job_type");
+    const country = await screen.findByTitle("country");
+    const description = await screen.findByTitle("description");
+    const addOfferButton = await screen.findByTitle("addOfferButton");
 
     const addOfferForm = await screen.findByTitle("addOfferForm");
     expect(addOfferForm).toBeInTheDocument();

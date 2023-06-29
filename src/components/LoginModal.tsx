@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -8,6 +8,7 @@ import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
 import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
+import { useNavigate } from "react-router-dom";
 
 function LoginModal(props: any) {
   const [password, setPassword] = useState("");
@@ -20,6 +21,15 @@ function LoginModal(props: any) {
     boolean[]
   >([]);
   const { handleLogin }: ContextsType = useContext(Contexts);
+
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 20);
+  }, []);
 
   const startShake = () => {
     setShake(true);
@@ -56,8 +66,17 @@ function LoginModal(props: any) {
       size=""
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      show={show}
     >
-      <Modal.Header closeButton>
+      <Modal.Header
+        closeButton
+        onHide={() => {
+          setShow(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
+        }}
+      >
         <Modal.Title id="contained-modal-title-vcenter">Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -118,7 +137,7 @@ function LoginModal(props: any) {
           </div>
           <div className="form-group form-check"></div>
           <button
-            title='submitButton'
+            title="submitButton"
             type="submit"
             className={
               shake ? "shake" : "gradient-button submit-button btn btn-primary"
@@ -137,7 +156,10 @@ function LoginModal(props: any) {
           onHide={() => {
             setAlertModalShow(false);
             if (headerMessage === "Logged in!") {
-              props.onHide();
+              setShow(false);
+              setTimeout(() => {
+                navigate("/");
+              }, 100);
             }
           }}
           message={message}
