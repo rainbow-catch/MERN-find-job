@@ -10,7 +10,6 @@ import { Contexts } from "../contexts/Contexts";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { loggedUser, handleLogout }: ContextsType = useContext(Contexts);
   const navigate = useNavigate();
@@ -47,7 +46,7 @@ function Header() {
             <Button
               className="headerButton"
               id="loginButton"
-              onClick={() => setShowLoginModal(true)}
+              onClick={() => navigate("/login")}
             >
               Login
             </Button>
@@ -90,10 +89,6 @@ function Header() {
           </div>
         )}
       </div>
-      <LoginModal
-        show={showLoginModal}
-        onHide={() => setShowLoginModal(false)}
-      ></LoginModal>
       <RegisterModal
         show={showRegisterModal}
         onHide={() => setShowRegisterModal(false)}
