@@ -2,8 +2,6 @@ import "../styles/style.css";
 import "../styles/Header.css";
 import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
-import AddOfferModal from "./AddOfferModal";
-import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
