@@ -60,7 +60,7 @@ function AddOfferModal(props: any) {
   const [alertModalShow, setAlertModalShow] = useState(false);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  
+
   const createOffer = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
     if (
@@ -130,12 +130,15 @@ function AddOfferModal(props: any) {
         className={hideModalBody ? "displayNone" : ""}
         show={show}
       >
-        <Modal.Header closeButton onHide={() => {
-          setShow(false);
-          setTimeout(() => {
-            navigate('/');
-          },100)
-        }}>
+        <Modal.Header
+          closeButton
+          onHide={() => {
+            setShow(false);
+            setTimeout(() => {
+              navigate("/");
+            }, 100);
+          }}
+        >
           <Modal.Title id="contained-modal-title-vcenter">
             <p>Add new job offer</p>
           </Modal.Title>
@@ -544,7 +547,10 @@ function AddOfferModal(props: any) {
         show={alertModalShow}
         onHide={() => {
           setAlertModalShow(false);
-          props.onHide();
+          setShow(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
           setHideModalBody(false);
         }}
         message={message}
