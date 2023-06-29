@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [showAddOfferModal, setShowAddOfferModal] = useState(false);
   const { loggedUser, handleLogout }: ContextsType = useContext(Contexts);
   const navigate = useNavigate();
   return (
@@ -38,7 +37,7 @@ function Header() {
               <Button
                 className="headerButton"
                 title="showAddOfferModalButton"
-                onClick={() => setShowAddOfferModal(true)}
+                onClick={() => navigate("/addOffer")}
               >
                 Add Offer
               </Button>
@@ -99,10 +98,6 @@ function Header() {
         show={showRegisterModal}
         onHide={() => setShowRegisterModal(false)}
       ></RegisterModal>
-      <AddOfferModal
-        show={showAddOfferModal}
-        onHide={() => setShowAddOfferModal(false)}
-      ></AddOfferModal>
     </div>
   );
 }

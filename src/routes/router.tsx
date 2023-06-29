@@ -4,6 +4,7 @@ import SearchBarWithJobBar from "../components/SearchBarWithJobBar";
 import ShowApplicationsModal from "../components/ShowApplicationsModal";
 import ErrorComponent from "./errorComponents/ErrorComponent";
 import ErrorHeader from "./errorComponents/ErrorHeader";
+import AddOfferModal from "../components/AddOfferModal";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,20 @@ export const router = createBrowserRouter([
           <SearchBarWithJobBar></SearchBarWithJobBar>
         </div>
         <ShowApplicationsModal></ShowApplicationsModal>
+      </>
+    ),
+  },
+  {
+    path: "addOffer",
+    element: (
+      <>
+        <div id="Index">
+          <div id="upperBackground">
+            <Header></Header>
+          </div>
+          <SearchBarWithJobBar></SearchBarWithJobBar>
+        </div>
+        <AddOfferModal></AddOfferModal>
       </>
     ),
   },
