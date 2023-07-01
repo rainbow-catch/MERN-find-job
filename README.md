@@ -9,12 +9,13 @@ _Job search application created in MERN stack._
 - Displaying job offers from database 💼
 - Applying for the job offer 🚀
 - Searching for jobs by words 🔎
-- Send a request to create a company account 📧
+- Register new company account 📧
 - Log into a company account ✔️
 - Browse submitted applications 📝
 - Add a new job offer (on behalf of your company only) ➕
 - Remove job offers (only belonging to your company) ✖️
 - Admin account can delete all offers, browse all applications, add offers on behalf of other companies 👨🏼‍💻
+- Simple tests ✅
 
 ### Live Link:
 [Job Search live link](https://jobsearchmern.netlify.app/)
@@ -24,13 +25,13 @@ _You have to wait for the backend server to start up, because it runs on free ho
 - Add sorting jobs
 - Improve mobile view
 - Improve design
-- Add tests
 - Probably something more 😊
 
 ### Tech and dependencies:
-![Mongo](https://img.shields.io/badge/-mongoDB-lightgray?style=for-the-badge&logo=mongodb) ![Express](https://img.shields.io/badge/-express-darkgreen?style=for-the-badge&logo=express) ![React](https://img.shields.io/badge/-react-black?style=for-the-badge&logo=react)  ![Node](https://img.shields.io/badge/-node.js-navy?style=for-the-badge&logo=node.js)\
-![typescript](https://img.shields.io/badge/-typescript-yellow?style=for-the-badge&logo=typescript) ![html](https://img.shields.io/badge/-html-green?style=for-the-badge&logo=html5) ![css](https://img.shields.io/badge/-css-blue?style=for-the-badge&logo=css3) ![Bootstrap](https://img.shields.io/badge/-bootstrap-black?style=for-the-badge&logo=bootstrap)\
-![Axios](https://img.shields.io/badge/-Axios-purple?style=for-the-badge&logo=axios) ![cloudinary](https://img.shields.io/badge/-cloudinary-blue?style=for-the-badge&logo=cloudinary) ![papaparse](https://img.shields.io/badge/-papaparse-green?style=for-the-badge&logo=papaparse) ![react-reveal](https://img.shields.io/badge/-react--reveal-teal?style=for-the-badge&logo=react-reveal)
+![Mongo](https://img.shields.io/badge/-mongoDB-darkolivegreen?style=for-the-badge&logo=mongodb) ![Express](https://img.shields.io/badge/-express-seagreen?style=for-the-badge&logo=express) ![React](https://img.shields.io/badge/-react-darkslategrey?style=for-the-badge&logo=react)  ![Node](https://img.shields.io/badge/-node.js-darkseagreen?style=for-the-badge&logo=node.js)\
+![typescript](https://img.shields.io/badge/-typescript-yellow?style=for-the-badge&logo=typescript) ![html](https://img.shields.io/badge/-html-green?style=for-the-badge&logo=html5) ![css](https://img.shields.io/badge/-css-blue?style=for-the-badge&logo=css3) ![Bootstrap](https://img.shields.io/badge/-bootstrap-darkslateblue?style=for-the-badge&logo=bootstrap)\
+![Axios](https://img.shields.io/badge/-Axios-purple?style=for-the-badge&logo=axios) ![Axios](https://img.shields.io/badge/-React--Router-cadetblue?style=for-the-badge&logo=react-router) ![react-reveal](https://img.shields.io/badge/-Testing_Library-black?style=for-the-badge&logo=testing-library)
+![cloudinary](https://img.shields.io/badge/-cloudinary-blue?style=for-the-badge&logo=cloudinary)![papaparse](https://img.shields.io/badge/-papaparse-green?style=for-the-badge&logo=papaparse) ![react-reveal](https://img.shields.io/badge/-react--reveal-teal?style=for-the-badge&logo=react-reveal) 
 
 
 ### External APIs:
@@ -65,10 +66,17 @@ _If you want to run app locally_
 - Install necessary dependencies ```npm install``` 
 - Go to backend directory ```cd backend/```
 - Install necessary dependencies ```npm install``` 
-- Run backend server  ``` npx nodemon ```
+- Run backend server  ``` npm start ```
 - Go back to main directory and run react app ```npm start```
 - Open http://localhost:3000/
 - Enjoy! 🎉
+
+
+### Testing
+- Clone or download repository
+- Install necessary dependencies ```npm install``` 
+- Run tests  ``` npm test ```
+- Type  ```a``` to run all tests
 
 ## Presentation
 
