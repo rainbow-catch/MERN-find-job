@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import AlertModal from "./AlertModal";
 import "../styles/style.css";
@@ -6,6 +6,7 @@ import "../styles/RegisterModal.css";
 import axios from "axios";
 import { checkFormValidity } from "../functions/checkFormValidity";
 import { axiosUrls } from "../axiosUrls/axiosUrls";
+import { useNavigate } from "react-router-dom";
 
 function RegisterModal(props: any) {
   const [password, setPassword] = useState("");
@@ -19,10 +20,20 @@ function RegisterModal(props: any) {
   const [placeHoldersVisibility, setPlaceHoldersVisibility] = useState<
     boolean[]
   >([]);
+
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
   const startShake = () => {
     setShake(true);
     setTimeout(() => setShake(false), 650);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 20);
+  }, []);
 
   const registerSubmit = (e: HTMLFormElement | FormEvent) => {
     e.preventDefault();
@@ -64,8 +75,17 @@ function RegisterModal(props: any) {
       size=""
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      show={show}
     >
-      <Modal.Header closeButton>
+      <Modal.Header
+        closeButton
+        onHide={() => {
+          setShow(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 100);
+        }}
+      >
         <Modal.Title id="contained-modal-title-vcenter">
           Create company account
         </Modal.Title>
@@ -198,7 +218,12 @@ function RegisterModal(props: any) {
           show={alertModalShow}
           onHide={() => {
             setAlertModalShow(false);
-            props.onHide();
+            if (headerMessage === "Registration successful!") {
+              setShow(false);
+              setTimeout(() => {
+                navigate("/");
+              }, 110);
+            }
           }}
           message={message}
           headermessage={headerMessage}

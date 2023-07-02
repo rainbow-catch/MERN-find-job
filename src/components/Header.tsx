@@ -1,14 +1,12 @@
 import "../styles/style.css";
 import "../styles/Header.css";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Button } from "react-bootstrap";
-import RegisterModal from "./RegisterModal";
 import { ContextsType } from "../types/ContextsType";
 import { Contexts } from "../contexts/Contexts";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { loggedUser, handleLogout }: ContextsType = useContext(Contexts);
   const navigate = useNavigate();
   return (
@@ -63,7 +61,7 @@ function Header() {
             <Button
               className="headerButton"
               id="registerButton"
-              onClick={() => setShowRegisterModal(true)}
+              onClick={() => navigate("/register")}
             >
               Register
             </Button>
@@ -87,10 +85,6 @@ function Header() {
           </div>
         )}
       </div>
-      <RegisterModal
-        show={showRegisterModal}
-        onHide={() => setShowRegisterModal(false)}
-      ></RegisterModal>
     </div>
   );
 }
